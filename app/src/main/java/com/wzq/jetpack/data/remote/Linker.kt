@@ -27,7 +27,7 @@ object Linker {
     private val retrofit = Retrofit.Builder().baseUrl(url)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            ///.addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
 
     val api: Api by lazy { retrofit.create(Api::class.java) }

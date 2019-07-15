@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wzq.jetpack.databinding.ItemHomeBinding
 import com.wzq.jetpack.model.Article
+import com.wzq.jetpack.util.Router
 
 
 /**
@@ -18,6 +19,7 @@ class HomeAdapter: ListAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCallback
 
         val article = getItem(position)
         holder.binding.article = article
+        holder.binding.root.tag = article.link
         holder.binding.executePendingBindings()
 
     }
@@ -27,7 +29,11 @@ class HomeAdapter: ListAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCallback
     }
 
 
-    class ViewHolder(val binding: ItemHomeBinding): RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ItemHomeBinding): RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener { Router.go2web(binding.root.context, it.tag as String) }
+        }
+    }
 }
 
 
