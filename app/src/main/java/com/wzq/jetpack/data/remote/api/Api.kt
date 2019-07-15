@@ -4,6 +4,7 @@ import com.wzq.jetpack.model.ArticleResult
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 /**
@@ -34,6 +35,9 @@ interface Api {
         @GET("article/list/{pageNum}/json")
         fun getArticles(@Path("pageNum") pageNum: Int): Call<ArticleResult>
 
+        @GET("article/listproject/{pageNum}/json")
+        fun getLastProjects(@Path("pageNum") pageNum: Int): Call<ArticleResult>
+
 //        /**
 //         * 获取知识体系
 //         * http://www.wanandroid.com/tree/json
@@ -41,15 +45,15 @@ interface Api {
 //        @GET("tree/json")
 //        fun getKnowledgeTree(): Observable<HttpResult<List<KnowledgeTreeBody>>>
 //
-//        /**
-//         * 知识体系下的文章
-//         * http://www.wanandroid.com/article/list/0/json?cid=168
-//         * @param page
-//         * @param cid
-//         */
-//        @GET("article/list/{page}/json")
-//        fun getKnowledgeList(@Path("page") page: Int, @Query("cid") cid: Int): Observable<HttpResult<ArticleResponseBody>>
-//
+        /**
+         * 知识体系下的文章
+         * http://www.wanandroid.com/article/list/0/json?cid=168
+         * @param page
+         * @param cid
+         */
+        @GET("article/list/{page}/json")
+        fun getCategoryArticles(@Path("page") page: Int, @Query("cid") cid: Int): Call<ArticleResult>
+
 //        /**
 //         * 导航数据
 //         * http://www.wanandroid.com/navi/json

@@ -1,4 +1,4 @@
-package com.wzq.jetpack.ui
+package com.wzq.jetpack.ui.fragment
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders

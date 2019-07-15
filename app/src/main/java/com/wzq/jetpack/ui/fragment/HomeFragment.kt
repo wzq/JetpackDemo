@@ -1,18 +1,16 @@
-package com.wzq.jetpack.ui
+package com.wzq.jetpack.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.databinding.FragmentHomeBinding
+import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
 import com.wzq.jetpack.viewmodel.HomeViewModel
-import com.wzq.jetpack.viewmodel.ViewModelFactory
 
 
 /**
@@ -46,7 +44,7 @@ class HomeFragment : BaseFragment() {
         b.homeSwipe.isRefreshing = true
         viewModel.getArticles(p).observe(this, Observer {
             b.homeSwipe.isRefreshing = false
-            adapter.submitList(it.data.datas)
+            adapter.submitList(it)
         })
     }
 

@@ -1,4 +1,4 @@
-package com.wzq.jetpack.ui
+package com.wzq.jetpack.ui.activity
 
 import android.os.Bundle
 import com.wzq.jetpack.R

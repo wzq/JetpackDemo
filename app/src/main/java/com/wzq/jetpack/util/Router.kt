@@ -2,7 +2,7 @@ package com.wzq.jetpack.util
 
 import android.content.Context
 import android.content.Intent
-import com.wzq.jetpack.ui.WebActivity
+import com.wzq.jetpack.ui.activity.WebActivity
 
 
 /**

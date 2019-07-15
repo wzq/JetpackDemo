@@ -1,4 +1,4 @@
-package com.wzq.jetpack.ui
+package com.wzq.jetpack.ui.fragment
 
 import android.annotation.SuppressLint
 import android.graphics.Color

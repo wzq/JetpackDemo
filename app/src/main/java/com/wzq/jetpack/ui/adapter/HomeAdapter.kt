@@ -1,4 +1,4 @@
-package com.wzq.jetpack.ui
+package com.wzq.jetpack.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,7 +25,13 @@ class HomeAdapter: ListAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCallback
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            ItemHomeBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
 
