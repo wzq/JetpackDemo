@@ -1,6 +1,7 @@
 package com.wzq.jetpack.ui.fragment
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,19 +18,32 @@ import com.wzq.jetpack.databinding.FragmentWebBinding
  */
 class WebFragment: BaseFragment() {
 
+    private lateinit var binding: FragmentWebBinding
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val binding = FragmentWebBinding.inflate(inflater, container, false)
+        binding = FragmentWebBinding.inflate(inflater, container, false)
         val url = activity?.intent?.getStringExtra("url") ?: ""
+
+        binding.webBack.setOnClickListener { back() }
+        binding.webClose.setOnClickListener { activity?.finish() }
 
         if (url.isNotEmpty()) {
             config(binding)
             binding.web.loadUrl(url)
+            binding.webRefresh.setOnClickListener { binding.web.reload() }
         }
 
         return binding.root
+    }
+
+    fun back(){
+        if (binding.web.canGoBack()) {
+            binding.web.goBack()
+        } else {
+            activity?.finish()
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -59,28 +73,32 @@ class WebFragment: BaseFragment() {
         //设置监听事件
         binding.web.webViewClient = Client()
 
-        binding.web.webChromeClient = ChromeClient(binding.progress)
+        binding.web.webChromeClient = ChromeClient()
     }
 
-    class Client : WebViewClient() {
+    inner class Client : WebViewClient() {
         override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
             return super.shouldOverrideUrlLoading(view, request)
         }
+
+        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+            super.onPageStarted(view, url, favicon)
+            binding.webRefresh.visibility = View.GONE
+            binding.webLoading.visibility = View.VISIBLE
+        }
+
+        override fun onPageFinished(view: WebView?, url: String?) {
+            super.onPageFinished(view, url)
+            binding.webRefresh.visibility = View.VISIBLE
+            binding.webLoading.visibility = View.GONE
+        }
     }
 
-    inner class ChromeClient(val progress: ProgressBar): WebChromeClient() {
+    inner class ChromeClient : WebChromeClient() {
 
         override fun onReceivedTitle(view: WebView?, title: String?) {
             super.onReceivedTitle(view, title)
-            activity?.title = title
-        }
-        override fun onProgressChanged(view: WebView?, newProgress: Int) {
-            progress.progress = newProgress
-            if (newProgress == 100) {
-                progress.visibility = View.GONE
-            }
-
-            super.onProgressChanged(view, newProgress)
+            binding.webTitle.text = title
         }
     }
 }

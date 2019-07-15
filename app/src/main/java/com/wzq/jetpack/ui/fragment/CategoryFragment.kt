@@ -19,7 +19,7 @@ import com.wzq.jetpack.viewmodel.HomeViewModel
  */
 class CategoryFragment : BaseFragment() {
 
-    val viewModel by lazy{ createViewModel(HomeRepo()).get(HomeViewModel::class.java) }
+    val viewModel by lazy{ createViewModel(HomeRepo(),HomeViewModel::class.java) }
 
     val adapter by lazy{ HomeAdapter() }
 
@@ -29,7 +29,7 @@ class CategoryFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
-
+        binding.homePage.visibility = View.GONE
         binding.homeList.addItemDecoration(SimpleDecoration(context, R.color.line_gray))
         binding.homeList.adapter = adapter
         binding.homeSwipe.setOnRefreshListener {

@@ -1,6 +1,8 @@
 package com.wzq.jetpack.data.remote.api
 
 import com.wzq.jetpack.model.ArticleResult
+import com.wzq.jetpack.model.Banner
+import com.wzq.jetpack.model.BannerResult
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -13,17 +15,17 @@ import retrofit2.http.Query
  */
 interface Api {
 
-//        /**
-//         * 获取轮播图
-//         * http://www.wanandroid.com/banner/json
-//         */
-//        @GET("banner/json")
-//        fun getBanners(): Observable<HttpResult<List<Banner>>>
-//
-//        /**
-//         * 获取首页置顶文章列表
-//         * http://www.wanandroid.com/article/top/json
-//         */
+        /**
+         * 获取轮播图
+         * http://www.wanandroid.com/banner/json
+         */
+        @GET("banner/json")
+        fun getBanners(): Call<BannerResult>
+
+        /**
+         * 获取首页置顶文章列表
+         * http://www.wanandroid.com/article/top/json
+         */
 //        @GET("article/top/json")
 //        fun getTopArticles(): Observable<HttpResult<MutableList<Article>>>
 

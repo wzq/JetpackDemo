@@ -1,9 +1,11 @@
 package com.wzq.jetpack.ui.fragment
 
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.wzq.jetpack.data.BaseRepo
 import com.wzq.jetpack.viewmodel.ViewModelFactory
+import kotlin.reflect.KClass
 
 
 /**
@@ -12,6 +14,6 @@ import com.wzq.jetpack.viewmodel.ViewModelFactory
  */
 open class BaseFragment: Fragment() {
 
-    fun createViewModel(repo: BaseRepo) = ViewModelProviders.of(this, ViewModelFactory(repo))
+    fun <T: ViewModel> createViewModel(repo: BaseRepo, clazz: Class<T>) = ViewModelProviders.of(this, ViewModelFactory(repo)).get(clazz)
 
 }

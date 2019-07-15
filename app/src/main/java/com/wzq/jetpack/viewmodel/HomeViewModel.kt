@@ -15,6 +15,8 @@ import com.wzq.jetpack.model.ArticleResult
 class HomeViewModel internal constructor(private val repo: HomeRepo): ViewModel() {
 
 
+    val banners = repo.getBanners()
+
     fun getArticles(pageNum: Int): LiveData<List<Article>>{
         return (repo.getArticles(pageNum))
     }

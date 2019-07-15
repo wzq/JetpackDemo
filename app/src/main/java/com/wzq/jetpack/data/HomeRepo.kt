@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.model.ArticleResult
+import com.wzq.jetpack.model.Banner
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -15,6 +16,17 @@ import retrofit2.Response
  *
  */
 class HomeRepo : BaseRepo() {
+
+    fun getBanners(): LiveData<List<Banner>>{
+
+        val data: MutableLiveData<List<Banner>> = MutableLiveData()
+
+        Linker.api.getBanners().enqueue(resultFactory {
+            data.value = it?.data
+        })
+
+        return data
+    }
 
     fun getArticles(pageNum: Int): LiveData<List<Article>> {
         val data: MutableLiveData<List<Article>> = MutableLiveData()
