@@ -16,13 +16,10 @@ import com.wzq.jetpack.util.Router
  * Created by wzq on 2019-07-12
  *
  */
-class HomePageAdapter(val data: List<Banner>): RecyclerView.Adapter<HomePageAdapter.ViewHolder>() {
-    override fun getItemCount(): Int {
-        return data.size
-    }
+class HomePageAdapter: ListAdapter<Banner, HomePageAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = data[position]
+        val item = getItem(position)
         holder.binding.banner = item
         holder.binding.root.tag = item.url
         holder.binding.executePendingBindings()
@@ -49,4 +46,12 @@ class HomePageAdapter(val data: List<Banner>): RecyclerView.Adapter<HomePageAdap
     }
 }
 
+private class DiffCallback: DiffUtil.ItemCallback<Banner>(){
+    override fun areItemsTheSame(oldItem: Banner, newItem: Banner): Boolean {
+        return oldItem.imagePath == newItem.imagePath
+    }
 
+    override fun areContentsTheSame(oldItem: Banner, newItem: Banner): Boolean {
+        return oldItem == newItem
+    }
+}

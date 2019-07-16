@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ListAdapter
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.databinding.FragmentHomeBinding
@@ -21,11 +22,11 @@ import com.wzq.jetpack.viewmodel.HomeViewModel
  */
 class HomeFragment : BaseFragment() {
 
-    val viewModel by lazy{ createViewModel(HomeRepo(), (HomeViewModel::class.java)) }
+    val viewModel by lazy{ viewModel(HomeViewModel::class.java) }
 
     val adapter by lazy{ HomeAdapter() }
 
-//    val pagerAdapter by lazy { HomePageAdapter() }
+    val pagerAdapter by lazy { HomePageAdapter() }
 
     var currentPage = 0
 
@@ -34,12 +35,14 @@ class HomeFragment : BaseFragment() {
 
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        binding.homePage.adapter = pagerAdapter
+
         binding.homeList.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         binding.homeList.adapter = adapter
+
         binding.homeSwipe.setOnRefreshListener {
             refresh(currentPage, binding)
         }
-
 
         refresh(currentPage, binding)
         return binding.root
@@ -53,7 +56,7 @@ class HomeFragment : BaseFragment() {
         })
 
         viewModel.banners.observe(this, Observer {
-            b.homePage.adapter = HomePageAdapter(it)
+            pagerAdapter.submitList(it)
         })
     }
 

@@ -14,6 +14,6 @@ import kotlin.reflect.KClass
  */
 open class BaseFragment: Fragment() {
 
-    fun <T: ViewModel> createViewModel(repo: BaseRepo, clazz: Class<T>) = ViewModelProviders.of(this, ViewModelFactory(repo)).get(clazz)
+    fun <T: ViewModel> viewModel(clazz: Class<T>) = ViewModelProviders.of(this, ViewModelFactory()).get(clazz)
 
 }

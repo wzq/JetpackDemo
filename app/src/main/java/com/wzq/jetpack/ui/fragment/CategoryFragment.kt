@@ -19,7 +19,7 @@ import com.wzq.jetpack.viewmodel.HomeViewModel
  */
 class CategoryFragment : BaseFragment() {
 
-    val viewModel by lazy{ createViewModel(HomeRepo(),HomeViewModel::class.java) }
+    val viewModel by lazy{ viewModel(HomeViewModel::class.java) }
 
     val adapter by lazy{ HomeAdapter() }
 

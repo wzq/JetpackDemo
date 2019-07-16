@@ -31,6 +31,9 @@
         <activity android:name=".ui.activity.WebActivity"
                   android:launchMode="singleTop"
                   android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".ui.activity.LoginActivity"
+                  android:launchMode="singleTop" />
     </application>
 
 </manifest>
