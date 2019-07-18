@@ -5,9 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.wzq.jetpack.databinding.ItemHomeBinding
-import com.wzq.jetpack.databinding.ItemHomePagerBinding
-import com.wzq.jetpack.model.Article
+import com.wzq.jetpack.databinding.PagerHomeBinding
 import com.wzq.jetpack.model.Banner
 import com.wzq.jetpack.util.Router
 
@@ -16,7 +14,7 @@ import com.wzq.jetpack.util.Router
  * Created by wzq on 2019-07-12
  *
  */
-class HomePageAdapter: ListAdapter<Banner, HomePageAdapter.ViewHolder>(DiffCallback()) {
+class HomePageAdapter : ListAdapter<Banner, HomePageAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -28,7 +26,7 @@ class HomePageAdapter: ListAdapter<Banner, HomePageAdapter.ViewHolder>(DiffCallb
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemHomePagerBinding.inflate(
+            PagerHomeBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -37,7 +35,7 @@ class HomePageAdapter: ListAdapter<Banner, HomePageAdapter.ViewHolder>(DiffCallb
     }
 
 
-    class ViewHolder(val binding: ItemHomePagerBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: PagerHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 Router.go2web(it.context, it.tag as String)
@@ -46,7 +44,7 @@ class HomePageAdapter: ListAdapter<Banner, HomePageAdapter.ViewHolder>(DiffCallb
     }
 }
 
-private class DiffCallback: DiffUtil.ItemCallback<Banner>(){
+private class DiffCallback : DiffUtil.ItemCallback<Banner>() {
     override fun areItemsTheSame(oldItem: Banner, newItem: Banner): Boolean {
         return oldItem.imagePath == newItem.imagePath
     }

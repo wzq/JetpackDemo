@@ -1,4 +1,4 @@
-package com.wzq.jetpack.model
+package com.wzq.jetpack.model.result
 
 
 /**

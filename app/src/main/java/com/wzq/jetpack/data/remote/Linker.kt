@@ -7,6 +7,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.wzq.jetpack.App
 
 
 object Linker {
@@ -21,7 +25,11 @@ object Linker {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    private val client = OkHttpClient.Builder().addInterceptor(logger).build()
+    private val client = OkHttpClient.Builder().cookieJar(
+        PersistentCookieJar(
+            SetCookieCache(),
+            SharedPrefsCookiePersistor(App.context)
+        )).addInterceptor(logger).build()
 
     private val url = HttpUrl.parse(BASE_URL)!!
     private val retrofit = Retrofit.Builder().baseUrl(url)

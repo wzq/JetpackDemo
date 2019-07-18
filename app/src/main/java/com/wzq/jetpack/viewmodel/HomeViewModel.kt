@@ -1,11 +1,9 @@
 package com.wzq.jetpack.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.model.Article
-import com.wzq.jetpack.model.ArticleResult
 
 
 /**

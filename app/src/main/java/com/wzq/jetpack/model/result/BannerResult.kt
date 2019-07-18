@@ -1,4 +1,6 @@
-package com.wzq.jetpack.model
+package com.wzq.jetpack.model.result
+
+import com.wzq.jetpack.model.Banner
 
 
 /**

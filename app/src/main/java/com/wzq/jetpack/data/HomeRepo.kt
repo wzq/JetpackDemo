@@ -4,11 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.model.Article
-import com.wzq.jetpack.model.ArticleResult
 import com.wzq.jetpack.model.Banner
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.wzq.jetpack.util.resultFactory
 
 
 /**
@@ -62,15 +59,5 @@ class HomeRepo : BaseRepo() {
     }
 
 
-    private fun <T> resultFactory(action: (T?) -> Unit): Callback<T> {
-        return object : Callback<T> {
-            override fun onResponse(call: Call<T>, response: Response<T>) {
-                action(response.body())
-            }
 
-            override fun onFailure(call: Call<T>, t: Throwable) {
-            }
-
-        }
-    }
 }

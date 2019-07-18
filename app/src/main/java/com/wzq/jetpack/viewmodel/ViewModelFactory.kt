@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.wzq.jetpack.data.BaseRepo
 import com.wzq.jetpack.data.HomeRepo
+import com.wzq.jetpack.data.UserRepo
 
 
 /**
@@ -17,6 +18,9 @@ class ViewModelFactory: ViewModelProvider.NewInstanceFactory() {
         val vm =  when(modelClass) {
             HomeViewModel::class.java -> {
                 HomeViewModel(HomeRepo())
+            }
+            LoginViewModel::class.java -> {
+                LoginViewModel(UserRepo())
             }
             else -> throw IllegalArgumentException("Unknown ViewModel: ${modelClass.name}")
         }

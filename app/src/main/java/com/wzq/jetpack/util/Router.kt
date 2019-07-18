@@ -2,6 +2,8 @@ package com.wzq.jetpack.util
 
 import android.content.Context
 import android.content.Intent
+import com.wzq.jetpack.App
+import com.wzq.jetpack.ui.activity.LoginActivity
 import com.wzq.jetpack.ui.activity.WebActivity
 
 
@@ -15,5 +17,9 @@ object Router {
         val p = Intent(context, WebActivity::class.java)
         p.putExtra("url", url)
         context.startActivity(p)
+    }
+
+    fun go2login(context: Context) {
+        context.startActivity(Intent(context, LoginActivity::class.java))
     }
 }

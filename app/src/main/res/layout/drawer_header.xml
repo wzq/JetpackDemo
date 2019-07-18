@@ -16,28 +16,31 @@
   -->
 
 <FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:background="@color/black"
-    android:gravity="bottom"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorAccent"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:id="@+id/user_area"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <!-- TODO: add actual logo once available -->
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher_round"
-        android:contentDescription="@string/app_name" />
+            android:id="@+id/user_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/ic_launcher_round"
+            android:contentDescription="@string/app_name"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:text="@string/nav_app_bar_open_drawer_description"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:text="@string/nav_app_bar_open_drawer_description"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
 </FrameLayout>

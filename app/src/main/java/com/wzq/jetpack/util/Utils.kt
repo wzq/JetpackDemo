@@ -4,6 +4,9 @@ import android.content.Context
 import android.text.format.DateFormat
 import android.util.TypedValue
 import com.wzq.jetpack.App
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 /**
@@ -23,4 +26,17 @@ fun dp2px(context: Context?, dp: Int): Int {
         dp.toFloat(),
         context.resources.displayMetrics
     ).toInt()
+}
+
+
+fun <T> resultFactory(action: (T?) -> Unit): Callback<T> {
+    return object : Callback<T> {
+        override fun onResponse(call: Call<T>, response: Response<T>) {
+            action(response.body())
+        }
+
+        override fun onFailure(call: Call<T>, t: Throwable) {
+        }
+
+    }
 }

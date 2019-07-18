@@ -1,12 +1,11 @@
 package com.wzq.jetpack.data.remote.api
 
-import com.wzq.jetpack.model.ArticleResult
-import com.wzq.jetpack.model.Banner
-import com.wzq.jetpack.model.BannerResult
+import com.google.gson.JsonObject
+import com.wzq.jetpack.model.result.ArticleResult
+import com.wzq.jetpack.model.result.BannerResult
+import com.wzq.jetpack.model.result.LoginResult
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 
 /**
@@ -79,16 +78,16 @@ interface Api {
 //        @GET("project/list/{page}/json")
 //        fun getProjectList(@Path("page") page: Int, @Query("cid") cid: Int): Observable<HttpResult<ArticleResponseBody>>
 //
-//        /**
-//         * 登录
-//         * http://www.wanandroid.com/user/login
-//         * @param username
-//         * @param password
-//         */
-//        @POST("user/login")
-//        @FormUrlEncoded
-//        fun loginWanAndroid(@Field("username") username: String,
-//                            @Field("password") password: String): Observable<HttpResult<LoginData>>
+        /**
+         * 登录
+         * http://www.wanandroid.com/user/login
+         * @param username
+         * @param password
+         */
+        @POST("user/login")
+        @FormUrlEncoded
+        fun loginWanAndroid(@Field("username") username: String,
+                            @Field("password") password: String): Call<LoginResult>
 //
 //        /**
 //         * 注册
