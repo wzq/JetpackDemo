@@ -13,6 +13,7 @@ import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.adapter.ProjectAdapter
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
 import com.wzq.jetpack.viewmodel.HomeViewModel
+import com.wzq.jetpack.viewmodel.ProjectViewModel
 
 
 /**
@@ -21,16 +22,17 @@ import com.wzq.jetpack.viewmodel.HomeViewModel
  */
 class ProjectFragment : BaseFragment() {
 
-    val viewModel by lazy{ viewModel(HomeViewModel::class.java) }
+    val viewModel by lazy{ viewModel(ProjectViewModel::class.java) }
 
     val adapter by lazy{ ProjectAdapter() }
 
     var currentPage = 0
 
+    lateinit var binding: FragmentProjectBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val binding = FragmentProjectBinding.inflate(inflater, container, false)
+        binding = FragmentProjectBinding.inflate(inflater, container, false)
 
         binding.projectList.adapter = adapter
         binding.projectSwipe.setOnRefreshListener {
@@ -43,11 +45,13 @@ class ProjectFragment : BaseFragment() {
 
     private fun refresh(p: Int, b: FragmentProjectBinding) {
         b.projectSwipe.isRefreshing = true
-        viewModel.getLastProjects(p).observe(this, Observer {
+        viewModel.listData.observe(this, Observer {
             b.projectSwipe.isRefreshing = false
             adapter.submitList(it)
         })
     }
 
-
+    override fun back2top(){
+        binding.projectList.scrollToPosition(0)
+    }
 }

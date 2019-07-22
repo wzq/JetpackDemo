@@ -19,6 +19,9 @@ class CategoryAdapter: PagedListAdapter<Article, CategoryAdapter.ViewHolder>(Cat
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.binding.article = item
+        holder.binding.executePendingBindings()
     }
 
     class ViewHolder(val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root)

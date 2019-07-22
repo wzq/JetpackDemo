@@ -7,12 +7,18 @@ import com.wzq.jetpack.App
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.concurrent.Executors
 
 
 /**
  * Created by wzq on 2019-07-14
  *
  */
+
+val DISK_IO = Executors.newSingleThreadExecutor()
+
+// thread pool used for network requests
+val NETWORK_IO = Executors.newFixedThreadPool(5)
 
 fun timeFormat(time: Long): String {
     return DateFormat.format("yyyy-MM-dd", time).toString()

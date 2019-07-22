@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ListAdapter
@@ -30,14 +31,15 @@ class HomeFragment : BaseFragment() {
 
     var currentPage = 0
 
+    lateinit var binding: FragmentHomeBinding
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         binding.homePage.adapter = pagerAdapter
 
-        binding.homeList.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         binding.homeList.adapter = adapter
 
         binding.homeSwipe.setOnRefreshListener {
@@ -58,6 +60,10 @@ class HomeFragment : BaseFragment() {
         viewModel.banners.observe(this, Observer {
             pagerAdapter.submitList(it)
         })
+    }
+
+    override fun back2top(){
+        binding.homeScroll.fullScroll(NestedScrollView.FOCUS_UP)
     }
 
 

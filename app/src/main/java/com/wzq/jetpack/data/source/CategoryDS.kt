@@ -1,9 +1,8 @@
-package com.wzq.jetpack.viewmodel
+package com.wzq.jetpack.data.source
 
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.wzq.jetpack.data.HomeRepo
-import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.model.Article
 
 
@@ -13,23 +12,15 @@ import com.wzq.jetpack.model.Article
  */
 class CategoryDS(val repo: HomeRepo) : PageKeyedDataSource<Int, Article>(){
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Article>) {
-        val s= params.requestedLoadSize
-        println("~~~~$s")
-        println(repo)
-//        repo.getCategoryDefault(0){
-//            callback.onResult(it, null, 1)
-//        }
-        val d = Linker.api.getCategoryArticles(0, 60).execute()
-        val data = d.body()?.data?.datas ?: emptyList<Article>()
-        callback.onResult(data, null, 1)
+        repo.getCategoryDefault(0){
+            callback.onResult(it, null, 1)
+        }
     }
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Article>) {
-        val kkk = params.key
-        val ooo = params.requestedLoadSize
-        println("$kkk --- $ooo")
-        repo.getCategoryDefault(kkk){
-            callback.onResult(it, kkk+1)
+        val pageNum = params.key
+        repo.getCategoryDefault(pageNum){
+            callback.onResult(it, pageNum + 1 )
         }
     }
 

@@ -8,6 +8,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.wzq.jetpack.R
 import com.wzq.jetpack.model.result.LoginResult
@@ -51,6 +52,10 @@ class MainActivity : BaseActivity() {
 
         switchPage(fragments[0])
         userArea()
+
+        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
+            currentPage?.back2top()
+        }
     }
 
     private var headName: TextView? = null

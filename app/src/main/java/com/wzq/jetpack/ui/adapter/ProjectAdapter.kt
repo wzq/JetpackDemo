@@ -2,6 +2,7 @@ package com.wzq.jetpack.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,13 +16,13 @@ import com.wzq.jetpack.util.Router
  * Created by wzq on 2019-07-12
  *
  */
-class ProjectAdapter: ListAdapter<Article, ProjectAdapter.ViewHolder>(ProjectDiffCallback()) {
+class ProjectAdapter: PagedListAdapter<Article, ProjectAdapter.ViewHolder>(ProjectDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val article = getItem(position)
         holder.binding.article = article
-        holder.binding.root.tag = article.link
+        holder.binding.root.tag = article?.link
         holder.binding.executePendingBindings()
 
     }

@@ -16,4 +16,6 @@ open class BaseFragment: Fragment() {
 
     fun <T: ViewModel> viewModel(clazz: Class<T>) = ViewModelProviders.of(this, ViewModelFactory()).get(clazz)
 
+    open fun back2top() {}
+
 }

@@ -36,7 +36,7 @@ class HomeRepo : BaseRepo() {
         return data
     }
 
-    fun getLastProjects(pageNum: Int): LiveData<List<Article>> {
+    fun getLastProjects(pageNum: Int, callback: (it: List<Article>)->Unit) {
 
         val data: MutableLiveData<List<Article>> = MutableLiveData()
         Linker.api.getLastProjects(pageNum).enqueue(resultFactory {
@@ -44,7 +44,6 @@ class HomeRepo : BaseRepo() {
             data.value = temp
 
         })
-        return data
 
     }
 

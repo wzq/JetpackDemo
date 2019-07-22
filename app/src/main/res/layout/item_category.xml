@@ -14,12 +14,12 @@
             android:padding="16dp">
 
         <TextView
-                android:id="@+id/item_home_title"
+                android:id="@+id/item_category_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/item_home_time"
+                app:layout_constraintEnd_toStartOf="@+id/item_category_time"
                 android:layout_marginEnd="16dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -29,34 +29,34 @@
                 tools:text="测试TITL"/>
 
         <TextView
-                android:id="@+id/item_home_time"
+                android:id="@+id/item_category_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/item_home_title"
+                app:layout_constraintTop_toTopOf="@+id/item_category_title"
                 android:textSize="12sp"
                 android:text="@{article.publishTime}"
                 tools:text="time"/>
 
         <TextView
-                android:id="@+id/item_home_author"
+                android:id="@+id/item_category_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/item_home_title"
+                app:layout_constraintTop_toBottomOf="@id/item_category_title"
                 android:layout_marginTop="4dp"
                 android:textSize="12sp"
                 android:text="@{article.author}"
                 tools:text="author"/>
 
         <TextView
-                android:id="@+id/item_home_tag"
+                android:id="@+id/item_category_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/item_home_author"
-                app:layout_constraintBottom_toBottomOf="@+id/item_home_author"
+                app:layout_constraintTop_toTopOf="@id/item_category_author"
+                app:layout_constraintBottom_toBottomOf="@+id/item_category_author"
                 android:textColor="@color/colorAccent"
                 android:textSize="12sp"
                 android:text="@{article.chapterName}"

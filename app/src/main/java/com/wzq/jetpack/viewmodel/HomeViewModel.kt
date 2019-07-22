@@ -2,12 +2,12 @@ package com.wzq.jetpack.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import com.wzq.jetpack.data.HomeRepo
+import com.wzq.jetpack.data.source.DSFactory
 import com.wzq.jetpack.model.Article
-import java.util.concurrent.Executors
+import com.wzq.jetpack.util.NETWORK_IO
 
 
 /**
@@ -23,16 +23,15 @@ class HomeViewModel internal constructor(private val repo: HomeRepo): ViewModel(
         return (repo.getArticles(pageNum))
     }
 
-    fun getLastProjects(pageNum: Int): LiveData<List<Article>>{
-        return repo.getLastProjects(pageNum)
-    }
-
     fun getCategoryArticles(pageNum: Int,cid: Int): LiveData<List<Article>>{
         return repo.getCategoryArticles(pageNum, cid)
     }
 
-
-
+    val pc = PagedList.Config.Builder()
+            .setPageSize(20)
+            .setEnablePlaceholders(false)
+            .setInitialLoadSizeHint(20)
+            .build()
     val categoryList = DSFactory(repo).toLiveData(
-        pageSize = 10, fetchExecutor = Executors.newFixedThreadPool(5))
+        config = pc, initialLoadKey = 0, fetchExecutor = NETWORK_IO)
 }
