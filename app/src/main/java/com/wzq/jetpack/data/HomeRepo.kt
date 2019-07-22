@@ -58,6 +58,13 @@ class HomeRepo : BaseRepo() {
         return data
     }
 
+    fun getCategoryDefault(pageNum: Int, callback: (it: List<Article>)->Unit) {
+        Linker.api.getCategoryArticles(pageNum, 60).enqueue(resultFactory {
+            val temp = it?.data?.datas
+            callback(temp!!)
+        })
+    }
+
 
 
 }

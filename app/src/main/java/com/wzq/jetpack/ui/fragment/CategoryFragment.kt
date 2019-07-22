@@ -11,6 +11,7 @@ import com.wzq.jetpack.databinding.FragmentHomeBinding
 import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
 import com.wzq.jetpack.viewmodel.HomeViewModel
+import timber.log.Timber
 
 
 /**
@@ -42,8 +43,9 @@ class CategoryFragment : BaseFragment() {
 
     private fun refresh(p: Int, b: FragmentHomeBinding) {
         b.homeSwipe.isRefreshing = true
-        viewModel.getCategoryArticles(p, 60).observe(this, Observer {
+        viewModel.categoryList.observe(this, Observer {
             b.homeSwipe.isRefreshing = false
+            Timber.i("category ==> $it.")
             adapter.submitList(it)
         })
     }
