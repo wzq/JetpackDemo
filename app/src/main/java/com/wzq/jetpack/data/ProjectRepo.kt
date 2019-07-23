@@ -1,12 +1,12 @@
 package com.wzq.jetpack.data
 
+import androidx.annotation.MainThread
 import androidx.lifecycle.Transformations
 import androidx.paging.toLiveData
-import com.wzq.jetpack.data.BaseRepo
+import com.wzq.jetpack.data.source.ProjectDataSourceFactory
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.model.Listing
 import com.wzq.jetpack.util.NETWORK_IO
-import com.wzq.jetpack.data.source.DataSourceFactory
 
 
 /**
@@ -15,8 +15,9 @@ import com.wzq.jetpack.data.source.DataSourceFactory
  */
 class ProjectRepo: BaseRepo() {
 
+    @MainThread
     fun fetchLastProject(): Listing<Article>{
-        val sourceFactory = DataSourceFactory()
+        val sourceFactory = ProjectDataSourceFactory()
 
         val pagedList = sourceFactory.toLiveData(20, fetchExecutor = NETWORK_IO)
 

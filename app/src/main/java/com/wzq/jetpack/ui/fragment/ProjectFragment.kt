@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.databinding.FragmentHomeBinding
 import com.wzq.jetpack.databinding.FragmentProjectBinding
+import com.wzq.jetpack.model.NetworkState
 import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.adapter.ProjectAdapter
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
@@ -24,31 +26,33 @@ class ProjectFragment : BaseFragment() {
 
     val viewModel by lazy{ viewModel(ProjectViewModel::class.java) }
 
-    val adapter by lazy{ ProjectAdapter() }
-
-    var currentPage = 0
 
     lateinit var binding: FragmentProjectBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         binding = FragmentProjectBinding.inflate(inflater, container, false)
-
-        binding.projectList.adapter = adapter
-        binding.projectSwipe.setOnRefreshListener {
-            refresh(currentPage, binding)
-        }
-
-        refresh(currentPage, binding)
+        initAdapter()
+        refresh()
         return binding.root
     }
 
-    private fun refresh(p: Int, b: FragmentProjectBinding) {
-        b.projectSwipe.isRefreshing = true
+    private fun initAdapter() {
+        val adapter = ProjectAdapter()
+        binding.projectList.adapter = adapter
         viewModel.listData.observe(this, Observer {
-            b.projectSwipe.isRefreshing = false
             adapter.submitList(it)
         })
+        viewModel.networkState.observe(this, Observer {
+        })
+    }
+
+    private fun refresh() {
+        viewModel.refreshState.observe(this, Observer{
+            binding.projectSwipe.isRefreshing = it == NetworkState.LOADING
+        })
+        binding.projectSwipe.setOnRefreshListener {
+            viewModel.refresh()
+        }
     }
 
     override fun back2top(){

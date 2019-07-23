@@ -1,8 +1,8 @@
 package com.wzq.jetpack.data.source
 
 import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
-import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.model.NetworkState
@@ -85,4 +85,18 @@ class ProjectDataSource : PageKeyedDataSource<Int, Article>() {
     }
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Article>) {}
+}
+
+class ProjectDataSourceFactory: DataSource.Factory<Int, Article>() {
+
+    //监听data source
+    val sourceLiveData = MutableLiveData<ProjectDataSource>()
+
+    override fun create(): DataSource<Int, Article> {
+        val source = ProjectDataSource()
+        sourceLiveData.postValue(source)
+        return source
+    }
+
+
 }

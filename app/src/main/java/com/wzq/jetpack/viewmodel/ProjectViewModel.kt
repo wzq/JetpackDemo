@@ -1,13 +1,7 @@
 package com.wzq.jetpack.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.Transformations.map
-import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
 import com.wzq.jetpack.data.ProjectRepo
-import com.wzq.jetpack.model.Article
-import com.wzq.jetpack.model.Listing
 
 
 /**
@@ -27,5 +21,7 @@ class ProjectViewModel internal constructor(repo: ProjectRepo) : ViewModel() {
 
     fun retry() {
         repoResult.retry()
+
+        //todo
     }
 }

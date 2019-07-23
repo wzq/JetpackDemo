@@ -8,10 +8,12 @@ import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.HomeRepo
+import com.wzq.jetpack.databinding.FragmentCategoryBinding
 import com.wzq.jetpack.databinding.FragmentHomeBinding
 import com.wzq.jetpack.ui.adapter.CategoryAdapter
 import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
+import com.wzq.jetpack.viewmodel.CategoryViewModel
 import com.wzq.jetpack.viewmodel.HomeViewModel
 import timber.log.Timber
 
@@ -22,32 +24,29 @@ import timber.log.Timber
  */
 class CategoryFragment : BaseFragment() {
 
-    val viewModel by lazy{ viewModel(HomeViewModel::class.java) }
+    val viewModel by lazy{ viewModel(CategoryViewModel::class.java) }
 
     val adapter by lazy{ CategoryAdapter() }
 
-    var currentPage = 0
-
-    lateinit var binding: FragmentHomeBinding
+    lateinit var binding: FragmentCategoryBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.homePage.visibility = View.GONE
-        binding.homeList.addItemDecoration(SimpleDecoration(context, R.color.line_gray))
-        binding.homeList.adapter = adapter
-        binding.homeSwipe.setOnRefreshListener {
-            refresh(currentPage, binding)
+        binding = FragmentCategoryBinding.inflate(inflater, container, false)
+        binding.categoryList.addItemDecoration(SimpleDecoration(context, R.color.line_gray))
+        binding.categoryList.adapter = adapter
+        binding.categorySwipe.setOnRefreshListener {
+            refresh()
         }
 
-        refresh(currentPage, binding)
+        refresh()
         return binding.root
     }
 
-    private fun refresh(p: Int, b: FragmentHomeBinding) {
-        b.homeSwipe.isRefreshing = true
+    private fun refresh() {
+        binding.categorySwipe.isRefreshing = true
         viewModel.categoryList.observe(this, Observer {
-            b.homeSwipe.isRefreshing = false
+            binding.categorySwipe.isRefreshing = false
             Timber.i("category ==> $it.")
             adapter.submitList(it)
         })
@@ -55,6 +54,6 @@ class CategoryFragment : BaseFragment() {
 
 
     override fun back2top(){
-        binding.homeScroll.fullScroll(NestedScrollView.FOCUS_UP)
+        binding.categoryList.scrollToPosition(0)
     }
 }

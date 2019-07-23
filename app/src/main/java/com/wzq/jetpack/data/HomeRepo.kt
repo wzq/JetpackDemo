@@ -2,6 +2,7 @@ package com.wzq.jetpack.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.wzq.jetpack.data.local.AppDatabase
 import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.model.Banner
@@ -36,33 +37,6 @@ class HomeRepo : BaseRepo() {
         return data
     }
 
-    fun getLastProjects(pageNum: Int, callback: (it: List<Article>)->Unit) {
-
-        val data: MutableLiveData<List<Article>> = MutableLiveData()
-        Linker.api.getLastProjects(pageNum).enqueue(resultFactory {
-            val temp = it?.data?.datas
-            data.value = temp
-
-        })
-
-    }
-
-    fun getCategoryArticles(pageNum: Int, cid: Int): LiveData<List<Article>> {
-        val data: MutableLiveData<List<Article>> = MutableLiveData()
-
-        Linker.api.getCategoryArticles(pageNum, cid).enqueue(resultFactory {
-            val temp = it?.data?.datas
-            data.value = temp
-        })
-        return data
-    }
-
-    fun getCategoryDefault(pageNum: Int, callback: (it: List<Article>)->Unit) {
-        Linker.api.getCategoryArticles(pageNum, 60).enqueue(resultFactory {
-            val temp = it?.data?.datas
-            callback(temp!!)
-        })
-    }
 
 
 

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ListAdapter
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.HomeRepo
+import com.wzq.jetpack.data.local.AppDatabase
 import com.wzq.jetpack.databinding.FragmentHomeBinding
 import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.adapter.HomePageAdapter
@@ -40,6 +41,7 @@ class HomeFragment : BaseFragment() {
 
         binding.homePage.adapter = pagerAdapter
 
+        binding.homeList.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         binding.homeList.adapter = adapter
 
         binding.homeSwipe.setOnRefreshListener {
