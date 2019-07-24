@@ -1,6 +1,7 @@
 package com.wzq.jetpack.ui.activity
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -33,15 +34,16 @@ class MainActivity : BaseActivity() {
 
     private val userName by Preference(Prefs.USER_NAME, "点击登录")
 
-    private var currentPage: BaseFragment? = null
+    private var currentPage: Int = -1
 
     private val drawer by lazy { findViewById<DrawerLayout>(R.id.drawer)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        currentPage = savedInstanceState?.getInt("index") ?: 0
         EventBus.getDefault().register(this)
-        transparentStatusBar()
+        //transparentStatusBar()
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -50,11 +52,11 @@ class MainActivity : BaseActivity() {
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-        switchPage(fragments[0])
+        switchPage(currentPage)
         userArea()
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
-            currentPage?.back2top()
+            fragments[currentPage].back2top()
         }
     }
 
@@ -83,19 +85,22 @@ class MainActivity : BaseActivity() {
         toggle.syncState()
     }
 
-    private fun switchPage(page: BaseFragment) {
-        if(page == currentPage) return
+    private fun switchPage(index: Int) {
+        val page = fragments[index]
+
+        if(page.isAdded && index == currentPage) return
         val trans = supportFragmentManager.beginTransaction()
         if (page.isAdded){
             trans.show(page)
         }else {
             trans.add(R.id.container, page, page.javaClass.name).show(page)
         }
-        if (currentPage != null) {
-            trans.hide(currentPage!!)
+        if (currentPage > -1) {
+            val pageNow = fragments[currentPage]
+            trans.hide(pageNow)
         }
         trans.commit()
-        currentPage = page
+        currentPage = index
     }
 
 //    private fun createPage(tag: String): BaseFragment =
@@ -110,15 +115,15 @@ class MainActivity : BaseActivity() {
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                switchPage(fragments[0])
+                switchPage(0)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                switchPage(fragments[1])
+                switchPage(1)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_notifications -> {
-                switchPage(fragments[2])
+                switchPage(2)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -141,5 +146,10 @@ class MainActivity : BaseActivity() {
     override fun onDestroy() {
         super.onDestroy()
         EventBus.getDefault().unregister(this)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState?.putInt("index", currentPage)
     }
 }

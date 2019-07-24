@@ -47,7 +47,6 @@ class CategoryFragment : BaseFragment() {
         binding.categorySwipe.isRefreshing = true
         viewModel.categoryList.observe(this, Observer {
             binding.categorySwipe.isRefreshing = false
-            Timber.i("category ==> $it.")
             adapter.submitList(it)
         })
     }

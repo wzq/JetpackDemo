@@ -62,11 +62,6 @@ class HomeFragment : BaseFragment() {
         viewModel.banners.observe(this, Observer {
             pagerAdapter.submitList(it)
         })
-
-        AppDatabase.getInstance().bannerDao().getHomeBanner().observe(this, Observer {
-            println(it)
-        })
-
     }
 
     override fun back2top(){

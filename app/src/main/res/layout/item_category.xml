@@ -3,9 +3,8 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="article" type="com.wzq.jetpack.model.Article"/>
+        <variable name="category" type="com.wzq.jetpack.model.Category"/>
 
-        <import type="android.text.Html"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,47 +18,34 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/item_category_time"
                 android:layout_marginEnd="16dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:text="@{Html.fromHtml(article.title, Html.FROM_HTML_MODE_LEGACY)}"
+                app:renderHtml="@{category.name}"
                 tools:text="测试TITL"/>
 
-        <TextView
-                android:id="@+id/item_category_time"
+        <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="top"
+                android:layout_height="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:background="?attr/selectableItemBackground"
                 app:layout_constraintTop_toTopOf="@+id/item_category_title"
-                android:textSize="12sp"
-                app:formatTime="@{article.publishTime}"
-                tools:text="time"/>
-
-        <TextView
-                android:id="@+id/item_category_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/item_category_title"
-                android:layout_marginTop="4dp"
-                android:textSize="12sp"
-                android:text="@{article.author}"
-                tools:text="author"/>
+                app:layout_constraintBottom_toBottomOf="@+id/item_category_title"
+                app:srcCompat="@drawable/ic_chevron_right_gray_24dp"/>
 
         <TextView
                 android:id="@+id/item_category_tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/item_category_author"
-                app:layout_constraintBottom_toBottomOf="@+id/item_category_author"
-                android:textColor="@color/colorAccent"
-                android:textSize="12sp"
-                android:text="@{article.chapterName}"
+                app:layout_constraintTop_toBottomOf="@+id/item_category_title"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/text_gray_a"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"
+                android:text="@{category.fetchChildrenName()}"
                 tools:text="tags"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

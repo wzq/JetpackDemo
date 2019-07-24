@@ -1,8 +1,10 @@
 package com.wzq.jetpack.data.remote.api
 
 import com.google.gson.JsonObject
+import com.wzq.jetpack.model.Category
 import com.wzq.jetpack.model.result.ArticleResult
 import com.wzq.jetpack.model.result.BannerResult
+import com.wzq.jetpack.model.result.CategoryResult
 import com.wzq.jetpack.model.result.LoginResult
 import retrofit2.Call
 import retrofit2.http.*
@@ -39,13 +41,13 @@ interface Api {
         @GET("article/listproject/{pageNum}/json")
         fun getLastProjects(@Path("pageNum") pageNum: Int): Call<ArticleResult>
 
-//        /**
-//         * 获取知识体系
-//         * http://www.wanandroid.com/tree/json
-//         */
-//        @GET("tree/json")
-//        fun getKnowledgeTree(): Observable<HttpResult<List<KnowledgeTreeBody>>>
-//
+        /**
+         * 获取知识体系
+         * http://www.wanandroid.com/tree/json
+         */
+        @GET("tree/json")
+        fun getCategory(): Call<CategoryResult>
+
         /**
          * 知识体系下的文章
          * http://www.wanandroid.com/article/list/0/json?cid=168
