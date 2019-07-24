@@ -25,7 +25,7 @@
                 android:textSize="16sp"
                 android:maxLines="2"
                 android:ellipsize="end"
-                android:text="@{Html.fromHtml(article.title, Html.FROM_HTML_MODE_LEGACY)}"
+                app:renderHtml="@{article.title}"
                 tools:text="测试TITL"/>
 
         <TextView
@@ -36,7 +36,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/item_home_title"
                 android:textSize="12sp"
-                android:text="@{article.publishTime}"
+                app:formatTime="@{article.publishTime}"
                 tools:text="time"/>
 
         <TextView

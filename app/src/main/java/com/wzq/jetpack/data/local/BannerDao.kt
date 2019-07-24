@@ -1,5 +1,6 @@
 package com.wzq.jetpack.data.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -15,10 +16,10 @@ import com.wzq.jetpack.model.Banner
 @Dao
 interface BannerDao {
 
-    @Query("select * from banner ")
-    fun getHomeBanner(): List<Banner>
+    @Query("select * from banner order by id asc")
+    fun getHomeBanner(): LiveData<List<Banner>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(banner: Banner): Long?
+    fun insert(banner: List<Banner>): List<Long>?
 
 }

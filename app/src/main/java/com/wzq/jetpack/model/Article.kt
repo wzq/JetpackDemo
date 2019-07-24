@@ -1,11 +1,9 @@
 package com.wzq.jetpack.model
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.wzq.jetpack.data.local.TagConverters
-import com.wzq.jetpack.util.timeFormat
 
 
 /**
@@ -13,6 +11,7 @@ import com.wzq.jetpack.util.timeFormat
  *
  */
 @Entity(tableName = "article")
+@TypeConverters(TagConverters::class)
 data class Article(
     val apkLink: String,
     val author: String,
@@ -29,21 +28,16 @@ data class Article(
     val niceDate: String,
     val origin: String,
     val projectLink: String,
-    @Ignore
     val publishTime: Long,
     val superChapterId: Int,
     val superChapterName: String,
-    @Ignore
     val tags: MutableList<Tag>,
     val title: String,
     val type: Int,
     val userId: Int,
     val visible: Int,
-    val zan: Int,
-    var top: String
-) {
-    fun getPublishTime(): String = timeFormat(publishTime)
-}
+    val zan: Int
+)
 
 data class Tag(
     val name: String,

@@ -36,7 +36,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/item_category_title"
                 android:textSize="12sp"
-                android:text="@{article.publishTime}"
+                app:formatTime="@{article.publishTime}"
                 tools:text="time"/>
 
         <TextView

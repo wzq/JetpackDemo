@@ -1,5 +1,6 @@
 package com.wzq.jetpack.data.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -15,11 +16,8 @@ import com.wzq.jetpack.model.Article
 interface ArticleDao {
 
     @Query("select * from article ")
-    fun getHomeArticle(): List<Article>
+    fun getHomeArticle(): LiveData<List<Article>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(article: Article): Long?
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(articles: List<Article>): List<Long>
+    fun insert(articles: List<Article>): List<Long>?
 }

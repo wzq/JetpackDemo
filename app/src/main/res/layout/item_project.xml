@@ -70,7 +70,7 @@
                     android:layout_marginTop="6dp"
                     android:textSize="12sp"
                     android:paddingBottom="12dp"
-                    android:text="@{article.publishTime}"
+                    app:formatTime="@{article.publishTime}"
                     tools:text="time"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

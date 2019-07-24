@@ -2,10 +2,7 @@ package com.wzq.jetpack.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.wzq.jetpack.data.BaseRepo
-import com.wzq.jetpack.data.HomeRepo
-import com.wzq.jetpack.data.ProjectRepo
-import com.wzq.jetpack.data.UserRepo
+import com.wzq.jetpack.data.*
 
 
 /**
@@ -25,6 +22,9 @@ class ViewModelFactory: ViewModelProvider.NewInstanceFactory() {
             }
             ProjectViewModel::class.java -> {
                 ProjectViewModel(ProjectRepo())
+            }
+            CategoryViewModel::class.java -> {
+                CategoryViewModel(CategoryRepo())
             }
             else -> throw IllegalArgumentException("Unknown ViewModel: ${modelClass.name}")
         }
