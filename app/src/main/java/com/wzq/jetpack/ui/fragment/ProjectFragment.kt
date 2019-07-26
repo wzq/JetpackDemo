@@ -5,16 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.google.android.material.snackbar.Snackbar
-import com.wzq.jetpack.R
-import com.wzq.jetpack.data.HomeRepo
-import com.wzq.jetpack.databinding.FragmentHomeBinding
 import com.wzq.jetpack.databinding.FragmentProjectBinding
-import com.wzq.jetpack.model.NetworkState
-import com.wzq.jetpack.ui.adapter.HomeAdapter
+import com.wzq.jetpack.data.remote.NetworkState
 import com.wzq.jetpack.ui.adapter.ProjectAdapter
-import com.wzq.jetpack.ui.weiget.SimpleDecoration
-import com.wzq.jetpack.viewmodel.HomeViewModel
 import com.wzq.jetpack.viewmodel.ProjectViewModel
 
 

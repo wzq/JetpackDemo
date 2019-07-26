@@ -5,7 +5,7 @@ import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.model.Article
-import com.wzq.jetpack.model.NetworkState
+import com.wzq.jetpack.data.remote.NetworkState
 import com.wzq.jetpack.model.result.ArticleResult
 import com.wzq.jetpack.util.NETWORK_IO
 import retrofit2.Call

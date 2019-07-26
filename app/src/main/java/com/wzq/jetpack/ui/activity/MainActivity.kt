@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.wzq.jetpack.R
+import com.wzq.jetpack.data.remote.NetworkStateListener
 import com.wzq.jetpack.model.result.LoginResult
 import com.wzq.jetpack.ui.fragment.BaseFragment
 import com.wzq.jetpack.ui.fragment.CategoryFragment
@@ -41,6 +44,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        lookNetwork()
         currentPage = savedInstanceState?.getInt("index") ?: 0
         EventBus.getDefault().register(this)
         //transparentStatusBar()
@@ -151,5 +155,13 @@ class MainActivity : BaseActivity() {
     override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
         super.onSaveInstanceState(outState, outPersistentState)
         outState?.putInt("index", currentPage)
+    }
+
+    fun lookNetwork(){
+        NetworkStateListener().observe(this, Observer {
+            if (!it) {
+                Toast.makeText(this@MainActivity, "网路连接失败，请检查网路！", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 }
