@@ -17,6 +17,7 @@ import com.wzq.jetpack.databinding.FragmentHomeBinding
 import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.adapter.HomePageAdapter
 import com.wzq.jetpack.util.dp2px
+import com.wzq.jetpack.util.threadLog
 import com.wzq.jetpack.viewmodel.HomeViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
@@ -29,59 +30,49 @@ class HomeFragment : BaseFragment() {
 
     private val viewModel by viewModels<HomeViewModel> { ViewModelFactory() }
 
-    val adapter by lazy{ HomeAdapter() }
+    private val adapter by lazy{ HomeAdapter() }
 
-    val pagerAdapter by lazy { HomePageAdapter() }
+    private val pagerAdapter by lazy { HomePageAdapter() }
 
-    var currentPage = 0
+    private var currentPage = 0
 
-    lateinit var binding: FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.homeSwipe.setOnRefreshListener {
+            refresh(binding)
+        }
+        initPager()
+        initList()
+        refresh(binding) //初始化页面
+        return binding.root
+    }
 
+    private fun initList() {
+        binding.homeList.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
+        binding.homeList.adapter = adapter
+    }
+
+    private fun initPager() {
         binding.homePage.adapter = pagerAdapter
-        binding.homePage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+        binding.homePage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                indicatorChange(position)
+                indicatorChanged(position)
             }
         })
         viewModel.looper.observe(this, Observer {
             binding.homePage.currentItem = it
         })
-
-        binding.homeList.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
-        binding.homeList.adapter = adapter
-
-        binding.homeSwipe.setOnRefreshListener {
-            refresh(currentPage, binding)
-        }
-        refresh(currentPage, binding)
-
-
-        return binding.root
     }
 
-    private fun indicatorChange(position: Int) {
+    private fun indicatorChanged(position: Int) {
         if (binding.homePageIndicator.childCount > position) {
             val temp = binding.homePageIndicator.getChildAt(position)
             (temp as? RadioButton)?.isChecked = true
         }
-    }
-
-    private fun refresh(p: Int, b: FragmentHomeBinding) {
-        b.homeSwipe.isRefreshing = true
-        viewModel.getArticles(p).observe(this, Observer {
-            b.homeSwipe.isRefreshing = false
-            adapter.submitList(it)
-        })
-
-        viewModel.banners.observe(this, Observer {
-            buildIndicator(it.size)
-            pagerAdapter.submitList(it)
-        })
     }
 
     private fun buildIndicator(len: Int){
@@ -97,6 +88,19 @@ class HomeFragment : BaseFragment() {
             }
             binding.homePageIndicator.addView(rb)
         }
+    }
+
+    private fun refresh(b: FragmentHomeBinding) {
+        b.homeSwipe.isRefreshing = true
+        viewModel.getArticles(currentPage).observe(this, Observer {
+            b.homeSwipe.isRefreshing = false
+            adapter.submitList(it)
+        })
+
+        viewModel.banners.observe(this, Observer {
+            buildIndicator(it.size)
+            pagerAdapter.submitList(it)
+        })
     }
 
     override fun back2top(){

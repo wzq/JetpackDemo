@@ -2,10 +2,9 @@ package com.wzq.jetpack.data.remote.api
 
 import com.google.gson.JsonObject
 import com.wzq.jetpack.model.Category
-import com.wzq.jetpack.model.result.ArticleResult
-import com.wzq.jetpack.model.result.BannerResult
-import com.wzq.jetpack.model.result.CategoryResult
-import com.wzq.jetpack.model.result.LoginResult
+import com.wzq.jetpack.model.HotKey
+import com.wzq.jetpack.model.result.*
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -159,12 +158,12 @@ interface Api {
 //        fun removeCollectArticle(@Path("id") id: Int,
 //                                 @Field("originId") originId: Int = -1): Observable<HttpResult<Any>>
 //
-//        /**
-//         * 搜索热词
-//         * http://www.wanandroid.com/hotkey/json
-//         */
-//        @GET("hotkey/json")
-//        fun getHotSearchData(): Observable<HttpResult<MutableList<HotSearchBean>>>
+        /**
+         * 搜索热词
+         * http://www.wanandroid.com/hotkey/json
+         */
+        @GET("hotkey/json")
+        suspend fun getHotSearchData(): HotKeyResult
 //
 //        /**
 //         * 搜索
