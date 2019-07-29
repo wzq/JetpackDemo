@@ -10,6 +10,8 @@ import timber.log.Timber
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import okhttp3.HttpUrl.Companion.toHttpUrl
+
 import com.wzq.jetpack.App
 
 
@@ -20,7 +22,7 @@ object Linker {
 
 
     private val logger = HttpLoggingInterceptor(
-            HttpLoggingInterceptor.Logger { Timber.d(it) }
+        HttpLoggingInterceptor.Logger.DEFAULT
     ).apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
@@ -31,7 +33,8 @@ object Linker {
             SharedPrefsCookiePersistor(App.context)
         )).addInterceptor(logger).build()
 
-    private val url = HttpUrl.parse(BASE_URL)!!
+
+    private val url = BASE_URL.toHttpUrl()
     private val retrofit = Retrofit.Builder().baseUrl(url)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())

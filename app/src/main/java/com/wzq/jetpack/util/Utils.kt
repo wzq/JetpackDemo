@@ -7,6 +7,7 @@ import com.wzq.jetpack.App
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 import java.util.concurrent.Executors
 
 
@@ -45,4 +46,8 @@ fun <T> resultFactory(action: (T?) -> Unit): Callback<T> {
         }
 
     }
+}
+
+fun threadLog(v: String){
+    Timber.d("[${Thread.currentThread().name}] -> $v")
 }
