@@ -5,14 +5,14 @@ import com.wzq.jetpack.R
 
 
 /**
- * Created by wzq on 2019-07-24
+ * Created by wzq on 2019-07-29
  *
  */
-class CategoryActivity: BaseActivity() {
+class SearchActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_category)
+        setContentView(R.layout.activity_search)
 
         //todo
     }
