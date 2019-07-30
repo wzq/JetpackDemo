@@ -1,11 +1,7 @@
 package com.wzq.jetpack.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagedList
-import androidx.paging.toLiveData
 import com.wzq.jetpack.data.CategoryRepo
-import com.wzq.jetpack.data.source.CategoryDataSourceFactory
-import com.wzq.jetpack.util.NETWORK_IO
 
 
 /**

@@ -17,7 +17,7 @@ import com.wzq.jetpack.model.Banner
 interface BannerDao {
 
     @Query("select * from banner order by id asc")
-    fun getHomeBanner(): LiveData<List<Banner>>
+    fun getHomeBanner(): List<Banner>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(banner: List<Banner>): List<Long>?

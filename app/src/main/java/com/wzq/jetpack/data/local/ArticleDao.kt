@@ -16,7 +16,7 @@ import com.wzq.jetpack.model.Article
 interface ArticleDao {
 
     @Query("select * from article ")
-    fun getHomeArticle(): LiveData<List<Article>>
+    fun getHomeArticle(): List<Article>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(articles: List<Article>): List<Long>?

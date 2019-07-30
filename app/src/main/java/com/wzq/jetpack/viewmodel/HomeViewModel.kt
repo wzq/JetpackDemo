@@ -2,6 +2,7 @@ package com.wzq.jetpack.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.util.threadLog
@@ -30,7 +31,7 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
     }
 
     private fun runLooper(){
-        GlobalScope.launch {
+        viewModelScope.launch(context = Dispatchers.IO) {
             while (isActive && looper.hasActiveObservers()) {
                 threadLog("$flag")
                 looper.postValue(flag)

@@ -8,6 +8,9 @@ import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.model.Banner
 import com.wzq.jetpack.util.resultFactory
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 /**
@@ -20,7 +23,10 @@ class HomeRepo : BaseRepo() {
         val data: MutableLiveData<List<Banner>> = MutableLiveData()
         Linker.api.getBanners().enqueue(resultFactory {
             data.value = it?.data
-            val s = AppDatabase.getInstance().bannerDao().insert(it?.data!!)
+            GlobalScope.launch {
+                val s = AppDatabase.getInstance().bannerDao().insert(it?.data!!)
+                Timber.d(s?.toString())
+            }
         })
 
         return data
@@ -31,7 +37,10 @@ class HomeRepo : BaseRepo() {
 
         Linker.api.getArticles(pageNum).enqueue(resultFactory {
             val temp = it?.data?.datas
-            val s = AppDatabase.getInstance().articleDao().insert(temp!!)
+            GlobalScope.launch {
+                val s = AppDatabase.getInstance().articleDao().insert(temp!!)
+                Timber.d(s?.toString())
+            }
             data.value = temp
         })
 
