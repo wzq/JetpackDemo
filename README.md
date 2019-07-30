@@ -1,6 +1,6 @@
 # JetpackDemo
 
-使用jetpack相关库完成的[wanandroid app](https://www.wanandroid.com/)
+使用jetpack相关库完成的[wanandroid app](https://www.wanandroid.com/) 🙏
 
 ## 包含内容 ##
 
