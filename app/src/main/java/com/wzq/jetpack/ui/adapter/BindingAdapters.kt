@@ -29,7 +29,7 @@ fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
 fun bindRenderHtml(view: TextView, description: String?) {
     if (description != null) {
         view.text = HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT)
-        view.movementMethod = LinkMovementMethod.getInstance()
+//        view.movementMethod = LinkMovementMethod.getInstance()  该设置会拦截view的touch事件
     } else {
         view.text = ""
     }

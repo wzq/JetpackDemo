@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import com.wzq.jetpack.databinding.FragmentProjectBinding
 import com.wzq.jetpack.data.remote.NetworkState
 import com.wzq.jetpack.ui.adapter.ProjectAdapter
-import com.wzq.jetpack.viewmodel.CategoryViewModel
 import com.wzq.jetpack.viewmodel.ProjectViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 

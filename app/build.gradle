@@ -26,6 +26,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    //important
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     //extensions实验室
 //    androidExtensions {
 //        experimental = true

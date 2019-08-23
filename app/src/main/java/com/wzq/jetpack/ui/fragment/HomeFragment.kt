@@ -1,7 +1,6 @@
 package com.wzq.jetpack.ui.fragment
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import com.wzq.jetpack.databinding.FragmentHomeBinding
 import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.adapter.HomePageAdapter
 import com.wzq.jetpack.util.dp2px
-import com.wzq.jetpack.util.threadLog
 import com.wzq.jetpack.viewmodel.HomeViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
