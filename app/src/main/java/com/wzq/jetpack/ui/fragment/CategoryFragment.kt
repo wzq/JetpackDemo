@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.HomeRepo
@@ -15,6 +16,7 @@ import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
 import com.wzq.jetpack.viewmodel.CategoryViewModel
 import com.wzq.jetpack.viewmodel.HomeViewModel
+import com.wzq.jetpack.viewmodel.ViewModelFactory
 import timber.log.Timber
 
 
@@ -24,7 +26,7 @@ import timber.log.Timber
  */
 class CategoryFragment : BaseFragment() {
 
-    val viewModel by lazy{ viewModel(CategoryViewModel::class.java) }
+    private val viewModel by viewModels<CategoryViewModel> { ViewModelFactory() }
 
     val adapter by lazy{ CategoryAdapter() }
 
