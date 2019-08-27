@@ -22,6 +22,14 @@ class CategoryRepo: BaseRepo(){
         })
     }
 
+    fun getCategoryArticle(cid: Int): LiveData<List<Article>> {
+        val data = MutableLiveData<List<Article>>()
+        Linker.api.getCategoryArticles(0, cid).enqueue(resultFactory {
+            data.value = it?.data?.datas
+        })
+        return data
+    }
+
     fun getCategory(): LiveData<List<Category>> {
         val data = MutableLiveData<List<Category>>()
         Linker.api.getCategory().enqueue(resultFactory {

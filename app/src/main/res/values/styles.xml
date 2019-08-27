@@ -18,5 +18,11 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
+    
+    
+    <style name="TabText" parent="TextAppearance.Design.Tab" >
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 
 </resources>

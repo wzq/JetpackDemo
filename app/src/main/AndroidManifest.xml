@@ -42,6 +42,9 @@
 
         <activity android:name=".ui.activity.SearchActivity"
                   android:launchMode="singleTop"/>
+
+
+
     </application>
 
 </manifest>

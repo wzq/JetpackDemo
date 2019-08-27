@@ -33,7 +33,7 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
     private fun runLooper(){
         viewModelScope.launch(context = Dispatchers.IO) {
             while (isActive && looper.hasActiveObservers()) {
-                threadLog("$flag")
+                //threadLog("$flag")
                 looper.postValue(flag)
                 flag++
                 if(flag > 3) flag = 0

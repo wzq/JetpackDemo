@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wzq.jetpack.databinding.ItemCategoryBinding
 import com.wzq.jetpack.model.Category
+import com.wzq.jetpack.util.Router
 
 
 /**
@@ -21,11 +22,20 @@ class CategoryAdapter: ListAdapter<Category, CategoryAdapter.ViewHolder>(Categor
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.binding.category = item
-        holder.binding.root.tag = item.id
+        holder.binding.root.tag = item
         holder.binding.executePendingBindings()
     }
 
-    class ViewHolder(val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                val tag = it.tag
+                if (tag is Category) {
+                    Router.go2category(context = binding.root.context, category = tag)
+                }
+            }
+        }
+    }
 }
 
 private class CategoryDiffCallback: DiffUtil.ItemCallback<Category>(){

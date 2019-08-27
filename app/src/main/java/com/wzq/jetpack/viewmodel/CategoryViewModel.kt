@@ -1,7 +1,9 @@
 package com.wzq.jetpack.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.wzq.jetpack.data.CategoryRepo
+import com.wzq.jetpack.model.Article
 
 
 /**
@@ -19,4 +21,10 @@ class CategoryViewModel internal constructor(private val repo: CategoryRepo): Vi
 //        config = pc, initialLoadKey = 0, fetchExecutor = NETWORK_IO)
 
     val categoryList = repo.getCategory()
+
+
+    fun getArticleList(cid: Int): LiveData<List<Article>> {
+        return repo.getCategoryArticle(cid)
+    }
+
 }

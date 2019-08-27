@@ -53,12 +53,6 @@ class LoginActivity : BaseActivity() {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) {
-            finish()
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
     private fun showDialog() {
         MaterialAlertDialogBuilder(this)
