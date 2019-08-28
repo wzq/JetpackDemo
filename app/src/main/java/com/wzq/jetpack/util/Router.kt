@@ -4,10 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.wzq.jetpack.App
 import com.wzq.jetpack.model.Category
-import com.wzq.jetpack.ui.activity.CategoryActivity
-import com.wzq.jetpack.ui.activity.LoginActivity
-import com.wzq.jetpack.ui.activity.SearchActivity
-import com.wzq.jetpack.ui.activity.WebActivity
+import com.wzq.jetpack.ui.activity.*
 
 
 /**
@@ -50,5 +47,9 @@ object Router {
             intent.putExtra("key", keyword)
         }
         context.startActivity(intent)
+    }
+
+    fun go2collect(context: Context){
+        context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 0) })
     }
 }

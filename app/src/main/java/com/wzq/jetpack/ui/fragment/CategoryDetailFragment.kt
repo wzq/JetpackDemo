@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.wzq.jetpack.R
 import com.wzq.jetpack.ui.adapter.HomeAdapter
@@ -37,7 +35,7 @@ class CategoryDetailFragment : BaseFragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.category_detail, container, false)
+        val root = inflater.inflate(R.layout.fragment_category_detail, container, false)
         val id = arguments?.getInt("id") ?: 0
         Timber.i("category detail id = $id")
 

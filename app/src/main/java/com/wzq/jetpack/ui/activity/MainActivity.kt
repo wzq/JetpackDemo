@@ -9,7 +9,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -20,7 +19,6 @@ import com.wzq.jetpack.ui.fragment.BaseFragment
 import com.wzq.jetpack.ui.fragment.CategoryFragment
 import com.wzq.jetpack.ui.fragment.HomeFragment
 import com.wzq.jetpack.ui.fragment.ProjectFragment
-import com.wzq.jetpack.util.Prefs
 import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.monitor.LoginMonitor
 
@@ -55,7 +53,6 @@ class MainActivity : BaseActivity() {
 
         val ir = savedInstanceState?.getInt(INDEX_RESTORE, -1)
         if (ir == null || ir < 0) {
-            //todo init fragments
             navControl(0)
             title = "Demo"
         } else {
@@ -74,11 +71,21 @@ class MainActivity : BaseActivity() {
     }
 
     private fun userArea() {
-        val head = findViewById<NavigationView>(R.id.navigation_view).getHeaderView(0)
+        val nav = findViewById<NavigationView>(R.id.navigation_view)
+        nav.setNavigationItemSelectedListener {
+            if (it.itemId == R.id.collect_fragment){
+                Router.go2collect(this@MainActivity)
+            }
+            drawer.closeDrawer(GravityCompat.START)
+            false
+        }
+
+        val head = nav.getHeaderView(0)
         val headName = head.findViewById<TextView>(R.id.user_name)
         head.findViewById<ImageView>(R.id.user_head)?.setOnClickListener {
             //if (Prefs.get(Prefs.USER_ID, 0) == 0)
             Router.go2login(this@MainActivity)
+            drawer.closeDrawer(GravityCompat.START)
         }
 
         loginMonitor.observe(this, Observer {
@@ -161,6 +168,5 @@ class MainActivity : BaseActivity() {
         2 -> CategoryFragment()
         else -> throw IllegalArgumentException("can not get fragment $i")
     }
-
 
 }

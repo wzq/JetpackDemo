@@ -110,21 +110,21 @@ interface Api {
 //        @GET("user/logout/json")
 //        fun logout(): Observable<HttpResult<Any>>
 //
-//        /**
-//         *  获取收藏列表
-//         *  http://www.wanandroid.com/lg/collect/list/0/json
-//         *  @param page
-//         */
-//        @GET("lg/collect/list/{page}/json")
-//        fun getCollectList(@Path("page") page: Int): Observable<HttpResult<CollectionResponseBody<CollectionArticle>>>
-//
-//        /**
-//         * 收藏站内文章
-//         * http://www.wanandroid.com/lg/collect/1165/json
-//         * @param id article id
-//         */
-//        @POST("lg/collect/{id}/json")
-//        fun addCollectArticle(@Path("id") id: Int): Observable<HttpResult<Any>>
+        /**
+         *  获取收藏列表
+         *  http://www.wanandroid.com/lg/collect/list/0/json
+         *  @param page
+         */
+        @GET("lg/collect/list/{page}/json")
+        suspend fun getCollectList(@Path("page") page: Int): ArticleResult
+
+        /**
+         * 收藏站内文章
+         * http://www.wanandroid.com/lg/collect/1165/json
+         * @param id article id
+         */
+        @POST("lg/collect/{id}/json")
+        suspend fun addCollectArticle(@Path("id") id: Int): BaseResult
 //
 //        /**
 //         * 收藏站外文章
@@ -139,13 +139,13 @@ interface Api {
 //                                     @Field("author") author: String,
 //                                     @Field("link") link: String): Observable<HttpResult<Any>>
 //
-//        /**
-//         * 文章列表中取消收藏文章
-//         * http://www.wanandroid.com/lg/uncollect_originId/2333/json
-//         * @param id
-//         */
-//        @POST("lg/uncollect_originId/{id}/json")
-//        fun cancelCollectArticle(@Path("id") id: Int): Observable<HttpResult<Any>>
+        /**
+         * 文章列表中取消收藏文章
+         * http://www.wanandroid.com/lg/uncollect_originId/2333/json
+         * @param id
+         */
+        @POST("lg/uncollect_originId/{id}/json")
+        suspend fun cancelCollectArticle(@Path("id") id: Int): BaseResult
 //
 //        /**
 //         * 收藏列表中取消收藏文章
