@@ -12,10 +12,9 @@ import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.databinding.FragmentGankBinding
 import com.wzq.jetpack.ui.adapter.GankAdapter
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
-import com.wzq.jetpack.util.IOScope
+import com.wzq.jetpack.util.thread.IOScope
 import com.wzq.jetpack.viewmodel.GankViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
-import kotlinx.android.synthetic.main.fragment_gank.view.*
 import kotlinx.coroutines.launch
 
 
@@ -43,11 +42,6 @@ class GankFragment : BaseFragment() {
             adapter.submitList(it)
             binding.gankSwipe.isRefreshing = false
         })
-
-        IOScope().launch {
-            println("${Thread.currentThread().name} io scope")
-            val s = Linker.gankApi.errorTest()
-        }
         return binding.root
     }
 

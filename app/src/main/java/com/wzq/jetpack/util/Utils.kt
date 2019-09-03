@@ -26,16 +26,6 @@ val DISK_IO = Executors.newSingleThreadExecutor()
 // thread pool used for network requests
 val NETWORK_IO = Executors.newFixedThreadPool(5)
 
-
-fun IOScope() = object : CoroutineScope {
-
-    val exceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, throwable -> throwable.printStackTrace() }
-
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO + SupervisorJob() + exceptionHandler
-
-}
-
 fun timeFormat(time: Long): String {
     return DateFormat.format("yyyy-MM-dd", time).toString()
 }

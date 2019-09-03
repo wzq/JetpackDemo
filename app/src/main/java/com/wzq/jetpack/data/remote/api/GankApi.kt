@@ -9,6 +9,6 @@ interface GankApi {
     suspend fun getDaliyInfo(): GankResult
 
 
-    @GET("banner/json")
+    @GET("http://gank.io/adsdxc")
     suspend fun errorTest(): GankResult
 }

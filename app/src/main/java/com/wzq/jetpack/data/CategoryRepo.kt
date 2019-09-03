@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.model.Category
-import com.wzq.jetpack.util.IOScope
 import com.wzq.jetpack.util.resultFactory
-import kotlinx.coroutines.launch
 
 
 /**
@@ -18,9 +16,6 @@ class CategoryRepo: BaseRepo(){
 
 
     fun getCategoryDefault(pageNum: Int, callback: (it: List<Article>)->Unit) {
-        IOScope().launch {
-
-        }
         Linker.api.getCategoryArticles(pageNum, 60).enqueue(resultFactory {
             val temp = it?.data?.datas
             callback(temp!!)
