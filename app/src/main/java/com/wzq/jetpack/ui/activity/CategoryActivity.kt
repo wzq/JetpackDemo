@@ -8,6 +8,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wzq.jetpack.R
 import com.wzq.jetpack.ui.fragment.CategoryDetailFragment
+import kotlinx.coroutines.GlobalScope
 import timber.log.Timber
 
 
@@ -32,7 +33,7 @@ class CategoryActivity: BaseActivity() {
         val pager = findViewById<ViewPager2>(R.id.category_pager)
         val tab = findViewById<TabLayout>(R.id.category_tab)
         pager.adapter = PagerAdapter(this, ids)
-
+        pager.offscreenPageLimit = 4
         TabLayoutMediator(tab, pager) { it, position ->
             it.text = titles[position]
         }.attach()

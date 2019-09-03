@@ -15,10 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.remote.NetworkStateListener
-import com.wzq.jetpack.ui.fragment.BaseFragment
-import com.wzq.jetpack.ui.fragment.CategoryFragment
-import com.wzq.jetpack.ui.fragment.HomeFragment
-import com.wzq.jetpack.ui.fragment.ProjectFragment
+import com.wzq.jetpack.ui.fragment.*
 import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.monitor.LoginMonitor
 
@@ -75,6 +72,8 @@ class MainActivity : BaseActivity() {
         nav.setNavigationItemSelectedListener {
             if (it.itemId == R.id.collect_fragment){
                 Router.go2collect(this@MainActivity)
+            }else if (it.itemId == R.id.about_fragment) {
+                Router.go2about(this@MainActivity)
             }
             drawer.closeDrawer(GravityCompat.START)
             false
@@ -119,6 +118,11 @@ class MainActivity : BaseActivity() {
             R.id.navigation_notifications -> {
                 navControl(2)
                 title = "体系"
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_gank -> {
+                navControl(3)
+                title = "Gank"
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -166,6 +170,7 @@ class MainActivity : BaseActivity() {
         0 -> HomeFragment()
         1 -> ProjectFragment()
         2 -> CategoryFragment()
+        3 -> GankFragment()
         else -> throw IllegalArgumentException("can not get fragment $i")
     }
 

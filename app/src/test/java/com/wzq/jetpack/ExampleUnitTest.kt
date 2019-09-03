@@ -1,5 +1,7 @@
 package com.wzq.jetpack
 
+import com.wzq.jetpack.util.IOScope
+import com.wzq.jetpack.util.threadLog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -33,8 +35,9 @@ class ExampleUnitTest {
 
     @Test
     fun test01() {
-        repeat(3) {
-            print(it)
+        IOScope().launch {
+            println("${Thread.currentThread().name} io scope")
+            throw Exception("test exception")
         }
     }
 }

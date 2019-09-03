@@ -26,6 +26,9 @@ class ViewModelFactory: ViewModelProvider.NewInstanceFactory() {
             CategoryViewModel::class.java -> {
                 CategoryViewModel(CategoryRepo())
             }
+            GankViewModel::class.java -> {
+                GankViewModel()
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel: ${modelClass.name}")
         }
         return  vm as T

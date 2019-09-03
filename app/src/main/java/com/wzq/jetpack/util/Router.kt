@@ -52,4 +52,8 @@ object Router {
     fun go2collect(context: Context){
         context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 0) })
     }
+
+    fun go2about(context: Context){
+        context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 1) })
+    }
 }

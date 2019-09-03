@@ -16,4 +16,8 @@
         android:icon="@drawable/ic_sys_black_24dp"
         android:title="@string/title_notifications"/>
 
+    <item android:id="@+id/navigation_gank"
+        android:icon="@drawable/ic_whatshot_black_24dp"
+        android:title="@string/title_gank" />
+
 </menu>

@@ -1,6 +1,5 @@
 package com.wzq.jetpack.ui.adapter
 
-import android.text.method.LinkMovementMethod
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
@@ -41,5 +40,14 @@ fun bindTimeFormat(view: TextView, time: Long?) {
         view.text = timeFormat(time)
     }else {
         view.text = ""
+    }
+}
+
+@BindingAdapter("formatTime")
+fun bindTimeFormat(view: TextView, time: String?) {
+    view.text = if (time.isNullOrBlank()){
+        ""
+    }else {
+        time.substring(0, time.indexOf("T"))
     }
 }

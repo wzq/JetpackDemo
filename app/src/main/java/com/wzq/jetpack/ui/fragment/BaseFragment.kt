@@ -1,11 +1,6 @@
 package com.wzq.jetpack.ui.fragment
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
-import com.wzq.jetpack.data.BaseRepo
-import com.wzq.jetpack.viewmodel.ViewModelFactory
-import kotlin.reflect.KClass
 
 
 /**

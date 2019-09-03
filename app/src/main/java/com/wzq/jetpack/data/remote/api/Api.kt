@@ -1,10 +1,6 @@
 package com.wzq.jetpack.data.remote.api
 
-import com.google.gson.JsonObject
-import com.wzq.jetpack.model.Category
-import com.wzq.jetpack.model.HotKey
 import com.wzq.jetpack.model.result.*
-import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.http.*
 

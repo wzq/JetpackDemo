@@ -4,11 +4,16 @@ import android.content.Context
 import android.text.format.DateFormat
 import android.util.TypedValue
 import com.wzq.jetpack.App
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 import java.util.concurrent.Executors
+import kotlin.coroutines.CoroutineContext
 
 
 /**
@@ -20,6 +25,16 @@ val DISK_IO = Executors.newSingleThreadExecutor()
 
 // thread pool used for network requests
 val NETWORK_IO = Executors.newFixedThreadPool(5)
+
+
+fun IOScope() = object : CoroutineScope {
+
+    val exceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, throwable -> throwable.printStackTrace() }
+
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.IO + SupervisorJob() + exceptionHandler
+
+}
 
 fun timeFormat(time: Long): String {
     return DateFormat.format("yyyy-MM-dd", time).toString()

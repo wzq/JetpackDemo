@@ -41,7 +41,7 @@ class CategoryFragment : BaseFragment() {
 
     private fun refresh() {
         binding.categorySwipe.isRefreshing = true
-        viewModel.categoryList.observe(this, Observer {
+        viewModel.getCategoryList().observe(this, Observer {
             binding.categorySwipe.isRefreshing = false
             adapter.submitList(it)
         })
