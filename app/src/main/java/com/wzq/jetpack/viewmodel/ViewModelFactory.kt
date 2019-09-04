@@ -29,6 +29,9 @@ class ViewModelFactory: ViewModelProvider.NewInstanceFactory() {
             GankViewModel::class.java -> {
                 GankViewModel()
             }
+            SearchViewModel::class.java -> {
+                SearchViewModel(SearchRepo())
+            }
             else -> throw IllegalArgumentException("Unknown ViewModel: ${modelClass.name}")
         }
         return  vm as T

@@ -1,16 +1,12 @@
 package com.wzq.jetpack.ui.activity
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.ActivityLoginBinding
-import com.wzq.jetpack.model.User
-import com.wzq.jetpack.model.result.LoginResult
 import com.wzq.jetpack.util.Preference
 import com.wzq.jetpack.util.Prefs
 import com.wzq.jetpack.viewmodel.LoginViewModel
