@@ -46,8 +46,7 @@
 
         <activity
             android:name=".ui.activity.SearchActivity"
-            android:launchMode="singleTop"
-            android:theme="@style/AppTheme.ActionBar" />
+            android:launchMode="singleTop" />
 
         <activity
             android:name=".ui.activity.UserActivity"

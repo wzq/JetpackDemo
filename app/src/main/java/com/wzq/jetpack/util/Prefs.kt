@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import com.wzq.jetpack.App
+import timber.log.Timber
 
 
 /**
@@ -15,6 +16,7 @@ object Prefs {
     const val USER_ID = "user_id"
     const val USER_NAME = "user_name"
     const val USER_INFO = "user_info"
+    const val SEARCH_HISTORY = "SEARCH_HISTORY"
 
     private val preference: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.context)
 
@@ -43,5 +45,16 @@ object Prefs {
             is Float -> putFloat(name, value)
             else -> throw IllegalArgumentException("This type of data cannot be saved!")
         }.apply()
+    }
+
+
+    fun appendString(name:String, value: String, repeatable: Boolean = true) {
+        val rv = if (repeatable) {
+            get(name, "").plus(value)
+        } else {
+            get(name, "").replace(value, "").plus(value)
+        }
+        Timber.i(rv)
+        set(name, rv)
     }
 }

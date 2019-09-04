@@ -1,5 +1,6 @@
 package com.wzq.jetpack.data.remote.api
 
+import com.google.gson.JsonObject
 import com.wzq.jetpack.model.result.*
 import retrofit2.Call
 import retrofit2.http.*
@@ -160,17 +161,17 @@ interface Api {
          */
         @GET("hotkey/json")
         suspend fun getHotSearchData(): HotKeyResult
-//
-//        /**
-//         * 搜索
-//         * http://www.wanandroid.com/article/query/0/json
-//         * @param page
-//         * @param key
-//         */
-//        @POST("article/query/{page}/json")
-//        @FormUrlEncoded
-//        fun queryBySearchKey(@Path("page") page: Int,
-//                             @Field("k") key: String): Observable<HttpResult<ArticleResponseBody>>
+
+        /**
+         * 搜索
+         * http://www.wanandroid.com/article/query/0/json
+         * @param page
+         * @param key
+         */
+        @POST("article/query/{page}/json")
+        @FormUrlEncoded
+        suspend fun queryBySearchKey(@Path("page") page: Int,
+                             @Field("k") key: String): ArticleResult
 //
 //        /**
 //         * 获取TODO列表数据

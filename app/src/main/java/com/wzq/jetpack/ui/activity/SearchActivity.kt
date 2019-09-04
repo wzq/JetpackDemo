@@ -3,13 +3,15 @@ package com.wzq.jetpack.ui.activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
-import android.widget.SearchView
 import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.wzq.jetpack.R
+import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.viewmodel.SearchViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
@@ -18,36 +20,82 @@ import com.wzq.jetpack.viewmodel.ViewModelFactory
  * Created by wzq on 2019-07-29
  *
  */
-class SearchActivity: BaseActivity() {
+class SearchActivity : BaseActivity(), View.OnClickListener {
+    override fun onClick(v: View?) {
+        val s = v as? Chip ?: return
+        searchView?.setQuery(s.text, true)
+    }
+
+    private val viewModel by viewModels<SearchViewModel> { ViewModelFactory() }
+    private val adapter = HomeAdapter()
+    lateinit var listView: RecyclerView
+    lateinit var historyGroup: ChipGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val viewModel = ViewModelProvider(this, ViewModelFactory()).get(SearchViewModel::class.java)
-        val chipGroup = findViewById<ChipGroup>(R.id.search_hot)
         val hotTitle = findViewById<TextView>(R.id.search_hot_title)
+        val front = findViewById<View>(R.id.search_front)
+        listView = findViewById(R.id.search_result)
+        listView.adapter = adapter
 
-        chipGroup.setOnCheckedChangeListener { _, checkedId ->
-            println(1111)
+        historyGroup = findViewById(R.id.search_history)
+        viewModel.history.forEach {
+            if (it.isNotEmpty()) hotTitle.visibility = View.VISIBLE
+            historyGroup.addView(createChip(it))
         }
 
-
+        val chipGroup = findViewById<ChipGroup>(R.id.search_hot)
         viewModel.hotWords.observe(this, Observer {
             if (it.isNotEmpty()) hotTitle.visibility = View.VISIBLE
-            it.forEach {
-                val chip = Chip(this).apply { text = it.name; tag = it }
-                chipGroup.addView(chip)
+            it.forEach { et ->
+                chipGroup.addView(createChip(et.name))
             }
+        })
+
+        viewModel.searchResult.observe(this, Observer {
+            listView.visibility = View.VISIBLE
+            front.visibility = View.GONE
+            adapter.submitList(it)
         })
     }
 
+    private fun createChip(it: String): Chip {
+        val chip = Chip(this)
+        chip.text = it
+        chip.setOnClickListener(this)
+        return chip
+    }
+
+
+    private var searchView: SearchView? = null
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
-        val searchView = menu?.findItem(R.id.search_icon)?.actionView as? SearchView
+        searchView = menu?.findItem(R.id.search_icon)?.actionView as? SearchView
         searchView?.queryHint = "搜索"
+        searchView?.onActionViewExpanded()
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query.isNullOrBlank()) return  false
+                historyGroup.addView(createChip(query), 0)
+                viewModel.searchAny(query)
+                return false
+            }
+
+            val searchFront = findViewById<View>(R.id.search_front)
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText.isNullOrBlank()) {
+                    listView.visibility = View.GONE
+                    searchFront.visibility = View.VISIBLE
+                }
+                return false
+            }
+
+        })
         return super.onCreateOptionsMenu(menu)
     }
 

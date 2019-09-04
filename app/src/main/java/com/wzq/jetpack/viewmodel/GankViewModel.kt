@@ -11,7 +11,7 @@ class GankViewModel internal constructor(): ViewModel() {
 
     private val gankResult  = MutableLiveData<GankResult>()
     val dailyList: LiveData<List<GankItem>> = gankResult.map {
-        it.results.android
+        it.results.android.reversed()
     }
 
     fun getDailyInfo() {

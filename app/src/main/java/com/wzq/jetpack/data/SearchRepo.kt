@@ -7,7 +7,7 @@ import com.wzq.jetpack.model.HotKey
 import com.wzq.jetpack.util.thread.IOScope
 import kotlinx.coroutines.launch
 
-class SearchRepo: BaseRepo() {
+class SearchRepo : BaseRepo() {
 
     fun getHotWords(): LiveData<List<HotKey>> {
         val data = MutableLiveData<List<HotKey>>()
@@ -17,4 +17,10 @@ class SearchRepo: BaseRepo() {
         }
         return data
     }
+
+
+    suspend fun searchAny(key: String, page: Int) =
+        Linker.api.queryBySearchKey(page, key)
+
+
 }
