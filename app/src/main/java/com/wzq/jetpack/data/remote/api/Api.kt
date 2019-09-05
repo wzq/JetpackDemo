@@ -32,7 +32,7 @@ interface Api {
          * @param pageNum
          */
         @GET("article/list/{pageNum}/json")
-        fun getArticles(@Path("pageNum") pageNum: Int): Call<ArticleResult>
+        suspend fun getArticles(@Path("pageNum") pageNum: Int): ArticleResult?
 
         @GET("article/listproject/{pageNum}/json")
         fun getLastProjects(@Path("pageNum") pageNum: Int): Call<ArticleResult>

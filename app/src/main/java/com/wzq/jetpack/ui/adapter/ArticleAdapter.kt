@@ -2,8 +2,8 @@ package com.wzq.jetpack.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.like.LikeButton
 import com.like.OnLikeListener
@@ -11,7 +11,7 @@ import com.wzq.jetpack.data.BaseRepo
 import com.wzq.jetpack.databinding.ItemHomeBinding
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.util.Router
-import kotlinx.coroutines.GlobalScope
+import com.wzq.jetpack.util.thread.IOScope
 import kotlinx.coroutines.launch
 
 
@@ -19,9 +19,10 @@ import kotlinx.coroutines.launch
  * Created by wzq on 2019-07-12
  *
  */
-class HomeAdapter: PagedListAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCallback()) {
+class ArticleAdapter: ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleDiffCallback()) {
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val article = getItem(position) ?: return
+        val article = getItem(position)
         holder.binding.itemHomeStar.isLiked = article.collect
         holder.binding.article = article
         holder.binding.root.tag = article.link
@@ -50,7 +51,7 @@ class HomeAdapter: PagedListAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCal
                 override fun liked(likeButton: LikeButton?) {
                     val id = likeButton?.tag
                     if (id is Int) {
-                        GlobalScope.launch {
+                        IOScope().launch {
                             repo.collectArticle(id).toString()
                         }
                     }
@@ -59,7 +60,7 @@ class HomeAdapter: PagedListAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCal
                 override fun unLiked(likeButton: LikeButton?) {
                     val id = likeButton?.tag
                     if (id is Int) {
-                        GlobalScope.launch {
+                        IOScope().launch {
                             repo.collectCancel(id).toString()
                         }
                     }
@@ -72,13 +73,13 @@ class HomeAdapter: PagedListAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCal
 }
 
 
-private class HomeDiffCallback: DiffUtil.ItemCallback<Article>(){
+private class ArticleDiffCallback: DiffUtil.ItemCallback<Article>(){
     override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
         return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-        return oldItem.title == newItem.title
+        return oldItem == newItem
     }
 
 }

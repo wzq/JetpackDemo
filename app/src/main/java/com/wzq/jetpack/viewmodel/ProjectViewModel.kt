@@ -19,9 +19,4 @@ class ProjectViewModel internal constructor(repo: ProjectRepo) : ViewModel() {
 
     fun refresh() = repoResult.refresh()
 
-    fun retry() {
-        repoResult.retry()
-
-        //todo
-    }
 }

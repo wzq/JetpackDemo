@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.wzq.jetpack.R
-import com.wzq.jetpack.ui.adapter.HomeAdapter
+import com.wzq.jetpack.ui.adapter.ArticleAdapter
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
 import com.wzq.jetpack.viewmodel.CategoryViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
@@ -28,7 +28,7 @@ class CategoryDetailFragment : BaseFragment(){
 
     private val viewModel by viewModels<CategoryViewModel> { ViewModelFactory() }
 
-    private val adapter = HomeAdapter()
+    private val adapter = ArticleAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,

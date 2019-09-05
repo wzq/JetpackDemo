@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.wzq.jetpack.R
-import com.wzq.jetpack.ui.adapter.HomeAdapter
+import com.wzq.jetpack.ui.adapter.ArticleAdapter
 import com.wzq.jetpack.viewmodel.SearchViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
@@ -27,7 +27,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
     }
 
     private val viewModel by viewModels<SearchViewModel> { ViewModelFactory() }
-    private val adapter = HomeAdapter()
+    private val adapter = ArticleAdapter()
     lateinit var listView: RecyclerView
     lateinit var historyGroup: ChipGroup
 
@@ -39,7 +39,6 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val hotTitle = findViewById<TextView>(R.id.search_hot_title)
-        val front = findViewById<View>(R.id.search_front)
         listView = findViewById(R.id.search_result)
         listView.adapter = adapter
 
@@ -58,8 +57,6 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         })
 
         viewModel.searchResult.observe(this, Observer {
-            listView.visibility = View.VISIBLE
-            front.visibility = View.GONE
             adapter.submitList(it)
         })
     }
@@ -81,6 +78,8 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query.isNullOrBlank()) return  false
+                listView.visibility = View.VISIBLE
+                searchFront.visibility = View.GONE
                 historyGroup.addView(createChip(query), 0)
                 viewModel.searchAny(query)
                 return false

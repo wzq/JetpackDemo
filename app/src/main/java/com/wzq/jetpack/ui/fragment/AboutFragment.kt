@@ -14,9 +14,7 @@ class AboutFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val progress = inflater.inflate(R.layout.test_p, null)
         val root = inflater.inflate(R.layout.fragment_base, container, false)
-        container?.addView(progress)
         return root
     }
 }

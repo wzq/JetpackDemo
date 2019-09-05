@@ -8,10 +8,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
+        <com.wzq.jetpack.ui.weiget.SmartNestedScrollView
                 android:id="@+id/home_scroll"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+            android:fillViewport="true"
+            >
 
             <FrameLayout
                     android:layout_width="match_parent"
@@ -21,7 +23,7 @@
                 <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/home_page"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"/>
+                        android:layout_height="200dp" />
 
                 <RadioGroup
                         android:id="@+id/home_page_indicator"
@@ -42,7 +44,7 @@
 
             </FrameLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </com.wzq.jetpack.ui.weiget.SmartNestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </layout>
