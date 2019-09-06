@@ -56,4 +56,8 @@ object Router {
     fun go2about(context: Context){
         context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 1) })
     }
+
+    fun go2todo(context: Context){
+        context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 2) })
+    }
 }

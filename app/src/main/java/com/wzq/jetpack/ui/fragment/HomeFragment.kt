@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.remote.NetworkState
 import com.wzq.jetpack.databinding.FragmentHomeBinding
+import com.wzq.jetpack.ui.adapter.ArticleAdapter
 import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.adapter.HomePageAdapter
 import com.wzq.jetpack.util.dp2px
@@ -38,22 +39,20 @@ class HomeFragment : BaseFragment() {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.homeSwipe.setOnRefreshListener {
-            viewModel.doRefresh()
+            viewModel.refresh()
         }
-        viewModel.refreshState.observe(this, Observer {
-            binding.homeSwipe.isRefreshing = it == NetworkState.LOADED
-        })
+
         initPager()
         initList()
         return binding.root
     }
 
     private fun initList() {
-        val adapter = HomeAdapter()
-        binding.homeList.isNestedScrollingEnabled = true
+        val adapter = ArticleAdapter()
         binding.homeList.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         binding.homeList.adapter = adapter
-        viewModel.articles.observe(this, Observer {
+        viewModel.articleList.observe(this, Observer {
+            binding.homeSwipe.isRefreshing = false
             adapter.submitList(it)
         })
     }

@@ -70,10 +70,10 @@ class MainActivity : BaseActivity() {
     private fun userArea() {
         val nav = findViewById<NavigationView>(R.id.navigation_view)
         nav.setNavigationItemSelectedListener {
-            if (it.itemId == R.id.collect_fragment){
-                Router.go2collect(this@MainActivity)
-            }else if (it.itemId == R.id.about_fragment) {
-                Router.go2about(this@MainActivity)
+            when {
+                it.itemId == R.id.collect_fragment -> Router.go2collect(this@MainActivity)
+                it.itemId == R.id.about_fragment -> Router.go2about(this@MainActivity)
+                it.itemId == R.id.todo_fragment -> Router.go2todo(this@MainActivity)
             }
             drawer.closeDrawer(GravityCompat.START)
             false

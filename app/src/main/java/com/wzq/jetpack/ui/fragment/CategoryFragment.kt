@@ -32,7 +32,7 @@ class CategoryFragment : BaseFragment() {
         binding.categoryList.addItemDecoration(SimpleDecoration(context, R.color.line_gray))
         binding.categoryList.adapter = adapter
         binding.categorySwipe.setOnRefreshListener {
-            refresh()
+            refresh1()
         }
 
         refresh()
@@ -44,6 +44,17 @@ class CategoryFragment : BaseFragment() {
         viewModel.getCategoryList().observe(this, Observer {
             binding.categorySwipe.isRefreshing = false
             adapter.submitList(it)
+        })
+    }
+
+
+    private fun refresh1() {
+        binding.categorySwipe.isRefreshing = true
+        viewModel.getCategoryList().observe(this, Observer {
+            binding.categorySwipe.isRefreshing = false
+            adapter.submitList(it.map {et->
+                et.copy(name = "oooo")
+            })
         })
     }
 

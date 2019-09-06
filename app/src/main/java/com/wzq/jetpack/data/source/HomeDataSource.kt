@@ -11,6 +11,12 @@ import com.wzq.jetpack.util.thread.IOScope
 import com.wzq.jetpack.util.threadLog
 import kotlinx.coroutines.launch
 
+
+/**
+ * paging 在滚动嵌套时会加载所有数据
+ * invalidate 刷新数据时导致闪烁
+ */
+
 class HomeDataSource : PageKeyedDataSource<Int, Article>() {
 
     val networkState = MutableLiveData<NetworkState>()
@@ -33,7 +39,6 @@ class HomeDataSource : PageKeyedDataSource<Int, Article>() {
             initialLoad.postValue(error)
         }.launch {
             retry = null
-            threadLog("sddsdasdasd")
             val data = Linker.api.getArticles(pageNum)?.data?.datas ?: emptyList<Article>()
             callback.onResult(data,  null, pageNum + 1)
         }

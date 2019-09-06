@@ -15,6 +15,7 @@ import com.wzq.jetpack.model.Banner
 import com.wzq.jetpack.model.Listing
 import com.wzq.jetpack.util.NETWORK_IO
 import com.wzq.jetpack.util.resultFactory
+import com.wzq.jetpack.util.thread.IOScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -54,6 +55,17 @@ class HomeRepo : BaseRepo() {
             refresh = {sourceFactory.sourceLiveData.value?.invalidate()},
             refreshState = refreshState
         )
+    }
+
+
+    fun getArticles(pageNum: Int = 0) : LiveData<List<Article>>{
+        val data = MutableLiveData<List<Article>>()
+        IOScope { data.postValue(emptyList()) }
+            .launch {
+                val s = Linker.api.getArticles(pageNum)?.data?.datas ?: emptyList<Article>()
+                data.postValue(s)
+            }
+        return data
     }
 
 

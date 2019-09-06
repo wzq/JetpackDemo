@@ -3,6 +3,7 @@ package com.wzq.jetpack.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.wzq.jetpack.data.*
+import com.wzq.jetpack.data.source.TodoRepo
 
 
 /**
@@ -31,6 +32,9 @@ class ViewModelFactory: ViewModelProvider.NewInstanceFactory() {
             }
             SearchViewModel::class.java -> {
                 SearchViewModel(SearchRepo())
+            }
+            TodoViewModel::class.java -> {
+                TodoViewModel(TodoRepo())
             }
             else -> throw IllegalArgumentException("Unknown ViewModel: ${modelClass.name}")
         }

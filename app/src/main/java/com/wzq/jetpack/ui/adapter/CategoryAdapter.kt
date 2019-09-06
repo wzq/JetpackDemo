@@ -44,7 +44,7 @@ private class CategoryDiffCallback: DiffUtil.ItemCallback<Category>(){
     }
 
     override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
-        return oldItem == newItem
+        return oldItem.name == newItem.name
     }
 
 }

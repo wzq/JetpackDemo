@@ -24,6 +24,10 @@ class UserActivity: BaseActivity() {
                 controller.navigate(R.id.user_about)
                 title = "关于"
             }
+            2 -> {
+                controller.navigate(R.id.user_todo)
+                title = "TODO"
+            }
         }
     }
 }

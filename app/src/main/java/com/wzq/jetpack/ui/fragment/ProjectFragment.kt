@@ -34,6 +34,7 @@ class ProjectFragment : BaseFragment() {
         val adapter = ProjectAdapter()
         binding.projectList.adapter = adapter
         viewModel.listData.observe(this, Observer {
+            println(it.toString())
             adapter.submitList(it)
         })
         viewModel.networkState.observe(this, Observer {
