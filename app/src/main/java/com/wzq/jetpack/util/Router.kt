@@ -4,9 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.wzq.jetpack.App
 import com.wzq.jetpack.model.Category
-import com.wzq.jetpack.ui.activity.CategoryActivity
-import com.wzq.jetpack.ui.activity.LoginActivity
-import com.wzq.jetpack.ui.activity.WebActivity
+import com.wzq.jetpack.ui.activity.*
 
 
 /**
@@ -25,15 +23,41 @@ object Router {
         context.startActivity(Intent(context, LoginActivity::class.java))
     }
 
-    fun go2Category(context: Context, category: Category) {
-        val s = arrayListOf<Int>()
+
+    fun go2category(context: Context, category: Category){
+        val intent = Intent(context, CategoryActivity::class.java)
+
+
+        val s1 = arrayListOf<Int>()
+        val s2 = arrayListOf<String>()
         category.children.forEach {
-            s.add(it.id)
+            s1.add(it.id)
+            s2.add(it.name)
         }
-        println(s)
-        val t = Intent(context, CategoryActivity::class.java)
-        t.putExtra("ids", s.toIntArray())
-        t.putExtra("title", category.name)
-        context.startActivity(t)
+
+        intent.putExtra("title", category.name)
+        intent.putExtra("ids", s1)
+        intent.putExtra("titles", s2)
+        context.startActivity(intent)
+    }
+
+    fun go2search(context: Context, keyword: String? = null) {
+        val intent = Intent(context, SearchActivity::class.java)
+        if (!keyword.isNullOrBlank()){
+            intent.putExtra("key", keyword)
+        }
+        context.startActivity(intent)
+    }
+
+    fun go2collect(context: Context){
+        context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 0) })
+    }
+
+    fun go2about(context: Context){
+        context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 1) })
+    }
+
+    fun go2todo(context: Context){
+        context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 2) })
     }
 }

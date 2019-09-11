@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.wzq.jetpack.databinding.FragmentProjectBinding
 import com.wzq.jetpack.data.remote.NetworkState
 import com.wzq.jetpack.ui.adapter.ProjectAdapter
 import com.wzq.jetpack.viewmodel.ProjectViewModel
+import com.wzq.jetpack.viewmodel.ViewModelFactory
 
 
 /**
@@ -17,8 +19,7 @@ import com.wzq.jetpack.viewmodel.ProjectViewModel
  */
 class ProjectFragment : BaseFragment() {
 
-    val viewModel by lazy{ viewModel(ProjectViewModel::class.java) }
-
+    private val viewModel by viewModels<ProjectViewModel> { ViewModelFactory() }
 
     lateinit var binding: FragmentProjectBinding
 
@@ -33,6 +34,7 @@ class ProjectFragment : BaseFragment() {
         val adapter = ProjectAdapter()
         binding.projectList.adapter = adapter
         viewModel.listData.observe(this, Observer {
+            println(it.toString())
             adapter.submitList(it)
         })
         viewModel.networkState.observe(this, Observer {

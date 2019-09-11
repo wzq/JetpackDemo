@@ -13,6 +13,7 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import okhttp3.HttpUrl.Companion.toHttpUrl
 
 import com.wzq.jetpack.App
+import com.wzq.jetpack.data.remote.api.GankApi
 
 
 object Linker {
@@ -38,9 +39,11 @@ object Linker {
     private val retrofit = Retrofit.Builder().baseUrl(url)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
-            ///.addCallAdapterFactory(LiveDataCallAdapterFactory())
             .build()
 
     val api: Api by lazy { retrofit.create(Api::class.java) }
+
+
+    val gankApi : GankApi by lazy { retrofit.create(GankApi::class.java) }
 
 }

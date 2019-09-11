@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_user"
+    app:startDestination="@+id/blank">
+
+    <fragment
+        android:id="@+id/blank"
+        android:name="com.wzq.jetpack.ui.fragment.BaseFragment"
+        android:label="blank" />
+
+    <fragment
+        android:id="@+id/user_collect"
+        android:name="com.wzq.jetpack.ui.fragment.CollectFragment"
+        android:label="collect" />
+
+    <fragment
+        android:id="@+id/user_about"
+        android:name="com.wzq.jetpack.ui.fragment.AboutFragment"
+        android:label="about" />
+
+
+    <fragment
+        android:id="@+id/user_todo"
+        android:name="com.wzq.jetpack.ui.fragment.TodoFragment"
+        android:label="todo" >
+
+        <action android:id="@+id/todo_to_edit"
+            app:destination="@+id/todo_edit"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/todo_edit"
+        android:name="com.wzq.jetpack.ui.fragment.TodoEditFragment"
+        android:label="todoEdit" />
+
+</navigation>

@@ -99,7 +99,7 @@ class VerticalItemDecoration(private val mDividerViewTypeMap: SparseArray<Drawab
 
         fun type(viewType: Int): Builder {
             val a = mContext.obtainStyledAttributes(ATTRS)
-            val divider = a.getDrawable(0)
+            val divider = a.getDrawable(0)!!
             type(viewType, divider)
             a.recycle()
             return this

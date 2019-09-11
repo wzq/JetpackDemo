@@ -1,7 +1,6 @@
 package com.wzq.jetpack.ui.fragment
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +12,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.viewpager2.widget.ViewPager2
 import com.wzq.jetpack.R
+import com.wzq.jetpack.data.remote.NetworkState
 import com.wzq.jetpack.databinding.FragmentHomeBinding
+import com.wzq.jetpack.ui.adapter.ArticleAdapter
 import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.adapter.HomePageAdapter
 import com.wzq.jetpack.util.dp2px
-import com.wzq.jetpack.util.threadLog
 import com.wzq.jetpack.viewmodel.HomeViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
@@ -30,11 +30,7 @@ class HomeFragment : BaseFragment() {
 
     private val viewModel by viewModels<HomeViewModel> { ViewModelFactory() }
 
-    private val adapter by lazy{ HomeAdapter() }
-
-    private val pagerAdapter by lazy { HomePageAdapter() }
-
-    private var currentPage = 0
+    private val pagerAdapter = HomePageAdapter()
 
     private lateinit var binding: FragmentHomeBinding
 
@@ -43,17 +39,22 @@ class HomeFragment : BaseFragment() {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.homeSwipe.setOnRefreshListener {
-            refresh(binding)
+            viewModel.refresh()
         }
+
         initPager()
         initList()
-        refresh(binding) //初始化页面
         return binding.root
     }
 
     private fun initList() {
+        val adapter = ArticleAdapter()
         binding.homeList.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         binding.homeList.adapter = adapter
+        viewModel.articleList.observe(this, Observer {
+            binding.homeSwipe.isRefreshing = false
+            adapter.submitList(it)
+        })
     }
 
     private fun initPager() {
@@ -65,6 +66,10 @@ class HomeFragment : BaseFragment() {
         })
         viewModel.looper.observe(this, Observer {
             binding.homePage.currentItem = it
+        })
+        viewModel.banners.observe(this, Observer {
+            buildIndicator(it.size)
+            pagerAdapter.submitList(it)
         })
     }
 
@@ -88,19 +93,6 @@ class HomeFragment : BaseFragment() {
             }
             binding.homePageIndicator.addView(rb)
         }
-    }
-
-    private fun refresh(b: FragmentHomeBinding) {
-        b.homeSwipe.isRefreshing = true
-        viewModel.getArticles(currentPage).observe(this, Observer {
-            b.homeSwipe.isRefreshing = false
-            adapter.submitList(it)
-        })
-
-        viewModel.banners.observe(this, Observer {
-            buildIndicator(it.size)
-            pagerAdapter.submitList(it)
-        })
     }
 
     override fun back2top(){

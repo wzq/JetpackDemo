@@ -4,18 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.wzq.jetpack.R
-import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.databinding.FragmentCategoryBinding
-import com.wzq.jetpack.databinding.FragmentHomeBinding
 import com.wzq.jetpack.ui.adapter.CategoryAdapter
-import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
 import com.wzq.jetpack.viewmodel.CategoryViewModel
-import com.wzq.jetpack.viewmodel.HomeViewModel
-import timber.log.Timber
+import com.wzq.jetpack.viewmodel.ViewModelFactory
 
 
 /**
@@ -24,7 +20,7 @@ import timber.log.Timber
  */
 class CategoryFragment : BaseFragment() {
 
-    val viewModel by lazy{ viewModel(CategoryViewModel::class.java) }
+    private val viewModel by viewModels<CategoryViewModel> { ViewModelFactory() }
 
     val adapter by lazy{ CategoryAdapter() }
 
@@ -36,7 +32,7 @@ class CategoryFragment : BaseFragment() {
         binding.categoryList.addItemDecoration(SimpleDecoration(context, R.color.line_gray))
         binding.categoryList.adapter = adapter
         binding.categorySwipe.setOnRefreshListener {
-            refresh()
+            refresh1()
         }
 
         refresh()
@@ -45,9 +41,20 @@ class CategoryFragment : BaseFragment() {
 
     private fun refresh() {
         binding.categorySwipe.isRefreshing = true
-        viewModel.categoryList.observe(this, Observer {
+        viewModel.getCategoryList().observe(this, Observer {
             binding.categorySwipe.isRefreshing = false
             adapter.submitList(it)
+        })
+    }
+
+
+    private fun refresh1() {
+        binding.categorySwipe.isRefreshing = true
+        viewModel.getCategoryList().observe(this, Observer {
+            binding.categorySwipe.isRefreshing = false
+            adapter.submitList(it.map {et->
+                et.copy(name = "oooo")
+            })
         })
     }
 

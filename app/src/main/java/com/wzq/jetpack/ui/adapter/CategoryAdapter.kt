@@ -29,9 +29,9 @@ class CategoryAdapter: ListAdapter<Category, CategoryAdapter.ViewHolder>(Categor
     class ViewHolder(val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-                val params = it.tag as? Category
-                if (params != null) {
-                    Router.go2Category(binding.root.context, params)
+                val tag = it.tag
+                if (tag is Category) {
+                    Router.go2category(context = binding.root.context, category = tag)
                 }
             }
         }
@@ -44,7 +44,7 @@ private class CategoryDiffCallback: DiffUtil.ItemCallback<Category>(){
     }
 
     override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
-        return oldItem == newItem
+        return oldItem.name == newItem.name
     }
 
 }

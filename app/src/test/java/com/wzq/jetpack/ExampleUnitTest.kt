@@ -1,12 +1,12 @@
 package com.wzq.jetpack
 
-import kotlinx.coroutines.GlobalScope
+import com.wzq.jetpack.util.IOScope
+import com.wzq.jetpack.util.threadLog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -35,8 +35,9 @@ class ExampleUnitTest {
 
     @Test
     fun test01() {
-        repeat(3) {
-            print(it)
+        IOScope().launch {
+            println("${Thread.currentThread().name} io scope")
+            throw Exception("test exception")
         }
     }
 }

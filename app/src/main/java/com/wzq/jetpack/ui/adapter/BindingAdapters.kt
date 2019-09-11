@@ -1,6 +1,5 @@
 package com.wzq.jetpack.ui.adapter
 
-import android.text.method.LinkMovementMethod
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
@@ -29,7 +28,7 @@ fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
 fun bindRenderHtml(view: TextView, description: String?) {
     if (description != null) {
         view.text = HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_COMPACT)
-        view.movementMethod = LinkMovementMethod.getInstance()
+//        view.movementMethod = LinkMovementMethod.getInstance()  该设置会拦截view的touch事件
     } else {
         view.text = ""
     }
@@ -41,5 +40,14 @@ fun bindTimeFormat(view: TextView, time: Long?) {
         view.text = timeFormat(time)
     }else {
         view.text = ""
+    }
+}
+
+@BindingAdapter("formatTime")
+fun bindTimeFormat(view: TextView, time: String?) {
+    view.text = if (time.isNullOrBlank()){
+        ""
+    }else {
+        time.substring(0, time.indexOf("T"))
     }
 }

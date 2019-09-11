@@ -1,7 +1,9 @@
 package com.wzq.jetpack.viewmodel
 
+import androidx.annotation.MainThread
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.data.remote.Linker
@@ -20,8 +22,20 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
     private var flag = 0
 
     val banners = repo.getBanners()
+//
+//    private val listing = repo.getArticles()
+//
+//    val articles = listing.pagedList
+//
+//    val doRefresh = listing.refresh
+//    val networkState = listing.networkState
+//    val refreshState = listing.refreshState
 
-    fun getArticles(pageNum: Int) = repo.getArticles(pageNum)
+    val pageNum = MutableLiveData(0)
+
+    val articleList = pageNum.switchMap {
+        repo.getArticles(it)
+    }
 
     val looper = object :MutableLiveData<Int>() {
         override fun onActive() {
@@ -33,13 +47,24 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
     private fun runLooper(){
         viewModelScope.launch(context = Dispatchers.IO) {
             while (isActive && looper.hasActiveObservers()) {
-                threadLog("$flag")
+                //threadLog("$flag")
                 looper.postValue(flag)
                 flag++
                 if(flag > 3) flag = 0
                 delay(5000)
             }
         }
+    }
+
+
+    @MainThread
+    fun refresh(){
+        pageNum.value = 0
+    }
+
+    @MainThread
+    fun nextPage(){
+        pageNum.value = pageNum.value?.plus(1)
     }
 
 }

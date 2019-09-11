@@ -9,18 +9,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.remote.NetworkStateListener
-import com.wzq.jetpack.ui.fragment.BaseFragment
-import com.wzq.jetpack.ui.fragment.CategoryFragment
-import com.wzq.jetpack.ui.fragment.HomeFragment
-import com.wzq.jetpack.ui.fragment.ProjectFragment
-import com.wzq.jetpack.util.Prefs
+import com.wzq.jetpack.ui.fragment.*
 import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.monitor.LoginMonitor
 
@@ -55,7 +50,6 @@ class MainActivity : BaseActivity() {
 
         val ir = savedInstanceState?.getInt(INDEX_RESTORE, -1)
         if (ir == null || ir < 0) {
-            //todo init fragments
             navControl(0)
             title = "Demo"
         } else {
@@ -74,11 +68,23 @@ class MainActivity : BaseActivity() {
     }
 
     private fun userArea() {
-        val head = findViewById<NavigationView>(R.id.navigation_view).getHeaderView(0)
+        val nav = findViewById<NavigationView>(R.id.navigation_view)
+        nav.setNavigationItemSelectedListener {
+            when {
+                it.itemId == R.id.collect_fragment -> Router.go2collect(this@MainActivity)
+                it.itemId == R.id.about_fragment -> Router.go2about(this@MainActivity)
+                it.itemId == R.id.todo_fragment -> Router.go2todo(this@MainActivity)
+            }
+            drawer.closeDrawer(GravityCompat.START)
+            false
+        }
+
+        val head = nav.getHeaderView(0)
         val headName = head.findViewById<TextView>(R.id.user_name)
         head.findViewById<ImageView>(R.id.user_head)?.setOnClickListener {
             //if (Prefs.get(Prefs.USER_ID, 0) == 0)
             Router.go2login(this@MainActivity)
+            drawer.closeDrawer(GravityCompat.START)
         }
 
         loginMonitor.observe(this, Observer {
@@ -112,6 +118,11 @@ class MainActivity : BaseActivity() {
             R.id.navigation_notifications -> {
                 navControl(2)
                 title = "体系"
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_gank -> {
+                navControl(3)
+                title = "Gank"
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -159,8 +170,8 @@ class MainActivity : BaseActivity() {
         0 -> HomeFragment()
         1 -> ProjectFragment()
         2 -> CategoryFragment()
+        3 -> GankFragment()
         else -> throw IllegalArgumentException("can not get fragment $i")
     }
-
 
 }

@@ -1,66 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable name="article" type="com.wzq.jetpack.model.Article"/>
 
-        <import type="android.text.Html"/>
+        <variable
+            name="article"
+            type="com.wzq.jetpack.model.Article" />
+
+        <import type="android.text.Html" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/item_home_title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:padding="16dp">
+            android:layout_marginEnd="16dp"
+            android:clickable="false"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_home_tag"
+            app:layout_constraintEnd_toStartOf="@+id/item_home_time"
+            app:renderHtml="@{article.title}"
+            tools:text="测试TITL" />
+
 
         <TextView
-                android:id="@+id/item_home_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/item_home_time"
-                android:layout_marginEnd="16dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:maxLines="2"
-                android:ellipsize="end"
-                app:renderHtml="@{article.title}"
-                tools:text="测试TITL"/>
+            android:id="@+id/item_home_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@{article.author}"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_home_title"
+            tools:text="author" />
 
         <TextView
-                android:id="@+id/item_home_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/item_home_title"
-                android:textSize="12sp"
-                app:formatTime="@{article.publishTime}"
-                tools:text="time"/>
+            android:id="@+id/item_home_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{article.chapterName}"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="tags" />
 
         <TextView
-                android:id="@+id/item_home_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/item_home_title"
-                android:layout_marginTop="4dp"
-                android:textSize="12sp"
-                android:text="@{article.author}"
-                tools:text="author"/>
+            android:id="@+id/item_home_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:textSize="12sp"
+            app:formatTime="@{article.publishTime}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="time" />
 
-        <TextView
-                android:id="@+id/item_home_tag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/item_home_author"
-                app:layout_constraintBottom_toBottomOf="@+id/item_home_author"
-                android:textColor="@color/colorAccent"
-                android:textSize="12sp"
-                android:text="@{article.chapterName}"
-                tools:text="tags"/>
+        <com.like.LikeButton
+            android:id="@+id/item_home_star"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            app:icon_size="16dp"
+            app:icon_type="heart"
+            app:layout_constraintTop_toTopOf="@+id/item_home_title"
+            app:layout_constraintBottom_toBottomOf="@+id/item_home_author"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

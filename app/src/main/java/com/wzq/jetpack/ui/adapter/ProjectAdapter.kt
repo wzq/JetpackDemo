@@ -52,7 +52,8 @@ private class ProjectDiffCallback: DiffUtil.ItemCallback<Article>(){
     }
 
     override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-        return oldItem == newItem
+        println( oldItem.title == newItem.title)
+        return oldItem.title == newItem.title
     }
 
 }

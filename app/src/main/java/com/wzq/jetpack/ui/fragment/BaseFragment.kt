@@ -1,11 +1,6 @@
 package com.wzq.jetpack.ui.fragment
 
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProviders
-import com.wzq.jetpack.data.BaseRepo
-import com.wzq.jetpack.viewmodel.ViewModelFactory
-import kotlin.reflect.KClass
 
 
 /**
@@ -13,8 +8,6 @@ import kotlin.reflect.KClass
  *
  */
 open class BaseFragment: Fragment() {
-
-    fun <T: ViewModel> viewModel(clazz: Class<T>) = ViewModelProviders.of(this, ViewModelFactory()).get(clazz)
 
     open fun back2top() {}
 

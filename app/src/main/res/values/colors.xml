@@ -9,5 +9,9 @@
 
     <color name="line_gray">#E6E6E6</color>
 
+    <color name="text_black_a">#252424</color>
     <color name="text_gray_a">#AAA7A7</color>
+    <color name="text_gray_b">#ABE4E0E0</color>
+
+    <color name="text_gray_c">#858282</color>
 </resources>

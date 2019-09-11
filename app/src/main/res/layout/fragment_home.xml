@@ -1,44 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/home_swipe"
+        android:id="@+id/home_swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/home_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
-                android:id="@+id/home_scroll"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
             <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <androidx.viewpager2.widget.ViewPager2
-                        android:id="@+id/home_page"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"/>
+                    android:id="@+id/home_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
 
                 <RadioGroup
-                        android:id="@+id/home_page_indicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="180dp"
-                        android:layout_marginEnd="16dp"/>
+                    android:id="@+id/home_page_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="180dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/home_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="200dp"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/item_home"/>
+                    android:id="@+id/home_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="200dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_home" />
 
             </FrameLayout>
 

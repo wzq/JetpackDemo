@@ -19,7 +19,7 @@ class LoginMonitor: LiveData<String?>() {
 
     override fun onActive() {
         super.onActive()
-        postValue(userName)
+        value = userName
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -31,5 +31,7 @@ class LoginMonitor: LiveData<String?>() {
     fun onUserLogout(result: LoginResult) {
         postValue("点击登录")
     }
+
+    fun isLogin(): Boolean = userName != "点击登录"
 
 }
