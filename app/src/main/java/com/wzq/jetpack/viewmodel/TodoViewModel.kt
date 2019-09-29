@@ -10,8 +10,8 @@ class TodoViewModel(val repo: TodoRepo) : ViewModel() {
     val todoList: LiveData<TodoResult> = repo.getTodoList(0, params = emptyMap())
 
 
-    fun submit(params: Map<String, String>) {
-        repo.addTodo(params)
+    fun submit(params: Map<String, String>): LiveData<TodoResult> {
+        return repo.addTodo(params)
     }
 
 }

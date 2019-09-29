@@ -4,13 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.wzq.jetpack.databinding.FragmentTodoEditBinding
 import com.wzq.jetpack.util.timeFormat
 import com.wzq.jetpack.viewmodel.TodoViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
-class TodoEditFragment: BaseFragment() {
+class TodoEditFragment : BaseFragment() {
     private val viewModel by viewModels<TodoViewModel> { ViewModelFactory() }
 
     override fun onCreateView(
@@ -27,7 +30,13 @@ class TodoEditFragment: BaseFragment() {
             params["title"] = binding.todoEditTitle.text.toString()
             params["content"] = binding.todoEditContent.text.toString()
             params["date"] = timeFormat(System.currentTimeMillis())
-            viewModel.submit(params)
+            viewModel.submit(params).observe(this, Observer {
+                //todo
+                if (it.errorCode == 0) {
+                    Toast.makeText(this.context, "添加成功", Toast.LENGTH_SHORT).show()
+                    findNavController().navigateUp()
+                }
+            })
         }
         return binding.root
     }

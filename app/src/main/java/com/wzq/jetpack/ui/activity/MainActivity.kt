@@ -2,6 +2,7 @@ package com.wzq.jetpack.ui.activity
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -13,9 +14,11 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.remote.NetworkStateListener
 import com.wzq.jetpack.ui.fragment.*
+import com.wzq.jetpack.util.Prefs
 import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.monitor.LoginMonitor
 
@@ -70,12 +73,20 @@ class MainActivity : BaseActivity() {
     private fun userArea() {
         val nav = findViewById<NavigationView>(R.id.navigation_view)
         nav.setNavigationItemSelectedListener {
-            when {
-                it.itemId == R.id.collect_fragment -> Router.go2collect(this@MainActivity)
-                it.itemId == R.id.about_fragment -> Router.go2about(this@MainActivity)
-                it.itemId == R.id.todo_fragment -> Router.go2todo(this@MainActivity)
+            if (loginMonitor.isLogin()) {
+                when {
+                    it.itemId == R.id.collect_fragment -> Router.go2collect(this@MainActivity)
+                    it.itemId == R.id.about_fragment -> Router.go2about(this@MainActivity)
+                    it.itemId == R.id.todo_fragment -> Router.go2todo(this@MainActivity)
+                }
+                drawer.closeDrawer(GravityCompat.START)
+            } else {
+                Snackbar.make(window.decorView.findViewById<View>(android.R.id.content),
+                    "请登录", Snackbar.LENGTH_LONG)
+                    .setAction("去登录") {
+                        Router.go2login(this@MainActivity)
+                    }.show()
             }
-            drawer.closeDrawer(GravityCompat.START)
             false
         }
 

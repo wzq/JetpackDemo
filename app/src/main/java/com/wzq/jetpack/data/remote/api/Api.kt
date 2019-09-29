@@ -1,6 +1,7 @@
 package com.wzq.jetpack.data.remote.api
 
 import com.google.gson.JsonObject
+import com.wzq.jetpack.model.Todo
 import com.wzq.jetpack.model.result.*
 import retrofit2.Call
 import retrofit2.http.*
@@ -214,7 +215,7 @@ interface Api {
          */
         @POST("/lg/todo/add/json")
         @FormUrlEncoded
-        suspend fun addTodo(@FieldMap map: Map<String, String>): JsonObject
+        suspend fun addTodo(@FieldMap map: Map<String, String>): TodoResult
 
         /**
          * 更新一条Todo内容
