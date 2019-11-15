@@ -1,5 +1,7 @@
 package com.wzq.jetpack.ui.activity
 
+import android.app.SharedElementCallback
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -11,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
+import androidx.lifecycle.liveData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -18,9 +21,17 @@ import com.google.android.material.snackbar.Snackbar
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.remote.NetworkStateListener
 import com.wzq.jetpack.ui.fragment.*
+import com.wzq.jetpack.util.AnimUtils
 import com.wzq.jetpack.util.Prefs
 import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.monitor.LoginMonitor
+import com.wzq.jetpack.util.threadLog
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
 
@@ -58,6 +69,9 @@ class MainActivity : BaseActivity() {
         } else {
             currentIndex = savedInstanceState.getInt(INDEX_RESTORE)
         }
+
+        animateToolbar(toolbar)
+        setExitSharedElementCallback(createSharedElementReenterCallback(this))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -183,6 +197,55 @@ class MainActivity : BaseActivity() {
         2 -> CategoryFragment()
         3 -> GankFragment()
         else -> throw IllegalArgumentException("can not get fragment $i")
+    }
+
+    private fun animateToolbar(toolbar: Toolbar) {
+        // this is gross but toolbar doesn't expose it's children to animate them :(
+        val t = toolbar.getChildAt(0)
+        if (t is TextView) {
+            t.apply {
+                alpha = 0.4f
+                scaleX = 0.8f
+
+                animate()
+                    .alpha(1f)
+                    .scaleX(1f)
+                    .setStartDelay(300)
+                    .setDuration(900).interpolator =
+                    AnimUtils.getFastOutSlowInInterpolator(this@MainActivity)
+            }
+        }
+
+    }
+
+    fun createSharedElementReenterCallback(
+        context: Context
+    ): SharedElementCallback {
+        val shotTransitionName = "image"
+        val shotBackgroundTransitionName ="name"
+        return object : SharedElementCallback() {
+
+            /**
+             * We're performing a slightly unusual shared element transition i.e. from one view
+             * (image in the grid) to two views (the image & also the background of the details
+             * view, to produce the expand effect). After changing orientation, the transition
+             * system seems unable to map both shared elements (only seems to map the shot, not
+             * the background) so in this situation we manually map the background to the
+             * same view.
+             */
+            override fun onMapSharedElements(
+                names: List<String>,
+                sharedElements: MutableMap<String, View>
+            ) {
+                if (sharedElements.size != names.size) {
+                    // couldn't map all shared elements
+                    sharedElements[shotTransitionName]?.let {
+                        // has shot so add shot background, mapped to same view
+                        sharedElements[shotBackgroundTransitionName] = it
+                    }
+                }
+            }
+        }
     }
 
 }

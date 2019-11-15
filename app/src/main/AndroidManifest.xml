@@ -46,6 +46,11 @@
             android:name=".ui.activity.UserActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.ActionBar" />
+
+        <activity android:name=".ui.TestActivity"
+            android:theme="@style/AppTheme.Test"
+            android:parentActivityName=".ui.activity.MainActivity"/>
+
     </application>
 
 </manifest>
