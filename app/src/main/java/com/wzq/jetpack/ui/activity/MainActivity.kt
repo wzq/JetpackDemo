@@ -71,7 +71,6 @@ class MainActivity : BaseActivity() {
         }
 
         animateToolbar(toolbar)
-        setExitSharedElementCallback(createSharedElementReenterCallback(this))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -88,10 +87,10 @@ class MainActivity : BaseActivity() {
         val nav = findViewById<NavigationView>(R.id.navigation_view)
         nav.setNavigationItemSelectedListener {
             if (loginMonitor.isLogin()) {
-                when {
-                    it.itemId == R.id.collect_fragment -> Router.go2collect(this@MainActivity)
-                    it.itemId == R.id.about_fragment -> Router.go2about(this@MainActivity)
-                    it.itemId == R.id.todo_fragment -> Router.go2todo(this@MainActivity)
+                when (it.itemId) {
+                    R.id.collect_fragment -> Router.go2collect(this@MainActivity)
+                    R.id.about_fragment -> Router.go2about(this@MainActivity)
+                    R.id.todo_fragment -> Router.go2todo(this@MainActivity)
                 }
                 drawer.closeDrawer(GravityCompat.START)
             } else {
@@ -204,8 +203,8 @@ class MainActivity : BaseActivity() {
         val t = toolbar.getChildAt(0)
         if (t is TextView) {
             t.apply {
-                alpha = 0.4f
-                scaleX = 0.8f
+                alpha = 0.0f
+                scaleX = 0.0f
 
                 animate()
                     .alpha(1f)
@@ -216,36 +215,6 @@ class MainActivity : BaseActivity() {
             }
         }
 
-    }
-
-    fun createSharedElementReenterCallback(
-        context: Context
-    ): SharedElementCallback {
-        val shotTransitionName = "image"
-        val shotBackgroundTransitionName ="name"
-        return object : SharedElementCallback() {
-
-            /**
-             * We're performing a slightly unusual shared element transition i.e. from one view
-             * (image in the grid) to two views (the image & also the background of the details
-             * view, to produce the expand effect). After changing orientation, the transition
-             * system seems unable to map both shared elements (only seems to map the shot, not
-             * the background) so in this situation we manually map the background to the
-             * same view.
-             */
-            override fun onMapSharedElements(
-                names: List<String>,
-                sharedElements: MutableMap<String, View>
-            ) {
-                if (sharedElements.size != names.size) {
-                    // couldn't map all shared elements
-                    sharedElements[shotTransitionName]?.let {
-                        // has shot so add shot background, mapped to same view
-                        sharedElements[shotBackgroundTransitionName] = it
-                    }
-                }
-            }
-        }
     }
 
 }

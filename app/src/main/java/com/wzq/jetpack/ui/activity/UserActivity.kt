@@ -1,33 +1,28 @@
 package com.wzq.jetpack.ui.activity
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.wzq.jetpack.R
 
-class UserActivity: BaseActivity() {
+class UserActivity : AppCompatActivity() {
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val type = intent.getIntExtra("type", 0)
-
-        val controller = findNavController(R.id.nav_user)
-
-        when(type){
-            0 -> {
-                title = "收藏"
-                controller.navigate(R.id.user_collect)
-            }
-            1 -> {
-                controller.navigate(R.id.user_about)
-                title = "关于"
-            }
-            2 -> {
-                controller.navigate(R.id.user_todo)
-                title = "TODO"
-            }
+        appBarConfiguration = AppBarConfiguration(emptySet()){
+            finish(); true
         }
+        setupActionBarWithNavController(findNavController(R.id.nav_user_fragment),appBarConfiguration)
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_user_fragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
 }

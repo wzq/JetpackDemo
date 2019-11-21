@@ -3,14 +3,15 @@ package com.wzq.jetpack.viewmodel
 import androidx.annotation.MainThread
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
 import com.wzq.jetpack.data.HomeRepo
-import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.util.threadLog
-import kotlinx.coroutines.*
-import java.lang.Exception
-import kotlin.coroutines.suspendCoroutine
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 
 /**
@@ -19,7 +20,6 @@ import kotlin.coroutines.suspendCoroutine
  */
 class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel() {
 
-    private var flag = 0
 
     val banners = repo.getBanners()
 //
@@ -37,33 +37,25 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
         repo.getArticles(it)
     }
 
-    val looper = object :MutableLiveData<Int>() {
-        override fun onActive() {
-            super.onActive()
-            runLooper()
+    @ExperimentalCoroutinesApi
+    val looper = flow {
+        threadLog("flow run")
+        var flag = 0
+        while (true) {
+            delay(5000)
+            if (flag >= 2) flag = 0 else flag++
+            emit(flag)
         }
-    }
-
-    private fun runLooper(){
-        viewModelScope.launch(context = Dispatchers.IO) {
-            while (isActive && looper.hasActiveObservers()) {
-                //threadLog("$flag")
-                looper.postValue(flag)
-                flag++
-                if(flag > 3) flag = 0
-                delay(5000)
-            }
-        }
-    }
+    }.flowOn(Dispatchers.IO).asLiveData()
 
 
     @MainThread
-    fun refresh(){
+    fun refresh() {
         pageNum.value = 0
     }
 
     @MainThread
-    fun nextPage(){
+    fun nextPage() {
         pageNum.value = pageNum.value?.plus(1)
     }
 

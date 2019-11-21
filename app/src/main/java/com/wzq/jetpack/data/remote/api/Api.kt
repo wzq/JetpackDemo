@@ -18,7 +18,7 @@ interface Api {
          * http://www.wanandroid.com/banner/json
          */
         @GET("banner/json")
-        fun getBanners(): Call<BannerResult>
+        suspend fun getBanners(): BannerResult
 
         /**
          * 获取首页置顶文章列表

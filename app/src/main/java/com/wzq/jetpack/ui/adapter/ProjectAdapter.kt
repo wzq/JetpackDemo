@@ -1,8 +1,5 @@
 package com.wzq.jetpack.ui.adapter
 
-import android.app.ActivityOptions
-import android.content.Intent
-import android.util.Pair
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagedListAdapter
@@ -12,11 +9,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.ListPreloader
 import com.bumptech.glide.RequestBuilder
 import com.wzq.jetpack.App
-import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.ItemProjectBinding
 import com.wzq.jetpack.model.Article
-import com.wzq.jetpack.ui.TestActivity
-import com.wzq.jetpack.ui.activity.MainActivity
+import com.wzq.jetpack.util.Router
 
 
 /**
@@ -56,14 +51,7 @@ class ProjectAdapter : PagedListAdapter<Article, ProjectAdapter.ViewHolder>(Proj
     class ViewHolder(val binding: ItemProjectBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
-//                Router.go2web(binding.root.context, it.tag as String)
-                val intent = Intent(it.context, TestActivity::class.java)
-                val options = ActivityOptions.makeSceneTransitionAnimation(
-                    it.context as MainActivity,
-                    Pair.create(it, it.context.resources.getString(R.string.transition_image)),
-                    Pair.create(it, it.context.resources.getString(R.string.transition_image))
-                )
-                it.context.startActivity(intent, options.toBundle())
+                Router.go2web(binding.root.context, it.tag as String)
             }
         }
     }

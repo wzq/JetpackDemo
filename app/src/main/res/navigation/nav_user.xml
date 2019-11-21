@@ -2,13 +2,26 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_user"
-    app:startDestination="@+id/blank">
+    android:id="@+id/nav_user_fragment"
+    app:startDestination="@+id/user">
 
     <fragment
-        android:id="@+id/blank"
-        android:name="com.wzq.jetpack.ui.fragment.BaseFragment"
-        android:label="blank" />
+        android:id="@+id/user"
+        android:name="com.wzq.jetpack.ui.fragment.UserFragment"
+        android:label="user">
+
+        <action
+            android:id="@+id/user_to_todo"
+            app:destination="@+id/user_todo"/>
+
+        <action
+            android:id="@+id/user_to_collect"
+            app:destination="@+id/user_collect" />
+
+        <action
+            android:id="@+id/user_to_about"
+            app:destination="@+id/user_about" />
+    </fragment>
 
     <fragment
         android:id="@+id/user_collect"

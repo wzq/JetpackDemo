@@ -9,6 +9,7 @@ import android.widget.RadioButton
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.viewpager2.widget.ViewPager2
 import com.wzq.jetpack.R
@@ -20,6 +21,7 @@ import com.wzq.jetpack.ui.adapter.HomePageAdapter
 import com.wzq.jetpack.util.dp2px
 import com.wzq.jetpack.viewmodel.HomeViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
 /**
@@ -53,7 +55,7 @@ class HomeFragment : BaseFragment() {
         val adapter = ArticleAdapter()
         binding.homeList.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         binding.homeList.adapter = adapter
-        viewModel.articleList.observe(this, Observer {
+        viewModel.articleList.observe(viewLifecycleOwner, Observer {
             binding.homeSwipe.isRefreshing = false
             adapter.submitList(it)
         })
@@ -66,10 +68,10 @@ class HomeFragment : BaseFragment() {
                 indicatorChanged(position)
             }
         })
-        viewModel.looper.observe(this, Observer {
+        viewModel.looper.observe(this)  {
             binding.homePage.currentItem = it
-        })
-        viewModel.banners.observe(this, Observer {
+        }
+        viewModel.banners.observe(viewLifecycleOwner, Observer {
             buildIndicator(it.size)
             pagerAdapter.submitList(it)
         })
