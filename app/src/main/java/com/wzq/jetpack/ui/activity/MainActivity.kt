@@ -1,7 +1,5 @@
 package com.wzq.jetpack.ui.activity
 
-import android.app.SharedElementCallback
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -13,7 +11,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
-import androidx.lifecycle.liveData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -22,16 +19,8 @@ import com.wzq.jetpack.R
 import com.wzq.jetpack.data.remote.NetworkStateListener
 import com.wzq.jetpack.ui.fragment.*
 import com.wzq.jetpack.util.AnimUtils
-import com.wzq.jetpack.util.Prefs
 import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.monitor.LoginMonitor
-import com.wzq.jetpack.util.threadLog
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 
 class MainActivity : BaseActivity() {
 
@@ -92,7 +81,7 @@ class MainActivity : BaseActivity() {
                     R.id.about_fragment -> Router.go2about(this@MainActivity)
                     R.id.todo_fragment -> Router.go2todo(this@MainActivity)
                 }
-                drawer.closeDrawer(GravityCompat.START)
+//                drawer.closeDrawer(GravityCompat.START)
             } else {
                 Snackbar.make(window.decorView.findViewById<View>(android.R.id.content),
                     "请登录", Snackbar.LENGTH_LONG)

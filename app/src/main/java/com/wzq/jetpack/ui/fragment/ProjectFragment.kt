@@ -34,7 +34,7 @@ class ProjectFragment : BaseFragment() {
     }
 
     private fun initAdapter() {
-        val adapter = ProjectAdapter()
+        val adapter = ProjectAdapter(this)
         binding.projectList.adapter = adapter
         val sizeProvider = ViewPreloadSizeProvider<Article>()
         val viewPreloader = RecyclerViewPreloader(this, adapter, sizeProvider, 4)

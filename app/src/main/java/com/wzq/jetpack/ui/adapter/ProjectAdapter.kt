@@ -2,6 +2,7 @@ package com.wzq.jetpack.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -18,14 +19,14 @@ import com.wzq.jetpack.util.Router
  * Created by wzq on 2019-07-12
  *
  */
-class ProjectAdapter : PagedListAdapter<Article, ProjectAdapter.ViewHolder>(ProjectDiffCallback()), ListPreloader.PreloadModelProvider<Article>  {
+class ProjectAdapter(private val host: Fragment) : PagedListAdapter<Article, ProjectAdapter.ViewHolder>(ProjectDiffCallback()), ListPreloader.PreloadModelProvider<Article>  {
 
     override fun getPreloadItems(position: Int): List<Article> {
         return listOf(getItem(position)!!)
     }
 
     override fun getPreloadRequestBuilder(item: Article): RequestBuilder<*>? {
-        return Glide.with(App.context).load(item.envelopePic)
+        return Glide.with(host).load(item.envelopePic)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
