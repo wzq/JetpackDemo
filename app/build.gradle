@@ -93,7 +93,7 @@ dependencies {
 
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
-//    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
+    //    debugImplementation 'com.github.markzhai:blockcanary-android:1.5.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
