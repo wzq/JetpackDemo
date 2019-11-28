@@ -78,14 +78,12 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun indicatorChanged(position: Int) {
-        if (binding.homePageIndicator.childCount > position) {
-            val temp = binding.homePageIndicator.getChildAt(position)
+            val temp = binding.homePageIndicator.getChildAt(position%pagerAdapter.realItemCount())
             (temp as? RadioButton)?.isChecked = true
-        }
     }
 
     private fun buildIndicator(len: Int){
-        if (len == pagerAdapter.itemCount){
+        if (len == pagerAdapter.realItemCount()){
             return
         }
         binding.homePageIndicator.removeAllViews()

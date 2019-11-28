@@ -1,10 +1,7 @@
 package com.wzq.jetpack.viewmodel
 
 import androidx.annotation.MainThread
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.util.threadLog
 import kotlinx.coroutines.Dispatchers
@@ -34,7 +31,7 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
     val pageNum = MutableLiveData(0)
 
     val articleList = pageNum.switchMap {
-        repo.getArticles(it)
+        liveData { emit(repo.getArticles(it)) }
     }
 
     @ExperimentalCoroutinesApi
@@ -43,8 +40,7 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
         var flag = 0
         while (true) {
             delay(5000)
-            if (flag >= 2) flag = 0 else flag++
-            emit(flag)
+            emit(++flag)
         }
     }.flowOn(Dispatchers.IO).asLiveData()
 

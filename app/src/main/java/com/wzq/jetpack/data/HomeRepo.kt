@@ -16,6 +16,7 @@ import com.wzq.jetpack.util.NETWORK_IO
 import com.wzq.jetpack.util.thread.IOScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 
@@ -25,11 +26,13 @@ import timber.log.Timber
  */
 class HomeRepo : BaseRepo() {
 
-    fun getBanners():LiveData<List<Banner>> = liveData(Dispatchers.IO) {
+    fun getBanners(): LiveData<List<Banner>> = liveData {
         val result = Linker.api.getBanners().data
         emit(result)
-        val s = AppDatabase.getInstance().bannerDao().insert(result)
-        Timber.d(s?.toString())
+        withContext(Dispatchers.IO) {
+            val s = AppDatabase.getInstance().bannerDao().insert(result)
+            Timber.d(s?.toString())
+        }
     }
 
     @MainThread
@@ -44,21 +47,13 @@ class HomeRepo : BaseRepo() {
             pagedList = pagedList,
             networkState = sourceFactory.sourceLiveData.switchMap { it.networkState },
             retry = { sourceFactory.sourceLiveData.value?.retryAllFailed() },
-            refresh = {sourceFactory.sourceLiveData.value?.invalidate()},
+            refresh = { sourceFactory.sourceLiveData.value?.invalidate() },
             refreshState = refreshState
         )
     }
 
 
-    fun getArticles(pageNum: Int = 0) : LiveData<List<Article>>{
-        val data = MutableLiveData<List<Article>>()
-        IOScope { data.postValue(emptyList()) }
-            .launch {
-                val s = Linker.api.getArticles(pageNum)?.data?.datas ?: emptyList<Article>()
-                data.postValue(s)
-            }
-        return data
-    }
-
+    suspend fun getArticles(pageNum: Int = 0) =
+        Linker.api.getArticles(pageNum)?.data?.datas ?: emptyList<Article>()
 
 }

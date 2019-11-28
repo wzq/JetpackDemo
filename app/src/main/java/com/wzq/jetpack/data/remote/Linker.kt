@@ -14,6 +14,7 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 
 import com.wzq.jetpack.App
 import com.wzq.jetpack.data.remote.api.GankApi
+import retrofit2.create
 
 
 object Linker {
@@ -41,9 +42,9 @@ object Linker {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    val api: Api by lazy { retrofit.create(Api::class.java) }
+    val api: Api by lazy { retrofit.create<Api>() }
 
 
-    val gankApi : GankApi by lazy { retrofit.create(GankApi::class.java) }
+    val gankApi : GankApi by lazy { retrofit.create<GankApi>()}
 
 }
