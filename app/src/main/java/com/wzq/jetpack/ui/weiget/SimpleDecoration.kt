@@ -13,7 +13,7 @@ import com.wzq.jetpack.util.dp2px
 
 class SimpleDecoration(context: Context?, private val resId: Int = R.color.line_gray) : RecyclerView.ItemDecoration() {
 
-    val offset: Int = dp2px(context, 1)
+    val offset: Int = dp2px(1)
 
     val paint =  Paint().apply {
         if (context != null){

@@ -15,7 +15,7 @@ class UserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
         appBarConfiguration = AppBarConfiguration(emptySet()){
-            finish(); true
+            finish(); true  //为了显示返回按钮
         }
         setupActionBarWithNavController(findNavController(R.id.nav_user_fragment),appBarConfiguration)
     }

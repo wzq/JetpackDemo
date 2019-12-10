@@ -90,7 +90,7 @@ class HomeFragment : BaseFragment() {
         (0 until len).forEach { _ ->
             val rb = layoutInflater.inflate(R.layout.view_radiobutton, binding.homePageIndicator, false).also {
                 val params = it.layoutParams as LinearLayout.LayoutParams
-                params.marginStart = dp2px(activity, 6)
+                params.marginStart = dp2px(6)
                 it.layoutParams = params
             }
             binding.homePageIndicator.addView(rb)

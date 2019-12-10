@@ -12,7 +12,9 @@
 
         <action
             android:id="@+id/user_to_todo"
-            app:destination="@+id/user_todo"/>
+            app:destination="@+id/user_todo"
+            app:popUpTo="@id/user"
+            app:popUpToInclusive="true"/>
 
         <action
             android:id="@+id/user_to_collect"
