@@ -16,6 +16,19 @@ import com.wzq.jetpack.util.Router
  */
 class HomePageAdapter : ListAdapter<Banner, HomePageAdapter.ViewHolder>(DiffCallback()) {
 
+    override fun getItemCount(): Int {
+        return if (super.getItemCount() > 0) Int.MAX_VALUE else 0
+    }
+
+    override fun getItem(position: Int): Banner {
+        val p = if (super.getItemCount() > 0) position % super.getItemCount() else position
+        return super.getItem(p)
+    }
+
+    fun realItemCount(): Int{
+        return super.getItemCount()
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.binding.banner = item

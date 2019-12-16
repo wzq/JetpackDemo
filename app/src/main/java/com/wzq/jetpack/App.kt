@@ -3,16 +3,16 @@ package com.wzq.jetpack
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import com.wzq.jetpack.BuildConfig
 import timber.log.Timber
+
 
 /**
  * Created by wzq on 2019-07-12
  *
  */
-class App: Application() {
+class App : Application() {
 
-    companion object{
+    companion object {
 
         @SuppressLint("StaticFieldLeak")
         @JvmStatic

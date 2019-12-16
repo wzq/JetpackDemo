@@ -2,10 +2,12 @@ package com.wzq.jetpack.ui.activity
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -13,9 +15,11 @@ import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.remote.NetworkStateListener
 import com.wzq.jetpack.ui.fragment.*
+import com.wzq.jetpack.util.AnimUtils
 import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.monitor.LoginMonitor
 
@@ -45,7 +49,8 @@ class MainActivity : BaseActivity() {
         userArea()
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
-            (supportFragmentManager.findFragmentByTag("main-f$currentIndex") as? BaseFragment)?.back2top()
+//            (supportFragmentManager.findFragmentByTag("main-f$currentIndex") as? BaseFragment)?.back2top()
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         }
 
         val ir = savedInstanceState?.getInt(INDEX_RESTORE, -1)
@@ -55,6 +60,8 @@ class MainActivity : BaseActivity() {
         } else {
             currentIndex = savedInstanceState.getInt(INDEX_RESTORE)
         }
+
+        animateToolbar(toolbar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -70,12 +77,20 @@ class MainActivity : BaseActivity() {
     private fun userArea() {
         val nav = findViewById<NavigationView>(R.id.navigation_view)
         nav.setNavigationItemSelectedListener {
-            when {
-                it.itemId == R.id.collect_fragment -> Router.go2collect(this@MainActivity)
-                it.itemId == R.id.about_fragment -> Router.go2about(this@MainActivity)
-                it.itemId == R.id.todo_fragment -> Router.go2todo(this@MainActivity)
+            if (loginMonitor.isLogin()) {
+                when (it.itemId) {
+                    R.id.collect_fragment -> Router.go2collect(this@MainActivity)
+                    R.id.about_fragment -> Router.go2about(this@MainActivity)
+                    R.id.todo_fragment -> Router.go2todo(this@MainActivity)
+                }
+//                drawer.closeDrawer(GravityCompat.START)
+            } else {
+                Snackbar.make(window.decorView.findViewById<View>(android.R.id.content),
+                    "请登录", Snackbar.LENGTH_LONG)
+                    .setAction("去登录") {
+                        Router.go2login(this@MainActivity)
+                    }.show()
             }
-            drawer.closeDrawer(GravityCompat.START)
             false
         }
 
@@ -172,6 +187,25 @@ class MainActivity : BaseActivity() {
         2 -> CategoryFragment()
         3 -> GankFragment()
         else -> throw IllegalArgumentException("can not get fragment $i")
+    }
+
+    private fun animateToolbar(toolbar: Toolbar) {
+        // this is gross but toolbar doesn't expose it's children to animate them :(
+        val t = toolbar.getChildAt(0)
+        if (t is TextView) {
+            t.apply {
+                alpha = 0.0f
+                scaleX = 0.0f
+
+                animate()
+                    .alpha(1f)
+                    .scaleX(1f)
+                    .setStartDelay(300)
+                    .setDuration(900).interpolator =
+                    AnimUtils.getFastOutSlowInInterpolator(this@MainActivity)
+            }
+        }
+
     }
 
 }

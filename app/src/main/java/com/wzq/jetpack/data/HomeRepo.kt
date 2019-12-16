@@ -3,21 +3,20 @@ package com.wzq.jetpack.data
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import androidx.paging.toLiveData
 import com.wzq.jetpack.data.local.AppDatabase
 import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.data.source.HomeDataSourceFactory
-import com.wzq.jetpack.data.source.ProjectDataSourceFactory
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.model.Banner
 import com.wzq.jetpack.model.Listing
 import com.wzq.jetpack.util.NETWORK_IO
-import com.wzq.jetpack.util.resultFactory
 import com.wzq.jetpack.util.thread.IOScope
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 
@@ -27,17 +26,13 @@ import timber.log.Timber
  */
 class HomeRepo : BaseRepo() {
 
-    fun getBanners(): LiveData<List<Banner>> {
-        val data: MutableLiveData<List<Banner>> = MutableLiveData()
-        Linker.api.getBanners().enqueue(resultFactory {
-            data.value = it?.data
-            GlobalScope.launch {
-                val s = AppDatabase.getInstance().bannerDao().insert(it?.data!!)
-                Timber.d(s?.toString())
-            }
-        })
-
-        return data
+    fun getBanners(): LiveData<List<Banner>> = liveData {
+        val result = Linker.api.getBanners().data
+        emit(result)
+        withContext(Dispatchers.IO) {
+            val s = AppDatabase.getInstance().bannerDao().insert(result)
+            Timber.d(s?.toString())
+        }
     }
 
     @MainThread
@@ -52,21 +47,13 @@ class HomeRepo : BaseRepo() {
             pagedList = pagedList,
             networkState = sourceFactory.sourceLiveData.switchMap { it.networkState },
             retry = { sourceFactory.sourceLiveData.value?.retryAllFailed() },
-            refresh = {sourceFactory.sourceLiveData.value?.invalidate()},
+            refresh = { sourceFactory.sourceLiveData.value?.invalidate() },
             refreshState = refreshState
         )
     }
 
 
-    fun getArticles(pageNum: Int = 0) : LiveData<List<Article>>{
-        val data = MutableLiveData<List<Article>>()
-        IOScope { data.postValue(emptyList()) }
-            .launch {
-                val s = Linker.api.getArticles(pageNum)?.data?.datas ?: emptyList<Article>()
-                data.postValue(s)
-            }
-        return data
-    }
-
+    suspend fun getArticles(pageNum: Int = 0) =
+        Linker.api.getArticles(pageNum)?.data?.datas ?: emptyList<Article>()
 
 }

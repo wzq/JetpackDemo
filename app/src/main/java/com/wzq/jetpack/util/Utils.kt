@@ -1,6 +1,7 @@
 package com.wzq.jetpack.util
 
 import android.content.Context
+import android.content.res.Resources
 import android.text.format.DateFormat
 import android.util.TypedValue
 import com.wzq.jetpack.App
@@ -31,12 +32,11 @@ fun timeFormat(time: Long): String {
 }
 
 
-fun dp2px(context: Context?, dp: Int): Int {
-    if (context == null) return 0
+fun dp2px(dp: Int): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
         dp.toFloat(),
-        context.resources.displayMetrics
+        Resources.getSystem().displayMetrics
     ).toInt()
 }
 

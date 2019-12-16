@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.wzq.jetpack.databinding.FragmentProjectBinding
+import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
+import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.wzq.jetpack.data.remote.NetworkState
+import com.wzq.jetpack.databinding.FragmentProjectBinding
+import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.ui.adapter.ProjectAdapter
 import com.wzq.jetpack.viewmodel.ProjectViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
@@ -31,18 +34,22 @@ class ProjectFragment : BaseFragment() {
     }
 
     private fun initAdapter() {
-        val adapter = ProjectAdapter()
+        val adapter = ProjectAdapter(this)
         binding.projectList.adapter = adapter
-        viewModel.listData.observe(this, Observer {
+        val sizeProvider = ViewPreloadSizeProvider<Article>()
+        val viewPreloader = RecyclerViewPreloader(this, adapter, sizeProvider, 4)
+        binding.projectList.addOnScrollListener(viewPreloader)
+
+        viewModel.listData.observe(viewLifecycleOwner, Observer {
             println(it.toString())
             adapter.submitList(it)
         })
-        viewModel.networkState.observe(this, Observer {
+        viewModel.networkState.observe(viewLifecycleOwner, Observer {
         })
     }
 
     private fun refresh() {
-        viewModel.refreshState.observe(this, Observer{
+        viewModel.refreshState.observe(viewLifecycleOwner, Observer{
             binding.projectSwipe.isRefreshing = it == NetworkState.LOADING
         })
         binding.projectSwipe.setOnRefreshListener {

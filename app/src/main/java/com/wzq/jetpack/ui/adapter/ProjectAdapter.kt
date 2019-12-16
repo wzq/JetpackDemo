@@ -2,11 +2,14 @@ package com.wzq.jetpack.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.wzq.jetpack.databinding.ItemHomeBinding
+import com.bumptech.glide.Glide
+import com.bumptech.glide.ListPreloader
+import com.bumptech.glide.RequestBuilder
+import com.wzq.jetpack.App
 import com.wzq.jetpack.databinding.ItemProjectBinding
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.util.Router
@@ -16,7 +19,15 @@ import com.wzq.jetpack.util.Router
  * Created by wzq on 2019-07-12
  *
  */
-class ProjectAdapter: PagedListAdapter<Article, ProjectAdapter.ViewHolder>(ProjectDiffCallback()) {
+class ProjectAdapter(private val host: Fragment) : PagedListAdapter<Article, ProjectAdapter.ViewHolder>(ProjectDiffCallback()), ListPreloader.PreloadModelProvider<Article>  {
+
+    override fun getPreloadItems(position: Int): List<Article> {
+        return listOf(getItem(position)!!)
+    }
+
+    override fun getPreloadRequestBuilder(item: Article): RequestBuilder<*>? {
+        return Glide.with(host).load(item.envelopePic)
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
@@ -38,21 +49,23 @@ class ProjectAdapter: PagedListAdapter<Article, ProjectAdapter.ViewHolder>(Proje
     }
 
 
-    class ViewHolder(val binding: ItemProjectBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemProjectBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.root.setOnClickListener { Router.go2web(binding.root.context, it.tag as String) }
+            binding.root.setOnClickListener {
+                Router.go2web(binding.root.context, it.tag as String)
+            }
         }
     }
 }
 
 
-private class ProjectDiffCallback: DiffUtil.ItemCallback<Article>(){
+private class ProjectDiffCallback : DiffUtil.ItemCallback<Article>() {
     override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
         return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-        println( oldItem.title == newItem.title)
+        println(oldItem.title == newItem.title)
         return oldItem.title == newItem.title
     }
 

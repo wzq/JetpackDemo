@@ -1,6 +1,6 @@
 package com.wzq.jetpack.model.result
 
-import com.wzq.jetpack.model.Article
+import com.wzq.jetpack.model.Todo
 
 data class TodoResult(
     val data: TodoData
@@ -8,7 +8,7 @@ data class TodoResult(
 
 data class TodoData(
     val curPage: Int,
-    var datas: MutableList<Article>,
+    var datas: MutableList<Todo>,
     val offset: Int,
     val over: Boolean,
     val pageCount: Int,
