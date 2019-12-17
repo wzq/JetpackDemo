@@ -38,7 +38,7 @@ class GankFragment : BaseFragment() {
         binding.gankSwipe.isRefreshing = true
         viewModel.getDailyInfo()
 
-        viewModel.dailyList.observe(this, Observer {
+        viewModel.dailyList.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
             binding.gankSwipe.isRefreshing = false
         })
