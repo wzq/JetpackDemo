@@ -22,3 +22,8 @@ fun AppCompatActivity.transparentStatusBar() {
         window.statusBarColor = Color.TRANSPARENT
     }
 }
+
+
+//public inline fun AppCompatActivity.intentTo(clazz: KClass<AppCompatActivity>) = Intent().also {
+////    it.setClassName(App.context.packageName, clazz.java.name)
+////}

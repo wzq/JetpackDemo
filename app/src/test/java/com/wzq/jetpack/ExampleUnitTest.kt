@@ -36,26 +36,33 @@ class ExampleUnitTest {
         delay(1000)
     }
 
+    fun threadLog() {
+        println(Thread.currentThread().name)
+    }
+
     @Test
     fun test01() {
         runBlocking {
-
-            val s = async(Dispatchers.IO) {
-                println(2323232)
-                println(2323232)
-
-                println(2323232)
-
-                println(2323232)
-
-
-            }
+            threadLog()
+            println(1111111111)
+            delay(1000)
+//            val s = async(Dispatchers.IO) {
+//                threadLog()
+//                println(2323232)
+//                println(2323232)
+//
+//                println(2323232)
+//
+//                println(2323232)
+//
+//
+//            }
 
             launch {
+                threadLog()
                 println(2222222)
+                delay(1000)
             }
-            println(1111111111)
-
 //            val handler: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
 //                throwable.printStackTrace()
 //
@@ -68,7 +75,18 @@ class ExampleUnitTest {
 //                println("Scope is completing")
 //            }
         }
+        threadLog()
         println("Scope is completed")
+    }
+
+    @Test
+    fun test02() {
+        runBlocking {
+            println(3333)
+            delay(1000)
+            println(1111)
+        }
+        println(2222)
     }
 
 }

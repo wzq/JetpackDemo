@@ -14,7 +14,11 @@ class AboutFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_base, container, false)
-        return root
+        return inflater.inflate(R.layout.fragment_base, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
     }
 }
