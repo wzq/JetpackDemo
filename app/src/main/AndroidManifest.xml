@@ -47,6 +47,10 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.ActionBar" />
 
+        <activity android:name=".ui.activity.QuestionActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.ActionBar"/>
+
     </application>
 
 </manifest>

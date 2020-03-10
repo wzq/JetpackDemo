@@ -47,10 +47,8 @@ class MainActivity : BaseActivity() {
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
         userArea()
-
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
-//            (supportFragmentManager.findFragmentByTag("main-f$currentIndex") as? BaseFragment)?.back2top()
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            (supportFragmentManager.findFragmentByTag("main-f$currentIndex") as? BaseFragment)?.back2top()
         }
 
         val ir = savedInstanceState?.getInt(INDEX_RESTORE, -1)
@@ -79,6 +77,7 @@ class MainActivity : BaseActivity() {
         nav.setNavigationItemSelectedListener {
             if (loginMonitor.isLogin()) {
                 when (it.itemId) {
+                    R.id.question_fragment -> Router.go2question(this@MainActivity)
                     R.id.collect_fragment -> Router.go2collect(this@MainActivity)
                     R.id.about_fragment -> Router.go2about(this@MainActivity)
                     R.id.todo_fragment -> Router.go2todo(this@MainActivity)

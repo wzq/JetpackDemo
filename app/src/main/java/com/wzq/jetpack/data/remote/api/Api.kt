@@ -1,7 +1,7 @@
 package com.wzq.jetpack.data.remote.api
 
 import com.google.gson.JsonObject
-import com.wzq.jetpack.model.Todo
+import com.wzq.jetpack.model.Question
 import com.wzq.jetpack.model.result.*
 import retrofit2.Call
 import retrofit2.http.*
@@ -12,6 +12,9 @@ import retrofit2.http.*
  *
  */
 interface Api {
+
+        @GET("wenda/list/{pageNum}/json")
+        suspend fun getQuestionList(@Path("pageNum") pageNum: Int): ListResult<Question>
 
         /**
          * 获取轮播图

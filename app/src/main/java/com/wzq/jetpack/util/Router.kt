@@ -60,4 +60,8 @@ object Router {
     fun go2todo(context: Context){
         context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 2) })
     }
+
+    fun go2question(context: Context) {
+        context.startActivity(Intent(context, QuestionActivity::class.java))
+    }
 }

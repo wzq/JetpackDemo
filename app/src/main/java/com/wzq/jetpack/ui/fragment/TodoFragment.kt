@@ -32,7 +32,6 @@ class TodoFragment: BaseFragment() {
     override fun onResume() {
         super.onResume()
         viewModel.todoList.observe(this, Observer {
-            println(it.toString())
             adapter.submitList(it.data.datas)
         })
     }

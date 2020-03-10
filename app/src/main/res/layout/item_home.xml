@@ -71,13 +71,14 @@
 
         <com.like.LikeButton
             android:id="@+id/item_home_star"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:icon_size="16dp"
+            app:icon_size="8dp"
             app:icon_type="heart"
             app:layout_constraintTop_toTopOf="@+id/item_home_title"
             app:layout_constraintBottom_toBottomOf="@+id/item_home_author"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintStart_toStartOf="@id/item_home_time"
+            app:layout_constraintEnd_toEndOf="@id/item_home_time"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

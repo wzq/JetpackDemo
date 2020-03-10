@@ -5,6 +5,7 @@
     <string name="title_notifications">体系</string>
     <string name="title_gank">Gank</string>
 
+    <string name="drawer_question">每日一问</string>
     <string name="drawer_collect">收藏</string>
     <string name="drawer_todo">TODO</string>
     <string name="drawer_about">关于APP</string>

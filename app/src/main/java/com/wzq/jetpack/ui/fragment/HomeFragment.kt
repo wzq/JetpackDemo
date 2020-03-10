@@ -68,7 +68,7 @@ class HomeFragment : BaseFragment() {
                 indicatorChanged(position)
             }
         })
-        viewModel.looper.observe(this)  {
+        viewModel.looper.observe(viewLifecycleOwner)  {
             binding.homePage.currentItem = it
         }
         viewModel.banners.observe(viewLifecycleOwner, Observer {

@@ -30,7 +30,7 @@ class TodoEditFragment : BaseFragment() {
             params["title"] = binding.todoEditTitle.text.toString()
             params["content"] = binding.todoEditContent.text.toString()
             params["date"] = timeFormat(System.currentTimeMillis())
-            viewModel.submit(params).observe(this, Observer {
+            viewModel.submit(params).observe(viewLifecycleOwner, Observer {
                 //todo
                 if (it.errorCode == 0) {
                     Toast.makeText(this.context, "添加成功", Toast.LENGTH_SHORT).show()
