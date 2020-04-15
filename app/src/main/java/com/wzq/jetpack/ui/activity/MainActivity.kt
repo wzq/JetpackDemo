@@ -1,13 +1,13 @@
 package com.wzq.jetpack.ui.activity
 
 import android.os.Bundle
+import android.os.Process
 import android.view.Menu
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -22,6 +22,7 @@ import com.wzq.jetpack.ui.fragment.*
 import com.wzq.jetpack.util.AnimUtils
 import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.monitor.LoginMonitor
+import timber.log.Timber
 
 class MainActivity : BaseActivity() {
 
@@ -38,6 +39,8 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         lookNetwork()
         //transparentStatusBar()
+        val vm = System.getProperty("java.vm.version")
+        Timber.i("Android VM Version is $vm.")
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

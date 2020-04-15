@@ -13,7 +13,7 @@ class ProjectViewModel internal constructor(repo: ProjectRepo) : ViewModel() {
 
     val listData = repoResult.pagedList
 
-    val networkState =  repoResult.networkState
+    val networkState = repoResult.networkState
 
     val refreshState = repoResult.refreshState
 
