@@ -8,14 +8,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.wzq.jetpack.R
-import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.databinding.FragmentGankBinding
 import com.wzq.jetpack.ui.adapter.GankAdapter
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
-import com.wzq.jetpack.util.thread.IOScope
 import com.wzq.jetpack.viewmodel.GankViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
-import kotlinx.coroutines.launch
 
 
 class GankFragment : BaseFragment() {
