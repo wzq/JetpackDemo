@@ -6,6 +6,10 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.lang.Exception
 import java.lang.reflect.Proxy
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.system.measureTimeMillis
 import kotlin.time.ExperimentalTime
@@ -87,6 +91,18 @@ class ExampleUnitTest {
             println(1111)
         }
         println(2222)
+    }
+
+    @Test
+    fun test03(){
+        val calendar = Calendar.getInstance()
+        val a = calendar.get(Calendar.YEAR)
+        val b = calendar.get(Calendar.MONTH)
+        println("$a -- $b")
+        val pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        println(pattern.format(LocalDate.now()))
+        val s = LocalDate.parse("2020-07-08", pattern)
+        println(s.monthValue)
     }
 
 }
