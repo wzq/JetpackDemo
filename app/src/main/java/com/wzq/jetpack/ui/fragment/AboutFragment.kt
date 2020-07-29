@@ -31,5 +31,9 @@ class AboutFragment: Fragment() {
             ColorStateList.valueOf(
                    ContextCompat.getColor(requireContext(),R.color.white)
             ), 16f, 8f, 16f)
+        
+//
+//        edit.setOnApplyWindowInsetsListener { v, insets ->
+//        }
     }
 }

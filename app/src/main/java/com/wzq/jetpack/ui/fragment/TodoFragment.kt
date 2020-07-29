@@ -32,7 +32,7 @@ class TodoFragment: BaseFragment() {
     override fun onResume() {
         super.onResume()
         viewModel.todoList.observe(this, Observer {
-            adapter.submitList(it.data.datas)
+            adapter.submitList(it?.data?.datas)
         })
     }
 
