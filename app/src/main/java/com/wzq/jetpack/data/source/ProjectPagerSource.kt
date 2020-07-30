@@ -12,7 +12,7 @@ import timber.log.Timber
 class ProjectPagerSource : PagingSource<Int, Article>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         return try {
-            val result = Linker.api.getProjects(pageNum = params.key ?: 1)
+            val result = Linker.api.getProjects(pageNum = params.key ?: 0)
             val nextPage = params.key?.let {
                 if (it == result.data.pageCount) null else it + 1
             }

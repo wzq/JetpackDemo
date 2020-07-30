@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
@@ -15,8 +14,6 @@ import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.ui.adapter.ProjectAdapter
 import com.wzq.jetpack.viewmodel.ProjectViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collectLatest
 
 
 /**
@@ -50,11 +47,8 @@ class ProjectFragment : BaseFragment() {
         val viewPreloader = RecyclerViewPreloader(this, adapter, sizeProvider, 4)
         binding.projectList.addOnScrollListener(viewPreloader)
 
-        lifecycleScope.launchWhenCreated {
-            @OptIn(ExperimentalCoroutinesApi::class)
-            adapter.loadStateFlow.collectLatest {
-                binding.projectSwipe.isRefreshing = it.refresh is LoadState.Loading
-            }
+        adapter.addLoadStateListener {
+            binding.projectSwipe.isRefreshing = it.refresh is LoadState.Loading
         }
 
         viewModel.fetchLastProject().observe(viewLifecycleOwner, Observer {

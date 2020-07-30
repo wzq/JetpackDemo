@@ -15,8 +15,8 @@ import com.wzq.jetpack.data.source.ProjectPagerSource
 class ProjectViewModel internal constructor(repo: ProjectRepo) : ViewModel() {
 
     fun fetchLastProject() = Pager(
-        PagingConfig(15),
-        1 //first page num
+        PagingConfig(20),
+        0 //first page num
     ) {
         ProjectPagerSource()
     }.liveData
