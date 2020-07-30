@@ -69,12 +69,12 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="time" />
 
-        <com.like.LikeButton
+        <ImageButton
             android:id="@+id/item_home_star"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:icon_size="8dp"
-            app:icon_type="heart"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_favorite"
             app:layout_constraintTop_toTopOf="@+id/item_home_title"
             app:layout_constraintBottom_toBottomOf="@+id/item_home_author"
             app:layout_constraintStart_toStartOf="@id/item_home_time"

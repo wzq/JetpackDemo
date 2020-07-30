@@ -13,10 +13,8 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.viewpager2.widget.ViewPager2
 import com.wzq.jetpack.R
-import com.wzq.jetpack.data.remote.NetworkState
 import com.wzq.jetpack.databinding.FragmentHomeBinding
 import com.wzq.jetpack.ui.adapter.ArticleAdapter
-import com.wzq.jetpack.ui.adapter.HomeAdapter
 import com.wzq.jetpack.ui.adapter.HomePageAdapter
 import com.wzq.jetpack.util.dp2px
 import com.wzq.jetpack.viewmodel.HomeViewModel
@@ -68,6 +66,7 @@ class HomeFragment : BaseFragment() {
                 indicatorChanged(position)
             }
         })
+        @OptIn(ExperimentalCoroutinesApi::class)
         viewModel.looper.observe(viewLifecycleOwner)  {
             binding.homePage.currentItem = it
         }

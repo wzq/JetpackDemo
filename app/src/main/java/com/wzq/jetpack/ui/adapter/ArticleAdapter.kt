@@ -23,7 +23,7 @@ class ArticleAdapter: ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleDif
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = getItem(position)
-        holder.binding.itemHomeStar.isLiked = article.collect
+        holder.binding.itemHomeStar.isSelected = article.collect
         holder.binding.article = article
         holder.binding.root.tag = article.link
         holder.binding.itemHomeStar.tag = article.id
@@ -44,29 +44,21 @@ class ArticleAdapter: ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleDif
 
     class ViewHolder(val binding: ItemHomeBinding): RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.itemHomeStar.setOnLikeListener(object : OnLikeListener{
-
+            binding.itemHomeStar.setOnClickListener {
                 val repo = BaseRepo()
 
-                override fun liked(likeButton: LikeButton?) {
-                    val id = likeButton?.tag
-                    if (id is Int) {
-                        IOScope().launch {
-                            repo.collectArticle(id).toString()
-                        }
+                val id = it.tag as? Int ?: return@setOnClickListener
+                it.isSelected = !it.isSelected
+                if (it.isSelected) {
+                    IOScope().launch {
+                        repo.collectArticle(id).toString()
+                    }
+                } else {
+                    IOScope().launch {
+                        repo.collectCancel(id).toString()
                     }
                 }
-
-                override fun unLiked(likeButton: LikeButton?) {
-                    val id = likeButton?.tag
-                    if (id is Int) {
-                        IOScope().launch {
-                            repo.collectCancel(id).toString()
-                        }
-                    }
-                }
-
-            })
+            }
             binding.root.setOnClickListener { Router.go2web(binding.root.context, it.tag as String) }
         }
     }
