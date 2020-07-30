@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
  * paging 在滚动嵌套时会加载所有数据
  * invalidate 刷新数据时导致闪烁
  */
-
+@Deprecated("deprecated since paging 3.0")
 class HomeDataSource : PageKeyedDataSource<Int, Article>() {
 
     val networkState = MutableLiveData<NetworkState>()

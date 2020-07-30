@@ -17,15 +17,15 @@
 package com.wzq.jetpack.model
 
 import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
+import androidx.paging.PagingData
 import com.wzq.jetpack.data.remote.NetworkState
 
 /**
  * Data class that is necessary for a UI to show a listing and interact w/ the rest of the system
  */
-data class Listing<T>(
+data class Listing<T : Any>(
         // the LiveData of paged lists for the UI to observe
-    val pagedList: LiveData<PagedList<T>>,
+    val pagedList: LiveData<PagingData<T>>,
         // represents the network request status to show to the user
     val networkState: LiveData<NetworkState>,
         // represents the refresh status to show to the user. Separate from networkState, this

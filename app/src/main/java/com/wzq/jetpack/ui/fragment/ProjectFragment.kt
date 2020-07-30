@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
-import com.wzq.jetpack.data.remote.NetworkState
 import com.wzq.jetpack.databinding.FragmentProjectBinding
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.ui.adapter.ProjectAdapter
 import com.wzq.jetpack.viewmodel.ProjectViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collectLatest
 
 
 /**
@@ -24,39 +27,42 @@ class ProjectFragment : BaseFragment() {
 
     private val viewModel by viewModels<ProjectViewModel> { ViewModelFactory() }
 
+    val adapter by lazy { ProjectAdapter(this) }
+
     lateinit var binding: FragmentProjectBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentProjectBinding.inflate(inflater, container, false)
         initAdapter()
-        refresh()
+        binding.projectSwipe.setOnRefreshListener {
+            adapter.refresh()
+        }
         return binding.root
     }
 
     private fun initAdapter() {
-        val adapter = ProjectAdapter(this)
         binding.projectList.adapter = adapter
         val sizeProvider = ViewPreloadSizeProvider<Article>()
         val viewPreloader = RecyclerViewPreloader(this, adapter, sizeProvider, 4)
         binding.projectList.addOnScrollListener(viewPreloader)
 
-        viewModel.listData.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
-        viewModel.networkState.observe(viewLifecycleOwner, Observer {
-        })
-    }
-
-    private fun refresh() {
-        viewModel.refreshState.observe(viewLifecycleOwner, Observer{
-            binding.projectSwipe.isRefreshing = it == NetworkState.LOADING
-        })
-        binding.projectSwipe.setOnRefreshListener {
-            viewModel.refresh()
+        lifecycleScope.launchWhenCreated {
+            @OptIn(ExperimentalCoroutinesApi::class)
+            adapter.loadStateFlow.collectLatest {
+                binding.projectSwipe.isRefreshing = it.refresh is LoadState.Loading
+            }
         }
+
+        viewModel.fetchLastProject().observe(viewLifecycleOwner, Observer {
+            adapter.submitData(lifecycle, it)
+        })
     }
 
-    override fun back2top(){
+    override fun back2top() {
         binding.projectList.scrollToPosition(0)
     }
 }

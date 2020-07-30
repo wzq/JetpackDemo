@@ -3,13 +3,12 @@ package com.wzq.jetpack.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.ListPreloader
 import com.bumptech.glide.RequestBuilder
-import com.wzq.jetpack.App
 import com.wzq.jetpack.databinding.ItemProjectBinding
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.util.Router
@@ -19,7 +18,9 @@ import com.wzq.jetpack.util.Router
  * Created by wzq on 2019-07-12
  *
  */
-class ProjectAdapter(private val host: Fragment) : PagedListAdapter<Article, ProjectAdapter.ViewHolder>(ProjectDiffCallback()), ListPreloader.PreloadModelProvider<Article>  {
+class ProjectAdapter(private val host: Fragment) :
+    PagingDataAdapter<Article, ProjectAdapter.ViewHolder>(ProjectDiffCallback()),
+    ListPreloader.PreloadModelProvider<Article>  {
 
     override fun getPreloadItems(position: Int): List<Article> {
         return listOf(getItem(position)!!)
@@ -65,7 +66,6 @@ private class ProjectDiffCallback : DiffUtil.ItemCallback<Article>() {
     }
 
     override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-        println(oldItem.title == newItem.title)
         return oldItem.title == newItem.title
     }
 

@@ -1,7 +1,11 @@
 package com.wzq.jetpack.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.liveData
 import com.wzq.jetpack.data.ProjectRepo
+import com.wzq.jetpack.data.source.ProjectPagerSource
 
 
 /**
@@ -9,14 +13,11 @@ import com.wzq.jetpack.data.ProjectRepo
  *
  */
 class ProjectViewModel internal constructor(repo: ProjectRepo) : ViewModel() {
-    private val repoResult = repo.fetchLastProject()
 
-    val listData = repoResult.pagedList
-
-    val networkState = repoResult.networkState
-
-    val refreshState = repoResult.refreshState
-
-    fun refresh() = repoResult.refresh()
-
+    fun fetchLastProject() = Pager(
+        PagingConfig(15),
+        1 //first page num
+    ) {
+        ProjectPagerSource()
+    }.liveData
 }

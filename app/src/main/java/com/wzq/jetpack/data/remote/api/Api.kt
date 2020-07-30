@@ -39,7 +39,7 @@ interface Api {
         suspend fun getArticles(@Path("pageNum") pageNum: Int): ArticleResult?
 
         @GET("article/listproject/{pageNum}/json")
-        fun getLastProjects(@Path("pageNum") pageNum: Int): Call<ArticleResult>
+        suspend fun getProjects(@Path("pageNum") pageNum: Int): ArticleResult
 
         /**
          * 获取知识体系

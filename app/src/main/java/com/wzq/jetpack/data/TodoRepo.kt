@@ -1,4 +1,4 @@
-package com.wzq.jetpack.data.source
+package com.wzq.jetpack.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

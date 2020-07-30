@@ -35,24 +35,6 @@ class HomeRepo : BaseRepo() {
         }
     }
 
-    @MainThread
-    fun getArticles(): Listing<Article> {
-        val sourceFactory = HomeDataSourceFactory()
-
-        val pagedList = sourceFactory.toLiveData(20, fetchExecutor = NETWORK_IO)
-
-        val refreshState = sourceFactory.sourceLiveData.switchMap { it.initialLoad }
-
-        return Listing(
-            pagedList = pagedList,
-            networkState = sourceFactory.sourceLiveData.switchMap { it.networkState },
-            retry = { sourceFactory.sourceLiveData.value?.retryAllFailed() },
-            refresh = { sourceFactory.sourceLiveData.value?.invalidate() },
-            refreshState = refreshState
-        )
-    }
-
-
     suspend fun getArticles(pageNum: Int = 0) =
         Linker.api.getArticles(pageNum)?.data?.datas ?: emptyList<Article>()
 

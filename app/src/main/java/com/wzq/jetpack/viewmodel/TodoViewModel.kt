@@ -3,7 +3,7 @@ package com.wzq.jetpack.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.wzq.jetpack.data.source.TodoRepo
+import com.wzq.jetpack.data.TodoRepo
 import com.wzq.jetpack.model.result.TodoResult
 
 class TodoViewModel(val repo: TodoRepo) : ViewModel() {
