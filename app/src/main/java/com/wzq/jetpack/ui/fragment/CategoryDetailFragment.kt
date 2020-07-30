@@ -43,7 +43,7 @@ class CategoryDetailFragment : BaseFragment(){
         listView.addItemDecoration(SimpleDecoration(activity, R.color.line_gray))
         listView.adapter = adapter
 
-        viewModel.getArticleList(id).observe(this, Observer {
+        viewModel.getArticleList(id).observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
 

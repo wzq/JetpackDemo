@@ -41,7 +41,6 @@ class ProjectFragment : BaseFragment() {
         binding.projectList.addOnScrollListener(viewPreloader)
 
         viewModel.listData.observe(viewLifecycleOwner, Observer {
-            println(it.toString())
             adapter.submitList(it)
         })
         viewModel.networkState.observe(viewLifecycleOwner, Observer {

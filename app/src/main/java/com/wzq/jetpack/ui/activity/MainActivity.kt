@@ -1,7 +1,6 @@
 package com.wzq.jetpack.ui.activity
 
 import android.os.Bundle
-import android.os.Process
 import android.view.Menu
 import android.view.View
 import android.widget.ImageView

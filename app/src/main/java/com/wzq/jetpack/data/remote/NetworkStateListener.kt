@@ -62,11 +62,11 @@ class NetworkStateListener: LiveData<Boolean>() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
             connectivityManagerCallback = object : ConnectivityManager.NetworkCallback() {
-                override fun onAvailable(network: Network?) {
+                override fun onAvailable(network: Network) {
                     postValue(true)
                 }
 
-                override fun onLost(network: Network?) {
+                override fun onLost(network: Network) {
                     postValue(false)
                 }
             }

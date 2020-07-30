@@ -25,8 +25,8 @@ class CategoryActivity: BaseActivity() {
         supportActionBar?.elevation = 0f
 
         title = intent.getStringExtra("title")
-        val ids = intent.getIntegerArrayListExtra("ids")
-        val titles = intent.getStringArrayListExtra("titles")
+        val ids = intent.getIntegerArrayListExtra("ids") ?: return
+        val titles = intent.getStringArrayListExtra("titles") ?: return
 
         Timber.i("$ids ---- $titles")
 
