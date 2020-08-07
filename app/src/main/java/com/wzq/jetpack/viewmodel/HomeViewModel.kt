@@ -19,14 +19,6 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
 
 
     val banners = repo.getBanners()
-//
-//    private val listing = repo.getArticles()
-//
-//    val articles = listing.pagedList
-//
-//    val doRefresh = listing.refresh
-//    val networkState = listing.networkState
-//    val refreshState = listing.refreshState
 
     val pageNum = MutableLiveData(0)
 
