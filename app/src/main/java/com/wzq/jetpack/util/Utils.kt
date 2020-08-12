@@ -1,26 +1,21 @@
 package com.wzq.jetpack.util
 
-import android.content.Context
 import android.content.res.Resources
 import android.text.format.DateFormat
 import android.util.TypedValue
-import com.wzq.jetpack.App
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 import java.util.concurrent.Executors
-import kotlin.coroutines.CoroutineContext
 
 
 /**
  * Created by wzq on 2019-07-14
  *
  */
+
+const val WEIBO_KEY = "1820619456"
 
 val DISK_IO = Executors.newSingleThreadExecutor()
 
@@ -53,6 +48,6 @@ fun <T> resultFactory(action: (T?) -> Unit): Callback<T> {
     }
 }
 
-fun threadLog(v: String){
+fun threadLog(v: String) {
     Timber.d("[${Thread.currentThread().name}] -> $v")
 }

@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.like.LikeButton
-import com.like.OnLikeListener
 import com.wzq.jetpack.data.BaseRepo
 import com.wzq.jetpack.databinding.ItemHomeBinding
 import com.wzq.jetpack.model.Article
