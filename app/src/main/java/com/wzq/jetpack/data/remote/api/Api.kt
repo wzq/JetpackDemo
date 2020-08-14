@@ -5,6 +5,7 @@ import com.wzq.jetpack.model.Question
 import com.wzq.jetpack.model.result.*
 import retrofit2.Call
 import retrofit2.http.*
+import kotlin.Result
 
 
 /**
@@ -117,7 +118,7 @@ interface Api {
          *  @param page
          */
         @GET("lg/collect/list/{page}/json")
-        suspend fun getCollectList(@Path("page") page: Int): ArticleResult
+        suspend fun getCollectList(@Path("page") page: Int): NetResult<ArticleData>
 
         /**
          * 收藏站内文章
@@ -188,7 +189,7 @@ interface Api {
          *          orderby 1:完成日期顺序；2.完成日期逆序；3.创建日期顺序；4.创建日期逆序(默认)；
          */
         @GET("/lg/todo/v2/list/{page}/json")
-        suspend fun getTodoList(@Path("page") page: Int, @QueryMap map: Map<String, String>): TodoResult
+        suspend fun getTodoList(@Path("page") page: Int, @QueryMap map: Map<String, String>): NetResult<TodoData>
 
         /**
          * Todo完成
