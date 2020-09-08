@@ -1,20 +1,15 @@
 package com.wzq.jetpack
 
-import androidx.lifecycle.viewModelScope
+import com.wzq.jetpack.util.html
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import java.lang.Exception
-import java.lang.reflect.Proxy
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.coroutines.CoroutineContext
+import java.util.concurrent.BlockingQueue
 import kotlin.system.measureTimeMillis
-import kotlin.time.ExperimentalTime
-import kotlin.time.TestClock
-import kotlin.time.seconds
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -94,7 +89,7 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun test03(){
+    fun test03() {
         val calendar = Calendar.getInstance()
         val a = calendar.get(Calendar.YEAR)
         val b = calendar.get(Calendar.MONTH)
@@ -103,6 +98,84 @@ class ExampleUnitTest {
         println(pattern.format(LocalDate.now()))
         val s = LocalDate.parse("2020-07-08", pattern)
         println(s.monthValue)
+    }
+
+    @Test
+    fun test04(): Unit {
+        val html = html {
+            head {
+                title { +"XML encoding with Kotlin" }
+            }
+            body {
+                h1 { +"XML encoding with Kotlin" }
+                p { +"this format can be used as an alternative markup to XML" }
+
+                // 一个具有属性和文本内容的元素
+                a(href = "http://kotlinlang.org") { +"Kotlin" }
+
+                // 混合的内容
+                p {
+                    +"This is some"
+                    b { +"mixed" }
+                    +"text. For more see the"
+                    a(href = "http://kotlinlang.org") { +"Kotlin" }
+                    +"project"
+                }
+                p { +"some text" }
+            }
+        }
+        println(html.toString())
+
+    }
+
+    @Test
+    fun test05() {
+        val flow = flow<Int> {
+
+            for (i in 1..3) {
+                delay(100)
+                emit(i)
+            }
+        }
+
+        runBlocking {
+            val t1 = measureTimeMillis {
+                flow.buffer().collect {
+                    println("---t1")
+                    delay(300)
+                    println("t1 $it")
+                }
+            }
+
+            val t2 = measureTimeMillis {
+                flow.conflate().collect {
+                    println("---t2")
+                    delay(300)
+                    check(it < 1) { ("check $it") }
+                    println("t2 $it")
+                }
+            }
+
+            println("$t1 --- $t2")
+
+        }
+
+    }
+
+
+    @Test
+    fun test06() {
+
+        val oddNumbers = sequence {
+            yield(1)
+//            Thread.sleep(1000)
+            yieldAll(listOf(3, 5))
+         //   yieldAll(generateSequence(7) { it + 2 })
+        }
+
+        println(oddNumbers.onEach {
+            println(it)
+        })
     }
 
 }

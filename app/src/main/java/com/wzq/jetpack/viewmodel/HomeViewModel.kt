@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.util.threadLog
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -26,7 +25,6 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
         liveData { emit(repo.getArticles(it)) }
     }
 
-    @ExperimentalCoroutinesApi
     val looper = flow {
         threadLog("flow run")
         var flag = 0
