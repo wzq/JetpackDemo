@@ -7,7 +7,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
 
 
-fun IOScope(ex: ((t: Throwable) -> Unit)? = null): CoroutineScope {
+fun ioScope(ex: ((t: Throwable) -> Unit)? = null): CoroutineScope {
 
     val exceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
@@ -16,9 +16,5 @@ fun IOScope(ex: ((t: Throwable) -> Unit)? = null): CoroutineScope {
         }
     }
 
-    return CoroutineScopeImpl(Dispatchers.IO + SupervisorJob() + exceptionHandler)
+    return CoroutineScope(Dispatchers.IO + SupervisorJob() + exceptionHandler)
 }
-
-class CoroutineScopeImpl(override val coroutineContext: CoroutineContext) : CoroutineScope
-
-

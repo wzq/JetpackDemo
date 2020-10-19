@@ -7,8 +7,7 @@ import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.data.remote.NetworkState
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.util.NETWORK_IO
-import com.wzq.jetpack.util.thread.IOScope
-import com.wzq.jetpack.util.threadLog
+import com.wzq.jetpack.util.thread.ioScope
 import kotlinx.coroutines.launch
 
 
@@ -32,7 +31,7 @@ class HomeDataSource : PageKeyedDataSource<Int, Article>() {
         networkState.postValue(NetworkState.LOADING)
         initialLoad.postValue(NetworkState.LOADING)
         val pageNum = 0
-        IOScope {
+        ioScope {
             retry = { loadInitial(params, callback)}
             val error = NetworkState.error(it.message ?: "unknown error")
             networkState.postValue(error)
@@ -48,7 +47,7 @@ class HomeDataSource : PageKeyedDataSource<Int, Article>() {
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Article>) {
         networkState.postValue(NetworkState.LOADING)
         val pageNum = params.key
-        IOScope {
+        ioScope {
             retry = { loadAfter(params, callback)}
             val error = NetworkState.error(it.message ?: "unknown error")
             networkState.postValue(error)

@@ -9,7 +9,7 @@ import com.wzq.jetpack.data.BaseRepo
 import com.wzq.jetpack.databinding.ItemHomeBinding
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.util.Router
-import com.wzq.jetpack.util.thread.IOScope
+import com.wzq.jetpack.util.thread.ioScope
 import kotlinx.coroutines.launch
 
 
@@ -45,11 +45,11 @@ class HomeAdapter: PagingDataAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCa
                 val id = it.tag as? Int ?: return@setOnClickListener
                 it.isSelected = !it.isSelected
                 if (it.isSelected) {
-                    IOScope().launch {
+                    ioScope().launch {
                         repo.collectArticle(id).toString()
                     }
                 } else {
-                    IOScope().launch {
+                    ioScope().launch {
                         repo.collectCancel(id).toString()
                     }
                 }

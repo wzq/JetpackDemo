@@ -1,13 +1,16 @@
 package com.wzq.jetpack.util
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
+import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import java.time.Duration
+import kotlin.reflect.KClass
 
 
 /**
@@ -15,7 +18,7 @@ import java.time.Duration
  *
  */
 
-inline fun Context.toast(content: String, duration: Int = Toast.LENGTH_SHORT) {
+fun Context.toast(content: String, duration: Int = Toast.LENGTH_SHORT) {
     if (content.isNotBlank()) Toast.makeText(this, content, duration).show()
 }
 
@@ -31,6 +34,12 @@ fun AppCompatActivity.transparentStatusBar() {
 }
 
 
-//public inline fun AppCompatActivity.intentTo(clazz: KClass<AppCompatActivity>) = Intent().also {
-////    it.setClassName(App.context.packageName, clazz.java.name)
-////}
+fun Context.openPage(clazz: KClass<AppCompatActivity>, args: Bundle? = null, reqCode: Int = -1) {
+    val intent = Intent(this, clazz.java)
+    args?.also { intent.putExtra("args", args) }
+    if (this is Activity && reqCode > -1) {
+        startActivityForResult(intent, reqCode)
+    } else {
+        startActivity(intent)
+    }
+}

@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.model.HotKey
-import com.wzq.jetpack.util.thread.IOScope
+import com.wzq.jetpack.util.thread.ioScope
 import kotlinx.coroutines.launch
 
 class SearchRepo : BaseRepo() {
 
     fun getHotWords(): LiveData<List<HotKey>> {
         val data = MutableLiveData<List<HotKey>>()
-        IOScope().launch {
+        ioScope().launch {
             val result = Linker.api.getHotSearchData()
             data.postValue(result.data)
         }
