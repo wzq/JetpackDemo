@@ -64,4 +64,8 @@ object Router {
     fun go2question(context: Context) {
         context.startActivity(Intent(context, QuestionActivity::class.java))
     }
+
+    fun go2test(context: Context) {
+        context.startActivity(Intent(context, TestActivity::class.java))
+    }
 }

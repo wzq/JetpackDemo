@@ -51,6 +51,10 @@
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.ActionBar"/>
 
+        <activity android:name=".ui.activity.TestActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.Immersive"/>
+
     </application>
 
 </manifest>

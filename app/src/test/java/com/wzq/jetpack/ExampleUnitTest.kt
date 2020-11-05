@@ -1,8 +1,13 @@
 package com.wzq.jetpack
 
+import com.google.gson.Gson
+import com.google.gson.JsonElement
+import com.google.gson.JsonNull
+import com.google.gson.JsonObject
 import com.wzq.jetpack.util.html
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
@@ -177,5 +182,32 @@ class ExampleUnitTest {
             println(it)
         })
     }
+
+
+    @Test
+    fun test07() {
+        val json = """
+                 {
+            "code": 200,
+            "msg": "提醒设置成功",
+            "data": null
+        }
+        """.trimIndent()
+        val s = Gson().fromJson(json, Resp::class.java)
+
+        println(s.data)
+
+        val s1 = Gson().fromJson(json, JsonObject::class.java)
+        println(s1.toString())
+        println(s1.get("data").isJsonPrimitive)
+
+        println(s1.get("abc").isJsonNull)
+    }
+
+    data class Resp(
+        val code: Int,
+        val msg: String,
+        val data: JsonNull?
+    )
 
 }

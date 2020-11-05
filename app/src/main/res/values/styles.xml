@@ -25,4 +25,12 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+
+    <style name="AppTheme.Immersive">
+<!--        <item name="android:immersive">true</item>-->
+<!--        <item name="android:windowFullscreen">true</item>-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
 </resources>

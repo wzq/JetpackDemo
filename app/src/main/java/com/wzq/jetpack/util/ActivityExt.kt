@@ -34,7 +34,7 @@ fun AppCompatActivity.transparentStatusBar() {
 }
 
 
-fun Context.openPage(clazz: KClass<AppCompatActivity>, args: Bundle? = null, reqCode: Int = -1) {
+fun Context.openPage(clazz: KClass<out AppCompatActivity>, args: Bundle? = null, reqCode: Int = -1) {
     val intent = Intent(this, clazz.java)
     args?.also { intent.putExtra("args", args) }
     if (this is Activity && reqCode > -1) {

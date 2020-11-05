@@ -53,6 +53,12 @@ class MainActivity : BaseActivity() {
             (supportFragmentManager.findFragmentByTag("main-f$currentIndex") as? BaseFragment)?.back2top()
         }
 
+        // TODO: 2020/11/5 open test page
+        findViewById<FloatingActionButton>(R.id.fab).setOnLongClickListener {
+            Router.go2test(it.context)
+            true
+        }
+
         val ir = savedInstanceState?.getInt(INDEX_RESTORE, -1)
         if (ir == null || ir < 0) {
             navControl(0)
