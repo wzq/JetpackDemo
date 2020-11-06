@@ -27,10 +27,9 @@
 
 
     <style name="AppTheme.Immersive">
-<!--        <item name="android:immersive">true</item>-->
-<!--        <item name="android:windowFullscreen">true</item>-->
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
+<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--        <item name="android:statusBarColor">@color/transparent</item>-->
     </style>
 
 </resources>

@@ -2,8 +2,8 @@ package com.wzq.jetpack.util
 
 import android.content.Context
 import android.content.Intent
-import com.wzq.jetpack.App
 import com.wzq.jetpack.model.Category
+import com.wzq.jetpack.test.TestActivity
 import com.wzq.jetpack.ui.activity.*
 
 

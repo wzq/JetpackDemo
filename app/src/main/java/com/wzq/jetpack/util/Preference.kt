@@ -3,7 +3,7 @@ package com.wzq.jetpack.util
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.wzq.jetpack.App
+import com.wzq.jetpack.BaseInitializer
 import timber.log.Timber
 import kotlin.reflect.KProperty
 
@@ -15,7 +15,7 @@ import kotlin.reflect.KProperty
 class Preference<T>(val name: String, private val default: T) {
 
     private val prefs: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(App.context)
+        PreferenceManager.getDefaultSharedPreferences(BaseInitializer.app)
     }
 
     operator fun getValue(thisRef: Any?, property: KProperty<*>): T {

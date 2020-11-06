@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.wzq.jetpack.App
+import com.wzq.jetpack.BaseInitializer
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.model.Banner
 
@@ -30,7 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
         private var instance: AppDatabase? = null
 
         fun getInstance(): AppDatabase{
-            return getInstance(App.context)
+            return getInstance(BaseInitializer.app)
         }
 
         fun getInstance(context: Context): AppDatabase {

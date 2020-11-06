@@ -12,8 +12,7 @@ import android.net.NetworkInfo
 import android.net.NetworkRequest
 import android.os.Build
 import androidx.lifecycle.LiveData
-import com.wzq.jetpack.App
-import com.wzq.jetpack.data.remote.NetworkState
+import com.wzq.jetpack.BaseInitializer
 
 
 /**
@@ -22,7 +21,7 @@ import com.wzq.jetpack.data.remote.NetworkState
  */
 class NetworkStateListener: LiveData<Boolean>() {
 
-    val context = App.context
+    val context = BaseInitializer.app
     private var connectivityManager: ConnectivityManager = context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
 
     private lateinit var connectivityManagerCallback: ConnectivityManager.NetworkCallback

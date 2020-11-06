@@ -3,7 +3,7 @@ package com.wzq.jetpack.util
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.wzq.jetpack.App
+import com.wzq.jetpack.BaseInitializer
 import timber.log.Timber
 
 
@@ -18,7 +18,7 @@ object Prefs {
     const val USER_INFO = "user_info"
     const val SEARCH_HISTORY = "SEARCH_HISTORY"
 
-    private val preference: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(App.context)
+    private val preference: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(BaseInitializer.app)
 
     @Suppress("UNCHECKED_CAST")
     fun <T> get(name: String, default: T): T {
