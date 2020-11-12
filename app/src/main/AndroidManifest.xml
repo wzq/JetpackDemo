@@ -77,6 +77,10 @@
             android:name=".test.ImmersiveActivity"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme.Immersive" />
+
+        <activity
+            android:name=".test.PagesActivity"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

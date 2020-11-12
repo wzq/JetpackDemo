@@ -35,14 +35,18 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
 
+
+
     }
 
     override fun onClick(v: View?) {
         v ?: return
-        val context = v.context
         when (v.id) {
             R.id.b1 ->{
                 openPage(ImmersiveActivity::class)
+            }
+            R.id.b2 -> {
+                openPage(PagesActivity::class, args = Bundle().also { it.putInt("key", 0) })
             }
         }
     }
