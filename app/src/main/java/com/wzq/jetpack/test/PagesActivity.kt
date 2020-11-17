@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.wzq.jetpack.R
 import com.wzq.jetpack.test.video.VideoPage
+import com.wzq.jetpack.test.video.VideoWithViewPager2Page
 
 /**
  * create by wzq on 2020/11/9
@@ -18,7 +19,7 @@ class PagesActivity: AppCompatActivity() {
 
         val key = intent.getIntExtra("key", -1)
         supportFragmentManager.commit {
-            replace(R.id.container, VideoPage::class.java, null)
+            replace(R.id.container, VideoWithViewPager2Page::class.java, null)
         }
 
     }

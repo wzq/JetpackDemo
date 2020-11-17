@@ -25,7 +25,8 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
         val binding = ActivityTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val dataStore = AppInitializer.getInstance(this).initializeComponent(OtherInitializer::class.java)
+        val dataStore =
+            AppInitializer.getInstance(this).initializeComponent(OtherInitializer::class.java)
         val userId = preferencesKey<Int>("user_id")
         lifecycleScope.launchWhenCreated {
             dataStore.data.map {
@@ -34,15 +35,12 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
                 println(it)
             }
         }
-
-
-
     }
 
     override fun onClick(v: View?) {
         v ?: return
         when (v.id) {
-            R.id.b1 ->{
+            R.id.b1 -> {
                 openPage(ImmersiveActivity::class)
             }
             R.id.b2 -> {
