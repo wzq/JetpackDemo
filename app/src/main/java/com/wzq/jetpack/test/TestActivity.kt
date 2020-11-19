@@ -46,6 +46,9 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
             R.id.b2 -> {
                 openPage(PagesActivity::class, args = Bundle().also { it.putInt("key", 0) })
             }
+            R.id.b3 -> {
+                openPage(PagesActivity::class, args = Bundle().also { it.putInt("key", 1) })
+            }
         }
     }
 

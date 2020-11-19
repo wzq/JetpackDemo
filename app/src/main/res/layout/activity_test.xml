@@ -10,14 +10,21 @@
         android:id="@+id/b1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="immersive test"
+        android:text="immersive"
         android:onClick="onClick"/>
 
     <Button
         android:id="@+id/b2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="shadow test"
+        android:text="video"
+        android:onClick="onClick"/>
+
+    <Button
+        android:id="@+id/b3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="video+viewpager2"
         android:onClick="onClick"/>
 
 </LinearLayout>

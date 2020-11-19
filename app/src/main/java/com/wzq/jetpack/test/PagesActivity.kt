@@ -17,9 +17,13 @@ class PagesActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_pages)
 
-        val key = intent.getIntExtra("key", -1)
+        val clazz = when(intent.getIntExtra("key", -1)){
+            0 -> VideoPage::class.java
+            1 -> VideoWithViewPager2Page::class.java
+            else -> null
+        } ?: return
         supportFragmentManager.commit {
-            replace(R.id.container, VideoWithViewPager2Page::class.java, null)
+            replace(R.id.container, clazz, null)
         }
 
     }

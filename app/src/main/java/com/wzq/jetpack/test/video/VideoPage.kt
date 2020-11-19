@@ -2,11 +2,11 @@ package com.wzq.jetpack.test.video
 
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.exoplayer2.*
 import com.google.android.exoplayer2.ui.PlayerView
@@ -103,12 +103,17 @@ class VideoPage : Fragment() {
 
     @SuppressLint("InlinedApi")
     private fun hideSystemUi() {
-        videoView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+        // WindowCompat.setDecorFitsSystemWindows(window, false) #use it in core lib 1.5.0
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            videoView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+        } else {
+            activity?.window?.setDecorFitsSystemWindows(false)
+        }
     }
 
 }

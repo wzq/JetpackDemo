@@ -25,9 +25,11 @@ fun Context.toast(content: String, duration: Int = Toast.LENGTH_SHORT) {
 fun AppCompatActivity.transparentStatusBar() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-        val option =
-            View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-        window.decorView.systemUiVisibility = option
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+        } else {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        }
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = Color.TRANSPARENT
     }
@@ -36,7 +38,7 @@ fun AppCompatActivity.transparentStatusBar() {
 
 fun Context.openPage(clazz: KClass<out AppCompatActivity>, args: Bundle? = null, reqCode: Int = -1) {
     val intent = Intent(this, clazz.java)
-    args?.also { intent.putExtra("args", args) }
+    if (args != null) intent.putExtras(args)
     if (this is Activity && reqCode > -1) {
         startActivityForResult(intent, reqCode)
     } else {
