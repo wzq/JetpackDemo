@@ -17,19 +17,19 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>
-    
-    
-    <style name="TabText" parent="TextAppearance.Design.Tab" >
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+
+
+    <style name="TabText" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-
     <style name="AppTheme.Immersive">
-        <item name="android:windowTranslucentStatus">true</item>
-<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
-<!--        <item name="android:statusBarColor">@color/transparent</item>-->
+        <!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--        <item name="android:statusBarColor">@color/transparent</item>-->
+        <!--        <item name="android:immersive">true</item>-->
+        <!--        <item name="android:windowFullscreen">true</item>-->
     </style>
 
 </resources>
