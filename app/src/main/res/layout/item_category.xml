@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/item_category_title"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textColor="@color/text_gray_a"
+                android:textColor="@color/text_gray_500"
                 android:textSize="14sp"
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
