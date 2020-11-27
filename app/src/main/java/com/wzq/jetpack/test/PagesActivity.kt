@@ -20,6 +20,7 @@ class PagesActivity: AppCompatActivity() {
         val clazz = when(intent.getIntExtra("key", -1)){
             0 -> VideoPage::class.java
             1 -> VideoWithViewPager2Page::class.java
+            2 -> ShadowPage::class.java
             else -> null
         } ?: return
         supportFragmentManager.commit {

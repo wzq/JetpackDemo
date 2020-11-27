@@ -27,4 +27,11 @@
         android:text="video+viewpager2"
         android:onClick="onClick"/>
 
+    <Button
+        android:id="@+id/b4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="shadow"
+        android:onClick="onClick"/>
+
 </LinearLayout>

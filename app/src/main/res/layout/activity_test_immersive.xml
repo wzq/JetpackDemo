@@ -2,12 +2,22 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="#F57C00">
+    android:id="@+id/root"
+    android:background="#F57C00"
+    android:orientation="vertical">
 
     <TextView
+        android:id="@+id/t1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:textSize="24sp"
+        android:text="@string/app_name"/>
 
 </LinearLayout>
