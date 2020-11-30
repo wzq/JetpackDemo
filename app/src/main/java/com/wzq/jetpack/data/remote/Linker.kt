@@ -17,13 +17,9 @@ import retrofit2.create
 
 object Linker {
 
-//    private const val BASE_URL = "http://132.232.98.141/"
     private const val BASE_URL = "https://www.wanandroid.com"
 
-
-    private val logger = HttpLoggingInterceptor(
-        HttpLoggingInterceptor.Logger.DEFAULT
-    ).apply {
+    private val logger = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
@@ -33,16 +29,13 @@ object Linker {
             SharedPrefsCookiePersistor(BaseInitializer.app)
         )).addInterceptor(logger).build()
 
-
-    private val url = BASE_URL.toHttpUrl()
-    private val retrofit = Retrofit.Builder().baseUrl(url)
+    private val retrofit = Retrofit.Builder().baseUrl(BASE_URL.toHttpUrl())
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-    val api: Api by lazy { retrofit.create<Api>() }
+    val api: Api by lazy { retrofit.create() }
 
-
-    val gankApi : GankApi by lazy { retrofit.create<GankApi>()}
+    val gankApi : GankApi by lazy { retrofit.create()}
 
 }
