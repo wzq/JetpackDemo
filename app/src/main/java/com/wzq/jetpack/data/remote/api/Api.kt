@@ -3,6 +3,7 @@ package com.wzq.jetpack.data.remote.api
 import com.google.gson.JsonObject
 import com.wzq.jetpack.model.Question
 import com.wzq.jetpack.model.result.*
+import kotlinx.coroutines.flow.Flow
 import retrofit2.Call
 import retrofit2.http.*
 import kotlin.Result
@@ -28,8 +29,8 @@ interface Api {
          * 获取首页置顶文章列表
          * http://www.wanandroid.com/article/top/json
          */
-//        @GET("article/top/json")
-//        fun getTopArticles(): Observable<HttpResult<MutableList<Article>>>
+        @GET("article/top/json")
+        suspend fun getTopArticles(): TopArticles
 
         /**
          * 获取文章列表

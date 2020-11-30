@@ -76,9 +76,6 @@ class WebFragment: BaseFragment() {
     }
 
     inner class Client : WebViewClient() {
-        override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-            return super.shouldOverrideUrlLoading(view, request)
-        }
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)

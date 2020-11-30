@@ -58,5 +58,4 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-
 }
