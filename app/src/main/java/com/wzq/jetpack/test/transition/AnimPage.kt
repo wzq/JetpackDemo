@@ -21,7 +21,4 @@ class AnimPage : Fragment(){
         return FragmentTestAnimBinding.inflate(inflater, container, false).root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-    }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.wzq.jetpack.R
+import com.wzq.jetpack.test.transition.AnimPage
 import com.wzq.jetpack.test.video.VideoPage
 import com.wzq.jetpack.test.video.VideoWithViewPager2Page
 
@@ -21,6 +22,7 @@ class PagesActivity: AppCompatActivity() {
             0 -> VideoPage::class.java
             1 -> VideoWithViewPager2Page::class.java
             2 -> ShadowPage::class.java
+            3 -> AnimPage::class.java
             else -> null
         } ?: return
         supportFragmentManager.commit {

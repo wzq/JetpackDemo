@@ -10,6 +10,7 @@ import androidx.startup.AppInitializer
 import com.wzq.jetpack.OtherInitializer
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.ActivityTestBinding
+import com.wzq.jetpack.ui.weiget.BottomDialogFragment
 import com.wzq.jetpack.util.openPage
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
@@ -54,6 +55,9 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.b4 -> {
                 openPage(PagesActivity::class, args = Bundle().also { it.putInt("key", 2) })
+            }
+            R.id.b5 -> {
+                openPage(PagesActivity::class, bundleOf(Pair("key", 3)))
             }
         }
     }
