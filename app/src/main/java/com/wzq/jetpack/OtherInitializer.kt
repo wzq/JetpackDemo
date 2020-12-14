@@ -1,9 +1,9 @@
 package com.wzq.jetpack
 
 import android.content.Context
-import androidx.datastore.DataStore
-import androidx.datastore.preferences.Preferences
+import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.SharedPreferencesMigration
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.createDataStore
 import androidx.startup.Initializer
 import timber.log.Timber

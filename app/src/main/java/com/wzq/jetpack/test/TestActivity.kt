@@ -3,18 +3,17 @@ package com.wzq.jetpack.test
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.datastore.preferences.preferencesKey
-import androidx.lifecycle.lifecycleScope
-import androidx.startup.AppInitializer
-import com.wzq.jetpack.OtherInitializer
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.commit
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.ActivityTestBinding
-import com.wzq.jetpack.ui.weiget.BottomDialogFragment
+import com.wzq.jetpack.test.shadow.ShadowPage
+import com.wzq.jetpack.test.transition.AnimPage
+import com.wzq.jetpack.test.video.VideoPage
+import com.wzq.jetpack.test.video.VideoWithViewPager2Page
 import com.wzq.jetpack.util.openPage
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
-import timber.log.Timber
 
 /**
  * create by wzq on 2020/11/4
@@ -23,21 +22,22 @@ import timber.log.Timber
 class TestActivity : AppCompatActivity(), View.OnClickListener {
 
 
+    lateinit var containerView: FragmentContainerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val dataStore =
-            AppInitializer.getInstance(this).initializeComponent(OtherInitializer::class.java)
-        val userId = preferencesKey<Int>("user_id")
-        lifecycleScope.launchWhenCreated {
-            dataStore.data.map {
-                it[userId]
-            }.collect {
-                Timber.i("user id = $it")
-            }
-        }
+        containerView = binding.container
+//        val dataStore =
+//            AppInitializer.getInstance(this).initializeComponent(OtherInitializer::class.java)
+//        val userId = preferencesKey<Int>("user_id")
+//        lifecycleScope.launchWhenCreated {
+//            dataStore.data.map {
+//                it[userId]
+//            }.collect {
+//                Timber.i("user id = $it")
+//            }
+//        }
     }
 
     override fun onClick(v: View?) {
@@ -47,18 +47,32 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
                 openPage(ImmersiveActivity::class)
             }
             R.id.b2 -> {
-                val s = bundleOf(Pair("key", 0))
-                openPage(PagesActivity::class, args = s)
+                showFragment(VideoPage())
             }
             R.id.b3 -> {
-                openPage(PagesActivity::class, args = Bundle().also { it.putInt("key", 1) })
+                showFragment(VideoWithViewPager2Page())
             }
             R.id.b4 -> {
-                openPage(PagesActivity::class, args = Bundle().also { it.putInt("key", 2) })
+                showFragment(ShadowPage())
             }
             R.id.b5 -> {
-                openPage(PagesActivity::class, bundleOf(Pair("key", 3)))
+                showFragment(AnimPage())
             }
+        }
+    }
+
+    private fun showFragment(fragment: Fragment) {
+        containerView.visibility = View.VISIBLE
+        supportFragmentManager.commit {
+            replace(R.id.container, fragment)
+        }
+    }
+
+    override fun onBackPressed() {
+        if (containerView.isVisible) {
+            containerView.visibility = View.GONE
+        } else {
+            super.onBackPressed()
         }
     }
 

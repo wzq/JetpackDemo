@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.wzq.jetpack.R
-import kotlinx.android.synthetic.main.fragment_video_viewpager.*
 
 
 /**
@@ -19,6 +18,8 @@ import kotlinx.android.synthetic.main.fragment_video_viewpager.*
  */
 class VideoWithViewPager2Page : Fragment() {
 
+
+    lateinit var pager: ViewPager2
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,6 +30,7 @@ class VideoWithViewPager2Page : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        pager = view.findViewById(R.id.pager)
         val pagerIndex = view.findViewById<TextView>(R.id.pager_index)
         val pagerCallback = object : ViewPager2.OnPageChangeCallback() {
             @SuppressLint("SetTextI18n")

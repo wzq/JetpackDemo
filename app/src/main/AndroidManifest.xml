@@ -76,10 +76,6 @@
         <activity
             android:name=".test.ImmersiveActivity"
             android:launchMode="singleTop" />
-
-        <activity
-            android:name=".test.PagesActivity"
-            android:launchMode="singleTop" />
     </application>
 
 </manifest>
