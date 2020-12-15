@@ -53,9 +53,9 @@ class PagerAdapter : RecyclerView.Adapter<PagerAdapter.VideoHolder>() {
     class VideoHolder(val root: CustomVideoView) : RecyclerView.ViewHolder(root)
 
     val data = mutableListOf(
+        "http://mgcdn.vod.migucloud.com/vi1/198.2C90Ezmjpfkb0g9ApsPhni.56.I1SeqL.mp4",
         "http://mgcdn.vod.migucloud.com/vi1/198.3lYBKuRh5spTAvWGhPZj.56.r48jfj.mp4",
-        "http://mgcdn.vod.migucloud.com/vi1/198.3lYBKuRh5spTAvWGhPZj.56.r48jfj.mp4",
-        "http://mgcdn.vod.migucloud.com/vi1/198.3lYBKuRh5spTAvWGhPZj.56.r48jfj.mp4",
+        "http://mgcdn.vod.migucloud.com/vi1/198.2C90Ezmjpfkb0g9ApsPhni.56.I1SeqL.mp4",
         "http://mgcdn.vod.migucloud.com/vi1/198.3lYBKuRh5spTAvWGhPZj.56.r48jfj.mp4",
         "http://mgcdn.vod.migucloud.com/vi1/198.3lYBKuRh5spTAvWGhPZj.56.r48jfj.mp4"
     )

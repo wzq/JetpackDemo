@@ -1,8 +1,12 @@
 package com.wzq.jetpack.util
 
 import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Color
 import android.text.format.DateFormat
 import android.util.TypedValue
+import android.view.View
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,4 +54,20 @@ fun <T> resultFactory(action: (T?) -> Unit): Callback<T> {
 
 fun threadLog(v: String) {
     Timber.d("[${Thread.currentThread().name}] -> $v")
+}
+
+/**
+ * 对未绘制的VIEW 进行截图
+ * @return Bitmap
+ */
+fun captureView(view: View, w: Int, h: Int): Bitmap {
+    view.measure(
+        View.MeasureSpec.makeMeasureSpec(w, View.MeasureSpec.EXACTLY),
+        View.MeasureSpec.makeMeasureSpec(h, View.MeasureSpec.EXACTLY))
+    view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+    val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmap)
+    canvas.drawColor(Color.WHITE)
+    view.draw(canvas)
+    return bitmap
 }

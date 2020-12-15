@@ -22,7 +22,13 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
     val pageNum = MutableLiveData(0)
 
     val articleList = pageNum.switchMap {
-        liveData { emit(repo.getArticles(it)) }
+        liveData {
+            try {
+                emit(repo.getArticles(it))
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     val looper = flow {
