@@ -20,7 +20,7 @@ class WebFragment: BaseFragment() {
     private lateinit var binding: FragmentWebBinding
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         binding = FragmentWebBinding.inflate(inflater, container, false)
         val url = activity?.intent?.getStringExtra("url") ?: ""

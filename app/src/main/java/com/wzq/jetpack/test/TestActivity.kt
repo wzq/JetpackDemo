@@ -38,6 +38,14 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
 //                Timber.i("user id = $it")
 //            }
 //        }
+
+
+//        activity?.also {
+//            it.onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+//                isEnabled = false; remove()
+//                it.onBackPressed()
+//            }
+//        }
     }
 
     override fun onClick(v: View?) {

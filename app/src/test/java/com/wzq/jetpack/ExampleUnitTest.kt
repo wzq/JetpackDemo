@@ -1,19 +1,21 @@
 package com.wzq.jetpack
 
+import android.util.SparseArray
 import com.google.gson.Gson
-import com.google.gson.JsonElement
 import com.google.gson.JsonNull
 import com.google.gson.JsonObject
 import com.wzq.jetpack.util.html
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
-import org.json.JSONObject
-import org.junit.Assert.assertEquals
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import java.util.concurrent.BlockingQueue
 import kotlin.system.measureTimeMillis
 
 /**
@@ -24,7 +26,18 @@ import kotlin.system.measureTimeMillis
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+
+        val sa = SparseArray<String>()
+
+
+        val a = 2
+        println(a.inv().inv())
+
+        println(a.or(4))
+
+        println(a.and(3))
+
+        println(a shl 2)
     }
 
     @Test
