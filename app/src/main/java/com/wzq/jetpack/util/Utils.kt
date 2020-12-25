@@ -63,7 +63,8 @@ fun threadLog(v: String) {
 fun captureView(view: View, w: Int, h: Int): Bitmap {
     view.measure(
         View.MeasureSpec.makeMeasureSpec(w, View.MeasureSpec.EXACTLY),
-        View.MeasureSpec.makeMeasureSpec(h, View.MeasureSpec.EXACTLY))
+        View.MeasureSpec.makeMeasureSpec(h, View.MeasureSpec.EXACTLY)
+    )
     view.layout(0, 0, view.measuredWidth, view.measuredHeight)
     val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
     val canvas = Canvas(bitmap)
@@ -71,3 +72,10 @@ fun captureView(view: View, w: Int, h: Int): Bitmap {
     view.draw(canvas)
     return bitmap
 }
+
+val Int.dp: Float
+    get() = TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        this.toFloat(),
+        Resources.getSystem().displayMetrics
+    )
