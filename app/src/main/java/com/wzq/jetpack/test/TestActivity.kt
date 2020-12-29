@@ -1,6 +1,7 @@
 package com.wzq.jetpack.test
 
 import android.os.Bundle
+import android.text.Html
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -78,6 +79,7 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onBackPressed() {
         if (containerView.isVisible) {
+            containerView.removeAllViewsInLayout()
             containerView.visibility = View.GONE
         } else {
             super.onBackPressed()
