@@ -1,7 +1,6 @@
 package com.wzq.jetpack.test
 
 import android.os.Bundle
-import android.text.Html
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
