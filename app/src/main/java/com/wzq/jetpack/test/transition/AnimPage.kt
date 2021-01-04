@@ -23,6 +23,6 @@ class AnimPage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentTestAnimBinding.bind(view)
-
+        binding.root.setOnClickListener { }
     }
 }

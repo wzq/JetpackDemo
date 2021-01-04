@@ -10,6 +10,7 @@ import androidx.fragment.app.commit
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.ActivityTestBinding
 import com.wzq.jetpack.test.shadow.ShadowPage
+import com.wzq.jetpack.test.transition.AnimListActivity
 import com.wzq.jetpack.test.transition.AnimPage
 import com.wzq.jetpack.test.video.VideoPage
 import com.wzq.jetpack.test.video.VideoWithViewPager2Page
@@ -64,7 +65,8 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
                 showFragment(ShadowPage())
             }
             R.id.b5 -> {
-                showFragment(AnimPage())
+//                showFragment(AnimPage())
+                openPage(AnimListActivity::class)
             }
         }
     }

@@ -77,6 +77,8 @@
         <activity
             android:name=".test.ImmersiveActivity"
             android:launchMode="singleTop" />
+
+        <activity android:name=".test.transition.AnimListActivity"/>
     </application>
 
 </manifest>

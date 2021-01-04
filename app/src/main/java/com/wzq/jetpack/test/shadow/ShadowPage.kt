@@ -6,7 +6,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.FragmentTestShadowBinding
-import com.wzq.jetpack.ui.weiget.ShadowDrawable
 import com.wzq.jetpack.util.dp
 
 /**

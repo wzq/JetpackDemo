@@ -2,6 +2,7 @@ package com.wzq.jetpack.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.ViewGroupCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,7 @@ class GankAdapter : ListAdapter<GankItem, GankAdapter.ViewHolder>(GankDiffCallba
 
     class ViewHolder(val binding: ItemGankBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
+            ViewGroupCompat.setTransitionGroup(itemView as ViewGroup, true)
             binding.root.setOnClickListener { Router.go2web(binding.root.context, binding.root.tag.toString()) }
         }
     }
