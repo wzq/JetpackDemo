@@ -6,19 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewGroupCompat
+import androidx.core.view.doOnNextLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionManager
-import com.google.android.material.transition.MaterialElevationScale
-import com.google.android.material.transition.MaterialFade
-import com.google.android.material.transition.MaterialFadeThrough
-import com.google.android.material.transition.MaterialSharedAxis
 import com.wzq.jetpack.R
-import com.wzq.jetpack.databinding.ActivityTestAnimListBinding
 import com.wzq.jetpack.databinding.ItemTestAnimBinding
+import com.wzq.jetpack.test.transition.util.SpringAddItemAnimator
 import com.wzq.jetpack.ui.transcation.Stagger
 import kotlinx.coroutines.delay
 
@@ -39,12 +36,16 @@ class AnimListActivity : AppCompatActivity() {
                 return false
             }
         }
-        val stagger = MaterialSharedAxis(MaterialSharedAxis.Y, false)
+        val stagger = Stagger()
         val adapter = AnimListAdapter()
+        list.itemAnimator = SpringAddItemAnimator()
         list.adapter = adapter
         lifecycleScope.launchWhenStarted {
-            delay(500)
-            TransitionManager.beginDelayedTransition(list, stagger)
+//            delay(500)
+//            TransitionManager.beginDelayedTransition(list, stagger)
+//            adapter.submitList(fakeData())
+        }
+        list.doOnNextLayout {
             adapter.submitList(fakeData())
         }
     }

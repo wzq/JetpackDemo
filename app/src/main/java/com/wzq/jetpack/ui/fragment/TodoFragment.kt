@@ -3,8 +3,6 @@ package com.wzq.jetpack.ui.fragment
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.FragmentTodoBinding

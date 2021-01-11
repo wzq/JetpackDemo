@@ -27,9 +27,6 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
 
-        val sa = SparseArray<String>()
-
-
         val a = 2
         println(a.inv().inv())
 

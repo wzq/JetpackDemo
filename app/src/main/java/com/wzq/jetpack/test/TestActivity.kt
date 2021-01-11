@@ -9,9 +9,10 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.ActivityTestBinding
+import com.wzq.jetpack.test.dialog.TestDialogActivity
 import com.wzq.jetpack.test.shadow.ShadowPage
 import com.wzq.jetpack.test.transition.AnimListActivity
-import com.wzq.jetpack.test.transition.AnimPage
+import com.wzq.jetpack.test.transition.TransActivity
 import com.wzq.jetpack.test.video.VideoPage
 import com.wzq.jetpack.test.video.VideoWithViewPager2Page
 import com.wzq.jetpack.util.openPage
@@ -29,24 +30,6 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
         val binding = ActivityTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
         containerView = binding.container
-//        val dataStore =
-//            AppInitializer.getInstance(this).initializeComponent(OtherInitializer::class.java)
-//        val userId = preferencesKey<Int>("user_id")
-//        lifecycleScope.launchWhenCreated {
-//            dataStore.data.map {
-//                it[userId]
-//            }.collect {
-//                Timber.i("user id = $it")
-//            }
-//        }
-
-
-//        activity?.also {
-//            it.onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-//                isEnabled = false; remove()
-//                it.onBackPressed()
-//            }
-//        }
     }
 
     override fun onClick(v: View?) {
@@ -66,6 +49,9 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.b5 -> {
 //                showFragment(AnimPage())
+                openPage(TransActivity::class)
+            }
+            R.id.b6 -> {
                 openPage(AnimListActivity::class)
             }
         }
@@ -88,3 +74,22 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
     }
 
 }
+
+//        val dataStore =
+//            AppInitializer.getInstance(this).initializeComponent(OtherInitializer::class.java)
+//        val userId = preferencesKey<Int>("user_id")
+//        lifecycleScope.launchWhenCreated {
+//            dataStore.data.map {
+//                it[userId]
+//            }.collect {
+//                Timber.i("user id = $it")
+//            }
+//        }
+
+
+//        activity?.also {
+//            it.onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+//                isEnabled = false; remove()
+//                it.onBackPressed()
+//            }
+//        }

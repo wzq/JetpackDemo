@@ -34,14 +34,15 @@
                 tools:node="remove" />
         </provider>
 
+        <activity android:name=".ui.activity.SplashActivity"
+            android:theme="@style/SplashTheme">
+
+
+        </activity>
+
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activity.WebActivity"
@@ -72,13 +73,23 @@
         <!--        test activity   -->
         <activity
             android:name=".test.TestActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".test.ImmersiveActivity"
             android:launchMode="singleTop" />
 
         <activity android:name=".test.transition.AnimListActivity"/>
+
+        <activity android:name=".test.transition.TransActivity"/>
+
+        <activity android:name=".test.dialog.TestDialogActivity" />
     </application>
 
 </manifest>

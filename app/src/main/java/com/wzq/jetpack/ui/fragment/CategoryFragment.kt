@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.FragmentCategoryBinding
 import com.wzq.jetpack.ui.adapter.CategoryAdapter
@@ -41,7 +40,7 @@ class CategoryFragment : BaseFragment() {
 
     private fun refresh() {
         binding.categorySwipe.isRefreshing = true
-        viewModel.getCategoryList().observe(this, Observer {
+        viewModel.getCategoryList().observe(viewLifecycleOwner, {
             binding.categorySwipe.isRefreshing = false
             adapter.submitList(it)
         })
@@ -50,11 +49,9 @@ class CategoryFragment : BaseFragment() {
 
     private fun refresh1() {
         binding.categorySwipe.isRefreshing = true
-        viewModel.getCategoryList().observe(this, Observer {
+        viewModel.getCategoryList().observe(viewLifecycleOwner, {
             binding.categorySwipe.isRefreshing = false
-            adapter.submitList(it.map {et->
-                et.copy(name = "oooo")
-            })
+            adapter.submitList(it)
         })
     }
 

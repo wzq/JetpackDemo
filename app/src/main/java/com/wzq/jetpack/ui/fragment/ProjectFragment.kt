@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.paging.LoadState
+import androidx.paging.LoadStates
 import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.wzq.jetpack.databinding.FragmentProjectBinding
@@ -48,10 +48,26 @@ class ProjectFragment : BaseFragment() {
         binding.projectList.addOnScrollListener(viewPreloader)
 
         adapter.addLoadStateListener {
-            binding.projectSwipe.isRefreshing = it.refresh is LoadState.Loading
+            binding.projectSwipe.isRefreshing = it.append is LoadState.Loading
+
+            when(it.append) {
+                LoadState.Loading -> {
+                    println("Loading ")
+                }
+                is LoadState.NotLoading ->  println("NotLoading ")
+                is LoadState.Error ->  println("Error ")
+            }
+
+            when(it.refresh) {
+                LoadState.Loading -> {
+                    println("refresh -------Loading ")
+                }
+                is LoadState.NotLoading ->  println("refresh -------NotLoading ")
+                is LoadState.Error ->  println("refresh -------Error ")
+            }
         }
 
-        viewModel.fetchLastProject().observe(viewLifecycleOwner, Observer {
+        viewModel.fetchLastProject().observe(viewLifecycleOwner, {
             adapter.submitData(lifecycle, it)
         })
     }
