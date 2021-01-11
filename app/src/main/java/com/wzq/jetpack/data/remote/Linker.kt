@@ -12,7 +12,6 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 
 import com.wzq.jetpack.BaseInitializer
 import com.wzq.jetpack.data.remote.api.GankApi
-import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
 
@@ -32,7 +31,7 @@ object Linker {
 
     private val retrofit = Retrofit.Builder().baseUrl(BASE_URL.toHttpUrl())
             .client(client)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
 
     val api: Api by lazy { retrofit.create() }

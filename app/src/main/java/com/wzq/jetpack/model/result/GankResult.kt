@@ -1,9 +1,6 @@
 package com.wzq.jetpack.model.result
 
 import com.google.gson.annotations.SerializedName
-import com.squareup.moshi.JsonClass
-
-import com.squareup.moshi.Json
 
 
 data class GankResult(
@@ -34,38 +31,38 @@ data class GankData(
     val welfare: List<GankItem>
 )
 
-//data class GankItem(
-//    @SerializedName("createdAt")
-//    val createdAt: String,
-//    @SerializedName("desc")
-//    val desc: String,
-//    @SerializedName("_id")
-//    val id: String,
-//    @SerializedName("images")
-//    val images: List<String>,
-//    @SerializedName("publishedAt")
-//    val publishedAt: String,
-//    @SerializedName("source")
-//    val source: String,
-//    @SerializedName("type")
-//    val type: String,
-//    @SerializedName("url")
-//    val url: String,
-//    @SerializedName("used")
-//    val used: Boolean,
-//    @SerializedName("who")
-//    val who: String
-//)
-@JsonClass(generateAdapter = true)
 data class GankItem(
-    val createdAt: String?,
-    val desc: String?,
-    @Json(name = "_id")
-    val id: String?,
-    val publishedAt: String?,
-    val source: String?,
-    val type: String?,
-    val url: String?,
-    val used: Boolean?,
-    val who: String?
+    @SerializedName("createdAt")
+    val createdAt: String,
+    @SerializedName("desc")
+    val desc: String,
+    @SerializedName("_id")
+    val id: String,
+    @SerializedName("images")
+    val images: List<String>,
+    @SerializedName("publishedAt")
+    val publishedAt: String,
+    @SerializedName("source")
+    val source: String,
+    @SerializedName("type")
+    val type: String,
+    @SerializedName("url")
+    val url: String,
+    @SerializedName("used")
+    val used: Boolean,
+    @SerializedName("who")
+    val who: String
 )
+//@JsonClass(generateAdapter = true)
+//data class GankItem(
+//    val createdAt: String?,
+//    val desc: String?,
+//    @Json(name = "_id")
+//    val id: String?,
+//    val publishedAt: String?,
+//    val source: String?,
+//    val type: String?,
+//    val url: String?,
+//    val used: Boolean?,
+//    val who: String?
+//)

@@ -16,8 +16,10 @@ class GankViewModel internal constructor(): ViewModel() {
 
     fun getDailyInfo() {
         viewModelScope.launch(Dispatchers.IO) {
-            val data = Linker.gankApi.getDaliyInfo()
-            gankResult.postValue(data)
+            runCatching {
+                val data = Linker.gankApi.getDaliyInfo()
+                gankResult.postValue(data)
+            }
         }
     }
 

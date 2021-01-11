@@ -11,14 +11,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.remote.NetworkStateListener
+import com.wzq.jetpack.databinding.ActivityMainBinding
 import com.wzq.jetpack.ui.fragment.*
-import com.wzq.jetpack.util.AnimUtils
 import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.monitor.LoginMonitor
 import timber.log.Timber
@@ -29,45 +30,35 @@ class MainActivity : BaseActivity() {
 
     private val loginMonitor = LoginMonitor()
 
-    private var currentIndex = -1
-
-    private val INDEX_RESTORE = "index_restore"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
         lookNetwork()
-        //transparentStatusBar()
         val vm = System.getProperty("java.vm.version")
         Timber.i("Android VM Version is $vm.")
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
+
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        initDrawer(toolbar)
 
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-        navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-
+        initDrawer(binding.toolbar)
         userArea()
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{
-            (supportFragmentManager.findFragmentByTag("main-f$currentIndex") as? BaseFragment)?.back2top()
-        }
+        initBottomView(binding.navView)
+
+//        binding.fab.setOnClickListener{
+//            (supportFragmentManager.findFragmentByTag("main-f$currentIndex") as? BaseFragment)?.back2top()
+//        }
 
         // TODO: 2020/11/5 open test page
-        findViewById<FloatingActionButton>(R.id.fab).setOnLongClickListener {
+        binding.fab.setOnClickListener {
             Router.go2test(it.context)
-            true
         }
 
-        val ir = savedInstanceState?.getInt(INDEX_RESTORE, -1)
-        if (ir == null || ir < 0) {
-            navControl(0)
-            title = "Demo"
-        } else {
-            currentIndex = savedInstanceState.getInt(INDEX_RESTORE)
-        }
+    }
 
-        animateToolbar(toolbar)
+    private fun initBottomView(bottomNavigationView: BottomNavigationView) {
+        val nav = findNavController(R.id.nav_main)
+        bottomNavigationView.setupWithNavController(nav)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -124,44 +115,12 @@ class MainActivity : BaseActivity() {
         toggle.syncState()
     }
 
-
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-                navControl(0)
-                title = "Demo"
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_dashboard -> {
-                navControl(1)
-                title = "项目"
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_notifications -> {
-                navControl(2)
-                title = "体系"
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_gank -> {
-                navControl(3)
-                title = "Gank"
-                return@OnNavigationItemSelectedListener true
-            }
-        }
-        false
-    }
-
     override fun onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(INDEX_RESTORE, currentIndex)
     }
 
     private fun lookNetwork(){
@@ -172,47 +131,6 @@ class MainActivity : BaseActivity() {
         })
     }
 
-    private fun navControl(index: Int) {
-        if (currentIndex != index) {
-            val trans = supportFragmentManager.beginTransaction()
-            val tag = "main-f$index"
-            val target = supportFragmentManager.findFragmentByTag(tag)
-                ?: (fragmentFactory(index).also { et -> trans.add(R.id.container, et, tag) })
-            trans.show(target)
-            val old = supportFragmentManager.findFragmentByTag("main-f$currentIndex")
-            if (old != null) {
-                trans.hide(old)
-            }
-            currentIndex = index
-            trans.commit()
-        }
-    }
 
-    private fun fragmentFactory(i: Int): BaseFragment = when(i){
-        0 -> HomeFragment()
-        1 -> ProjectFragment()
-        2 -> CategoryFragment()
-        3 -> GankFragment()
-        else -> throw IllegalArgumentException("can not get fragment $i")
-    }
-
-    private fun animateToolbar(toolbar: Toolbar) {
-        // this is gross but toolbar doesn't expose it's children to animate them :(
-        val t = toolbar.getChildAt(0)
-        if (t is TextView) {
-            t.apply {
-                alpha = 0.0f
-                scaleX = 0.0f
-
-                animate()
-                    .alpha(1f)
-                    .scaleX(1f)
-                    .setStartDelay(300)
-                    .setDuration(900).interpolator =
-                    AnimUtils.getFastOutSlowInInterpolator(this@MainActivity)
-            }
-        }
-
-    }
 
 }

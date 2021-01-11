@@ -3,4 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/t1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="vmess://eyJ2IjogIjIiLCAicHMiOiAiIiwgImFkZCI6ICIxOTMuMTQ5LjE2MS4yMDkiLCAicG9ydCI6IDQ0Mjk3LCAiYWlkIjogMCwgInR5cGUiOiAid2VjaGF0LXZpZGVvIiwgIm5ldCI6ICJrY3AiLCAicGF0aCI6ICIiLCAiaG9zdCI6ICIiLCAiaWQiOiAiZjEwYjYyMTgtMzM4Ni0xMWViLTk3YzUtNjI1ODI5OTc2NWY4IiwgInRscyI6ICJub25lIn0="/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

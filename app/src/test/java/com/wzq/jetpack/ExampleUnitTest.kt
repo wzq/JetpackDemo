@@ -35,6 +35,16 @@ class ExampleUnitTest {
         println(a.and(3))
 
         println(a shl 2)
+
+
+        val arr = arrayListOf(Pair(1, null), Pair(2, "asd"), Pair(3, ""))
+
+        arr.mapNotNull {
+            val s = it.second
+            if (s.isNullOrEmpty()) null  else s
+        }.also {
+            println(it)
+        }
     }
 
     @Test

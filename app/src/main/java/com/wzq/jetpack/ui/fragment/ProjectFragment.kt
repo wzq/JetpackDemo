@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnNextLayout
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.paging.LoadStates
@@ -11,6 +12,7 @@ import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader
 import com.bumptech.glide.util.ViewPreloadSizeProvider
 import com.wzq.jetpack.databinding.FragmentProjectBinding
 import com.wzq.jetpack.model.Article
+import com.wzq.jetpack.test.transition.util.SpringAddItemAnimator
 import com.wzq.jetpack.ui.adapter.ProjectAdapter
 import com.wzq.jetpack.viewmodel.ProjectViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
@@ -32,7 +34,7 @@ class ProjectFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProjectBinding.inflate(inflater, container, false)
         initAdapter()
         binding.projectSwipe.setOnRefreshListener {
@@ -42,13 +44,15 @@ class ProjectFragment : BaseFragment() {
     }
 
     private fun initAdapter() {
+        binding.projectList.setHasFixedSize(true)
+        binding.projectList.itemAnimator = SpringAddItemAnimator()
         binding.projectList.adapter = adapter
         val sizeProvider = ViewPreloadSizeProvider<Article>()
         val viewPreloader = RecyclerViewPreloader(this, adapter, sizeProvider, 4)
         binding.projectList.addOnScrollListener(viewPreloader)
 
         adapter.addLoadStateListener {
-            binding.projectSwipe.isRefreshing = it.append is LoadState.Loading
+            binding.projectSwipe.isRefreshing = it.refresh is LoadState.Loading
 
             when(it.append) {
                 LoadState.Loading -> {

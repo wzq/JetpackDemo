@@ -52,7 +52,7 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
                 openPage(TransActivity::class)
             }
             R.id.b6 -> {
-                openPage(AnimListActivity::class)
+                openPage(TestDialogActivity::class)
             }
         }
     }

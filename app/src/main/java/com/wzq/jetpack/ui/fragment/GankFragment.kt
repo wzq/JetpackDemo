@@ -47,7 +47,7 @@ class GankFragment : BaseFragment() {
 
         val stagger = Stagger()
 
-        viewModel.dailyList.observe(viewLifecycleOwner, Observer {
+        viewModel.dailyList.observe(viewLifecycleOwner, {
             TransitionManager.beginDelayedTransition(binding.gankList, stagger)
             adapter.submitList(it)
             binding.gankSwipe.isRefreshing = false

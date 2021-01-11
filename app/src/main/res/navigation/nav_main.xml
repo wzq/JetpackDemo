@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.wzq.jetpack.ui.fragment.HomeFragment"
+        android:label="Demo" />
+
+    <fragment
+        android:id="@+id/navigation_project"
+        android:name="com.wzq.jetpack.ui.fragment.ProjectFragment"
+        android:label="Project" />
+
+    <fragment
+        android:id="@+id/navigation_category"
+        android:name="com.wzq.jetpack.ui.fragment.CategoryFragment"
+        android:label="Category" />
+
+    <fragment
+        android:id="@+id/navigation_gank"
+        android:name="com.wzq.jetpack.ui.fragment.GankFragment"
+        android:label="Gank" />
+
+</navigation>
