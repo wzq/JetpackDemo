@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_main"
+    android:id="@+id/nav_main_fragment"
     app:startDestination="@+id/navigation_home">
 
     <fragment
@@ -23,5 +23,16 @@
         android:id="@+id/navigation_gank"
         android:name="com.wzq.jetpack.ui.fragment.GankFragment"
         android:label="Gank" />
+
+
+    <fragment
+        android:id="@+id/user_collect"
+        android:name="com.wzq.jetpack.ui.fragment.CollectFragment"
+        android:label="collect" />
+
+    <fragment
+        android:id="@+id/user_about"
+        android:name="com.wzq.jetpack.ui.fragment.AboutFragment"
+        android:label="about" />
 
 </navigation>

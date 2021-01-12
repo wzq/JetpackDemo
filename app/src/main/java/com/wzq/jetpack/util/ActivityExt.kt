@@ -23,6 +23,35 @@ fun Context.toast(content: String, duration: Int = Toast.LENGTH_SHORT) {
     if (content.isNotBlank()) Toast.makeText(this, content, duration).show()
 }
 
+fun AppCompatActivity.systemBarMode(isLightMode: Boolean) {
+    WindowCompat.getInsetsController(window, window.decorView)?.also {
+        it.isAppearanceLightStatusBars = !isLightMode
+        it.isAppearanceLightNavigationBars = !isLightMode
+    }
+}
+
+fun AppCompatActivity.immersive() {
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window.statusBarColor = Color.TRANSPARENT
+    window.navigationBarColor = Color.TRANSPARENT
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+}
+
+fun Context.openPage(
+    clazz: KClass<out AppCompatActivity>,
+    args: Bundle? = null,
+    reqCode: Int = -1
+) {
+    val intent = Intent(this, clazz.java)
+    if (args != null) intent.putExtras(args)
+    if (this is Activity && reqCode > -1) {
+        startActivityForResult(intent, reqCode)
+    } else {
+        startActivity(intent)
+    }
+}
+
+@Deprecated("use immersive() ")
 fun AppCompatActivity.transparentStatusBar() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -36,34 +65,5 @@ fun AppCompatActivity.transparentStatusBar() {
         }
     } else {
         window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-    }
-}
-
-
-fun AppCompatActivity.immersive(isLightMode: Boolean) = this.immersive(isLightMode, isLightMode)
-fun AppCompatActivity.immersive(statusBar: Boolean, nav: Boolean) {
-    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-    window.statusBarColor = Color.TRANSPARENT
-    window.navigationBarColor = Color.TRANSPARENT
-
-    WindowCompat.setDecorFitsSystemWindows(window, false)
-    WindowCompat.getInsetsController(window, window.decorView)?.also {
-        it.isAppearanceLightStatusBars = statusBar
-        it.isAppearanceLightNavigationBars = nav
-    }
-}
-
-
-fun Context.openPage(
-    clazz: KClass<out AppCompatActivity>,
-    args: Bundle? = null,
-    reqCode: Int = -1
-) {
-    val intent = Intent(this, clazz.java)
-    if (args != null) intent.putExtras(args)
-    if (this is Activity && reqCode > -1) {
-        startActivityForResult(intent, reqCode)
-    } else {
-        startActivity(intent)
     }
 }

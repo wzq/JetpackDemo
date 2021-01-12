@@ -21,8 +21,8 @@
         android:title="@string/drawer_question"/>
     <item android:id="@+id/collect_fragment"
           android:title="@string/drawer_collect"/>
-    <item android:id="@+id/todo_fragment"
-          android:title="@string/drawer_todo"/>
-    <item android:id="@+id/about_fragment"
-          android:title="@string/drawer_about"/>
+<!--    <item android:id="@+id/todo_fragment"-->
+<!--          android:title="@string/drawer_todo"/>-->
+<!--    <item android:id="@+id/about_fragment"-->
+<!--          android:title="@string/drawer_about"/>-->
 </menu>

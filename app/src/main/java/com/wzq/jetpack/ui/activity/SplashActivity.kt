@@ -34,6 +34,6 @@ class SplashActivity : AppCompatActivity() {
         setContentView(root)
 
 
-        immersive(true)
+        immersive()
     }
 }

@@ -18,7 +18,7 @@ class ImmersiveActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_immersive)
-        immersive(true)
+        immersive()
 
         val root = findViewById<View>(R.id.root)
 
