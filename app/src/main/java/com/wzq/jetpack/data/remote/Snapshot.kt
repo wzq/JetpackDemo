@@ -1,5 +1,7 @@
 package com.wzq.jetpack.data.remote
 
+import androidx.lifecycle.MutableLiveData
+
 /**
  * This class can be a return type.
  *
@@ -17,6 +19,7 @@ class Snapshot<out T>(private val value: Any?) {
             } catch (exception: Throwable) {
                 failure(exception)
             }
+
     }
 
     fun isSuccess() = value !is Error
@@ -31,3 +34,5 @@ class Snapshot<out T>(private val value: Any?) {
         val exception: Throwable
     )
 }
+
+typealias SnapshotLiveData<T> = MutableLiveData<Snapshot<T>>

@@ -76,7 +76,4 @@ class ProjectFragment : BaseFragment() {
         })
     }
 
-    override fun back2top() {
-        binding.projectList.scrollToPosition(0)
-    }
 }

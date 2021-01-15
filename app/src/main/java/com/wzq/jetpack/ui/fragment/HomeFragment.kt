@@ -6,17 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.RadioButton
+import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.viewpager2.widget.ViewPager2
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.FragmentHomeBinding
+import com.wzq.jetpack.test.transition.util.SpringAddItemAnimator
 import com.wzq.jetpack.ui.adapter.ArticleAdapter
 import com.wzq.jetpack.ui.adapter.HomePageAdapter
+import com.wzq.jetpack.ui.adapter.PageArticleAdapter
+import com.wzq.jetpack.ui.transcation.StaggerItemAnim
 import com.wzq.jetpack.util.dp2px
 import com.wzq.jetpack.viewmodel.HomeViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
@@ -45,22 +50,19 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentHomeBinding.bind(view)
 
-        val nav = findNavController()
-        binding.toolbarLayout.setupWithNavController(
-            binding.toolbar,
-            nav,
-            AppBarConfiguration(nav.graph)
-        )
-        binding.homeSwipe.setOnRefreshListener {
-            viewModel.refresh()
-        }
-
         initPager()
         initList()
     }
 
     private fun initList() {
-        val adapter = ArticleAdapter()
+        binding.homeList.itemAnimator = SpringAddItemAnimator()
+        val adapter = PageArticleAdapter()
+        adapter.addLoadStateListener {
+            binding.homeSwipe.isRefreshing = it.refresh is LoadState.Loading
+        }
+        binding.homeSwipe.setOnRefreshListener {
+            adapter.refresh()
+        }
         binding.homeList.addItemDecoration(
             DividerItemDecoration(
                 activity,
@@ -68,10 +70,9 @@ class HomeFragment : BaseFragment() {
             )
         )
         binding.homeList.adapter = adapter
-        viewModel.articleList.observe(viewLifecycleOwner, Observer {
-            binding.homeSwipe.isRefreshing = false
-            adapter.submitList(it)
-        })
+        viewModel.articleList.observe(viewLifecycleOwner) {
+            adapter.submitData(lifecycle, it)
+        }
     }
 
     private fun initPager() {
@@ -112,6 +113,4 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    override fun back2top() {
-    }
 }

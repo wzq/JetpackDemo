@@ -15,11 +15,11 @@ import com.wzq.jetpack.BuildConfig
 class MyGlideApp : AppGlideModule() {
 
     override fun applyOptions(context: Context, builder: GlideBuilder) {
-        if (BuildConfig.DEBUG) {
-            builder.setLogLevel(Log.DEBUG)
-        } else {
-            builder.setLogLevel(Log.ERROR)
-        }
+//        if (BuildConfig.DEBUG) {
+//            builder.setLogLevel(Log.DEBUG)
+//        } else {
+//            builder.setLogLevel(Log.ERROR)
+//        }
     }
 
     override fun isManifestParsingEnabled(): Boolean {

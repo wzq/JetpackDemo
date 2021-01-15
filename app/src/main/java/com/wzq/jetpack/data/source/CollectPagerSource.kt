@@ -9,16 +9,16 @@ import timber.log.Timber
  * create by wzq on 2020/7/30
  *
  */
-class HomePageSource : PagingSource<Int, Article>() {
+class CollectPagerSource : PagingSource<Int, Article>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         return try {
-            val result = Linker.api.getArticles(pageNum = params.key ?: 0)
+            val result = Linker.api.getCollectList(params.key ?: 0).data!!
             val nextPage = params.key?.let {
-                if (it == result?.data?.pageCount) null else it + 1
+                if (it + 1 >= result.pageCount) null else it + 1
             }
             Timber.i("next page num = $nextPage")
             LoadResult.Page(
-                data = result?.data?.datas ?: emptyList(),
+                data = result.datas,
                 prevKey = null,
                 nextKey = nextPage
             )

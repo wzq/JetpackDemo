@@ -55,8 +55,4 @@ class CategoryFragment : BaseFragment() {
         })
     }
 
-
-    override fun back2top(){
-        binding.categoryList.scrollToPosition(0)
-    }
 }

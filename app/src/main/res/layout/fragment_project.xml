@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:title="@string/title_dashboard"
+        app:menu="@menu/menu_search"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/project_swipe"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:id="@+id/project_swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/project_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
-                android:orientation="vertical"
-                tools:listitem="@layout/item_home"
-                android:padding="6dp"
-                android:clipToPadding="false"/>
+            android:id="@+id/project_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:padding="6dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:listitem="@layout/item_home" />
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</layout>
+</LinearLayout>

@@ -55,8 +55,5 @@ class GankFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun back2top() {
-        view?.findViewById<RecyclerView>(R.id.gank_list)?.scrollToPosition(0)
-    }
 
 }
