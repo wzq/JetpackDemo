@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.wzq.jetpack.R
 import com.wzq.jetpack.model.Banner
-import com.wzq.jetpack.util.dp2px
+import com.wzq.jetpack.util.ext.dp2px
 
 /**
  * create by wzq on 2020/7/31

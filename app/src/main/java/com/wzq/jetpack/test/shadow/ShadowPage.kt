@@ -6,7 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.FragmentTestShadowBinding
-import com.wzq.jetpack.util.dp
+import com.wzq.jetpack.util.ext.dp
 
 /**
  * create by wzq on 2020/11/23

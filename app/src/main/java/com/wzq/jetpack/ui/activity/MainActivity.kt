@@ -8,8 +8,7 @@ import com.wzq.jetpack.data.remote.NetworkStateListener
 import com.wzq.jetpack.databinding.ActivityMainBinding
 import com.wzq.jetpack.ui.fragment.*
 import com.wzq.jetpack.ui.weiget.setupWithFactory
-import com.wzq.jetpack.util.systemBarMode
-import com.wzq.jetpack.util.toast
+import com.wzq.jetpack.util.ext.toast
 
 class MainActivity : BaseActivity() {
 

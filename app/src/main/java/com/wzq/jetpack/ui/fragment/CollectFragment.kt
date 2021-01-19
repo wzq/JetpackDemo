@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.ui.adapter.ArticleAdapter
-import com.wzq.jetpack.util.toast
+import com.wzq.jetpack.util.ext.toast
 
 class CollectFragment : BaseFragment(){
 

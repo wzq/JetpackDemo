@@ -5,12 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/black">
 
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/video"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:use_artwork="true"
-        app:show_timeout="3000"
-        app:controller_layout_id="@layout/view_video_controller"/>
+<!--    <com.google.android.exoplayer2.ui.PlayerView-->
+<!--        android:id="@+id/video"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:use_artwork="true"-->
+<!--        app:show_timeout="3000"-->
+<!--        app:controller_layout_id="@layout/view_video_controller"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

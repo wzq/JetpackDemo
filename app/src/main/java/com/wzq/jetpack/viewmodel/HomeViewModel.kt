@@ -1,19 +1,15 @@
 package com.wzq.jetpack.viewmodel
 
-import androidx.annotation.MainThread
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.data.source.HomePagerSource
-import com.wzq.jetpack.util.threadLog
+import com.wzq.jetpack.util.ext.threadLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 

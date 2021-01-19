@@ -7,7 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.wzq.jetpack.R
-import com.wzq.jetpack.util.immersive
+import com.wzq.jetpack.util.ext.immersive
 
 /**
  * create by wzq on 2020/11/5

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wzq.jetpack.util
+package com.wzq.jetpack.util.ext
 
 
 import android.app.Activity

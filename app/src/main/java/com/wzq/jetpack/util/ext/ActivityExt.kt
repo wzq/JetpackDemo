@@ -1,4 +1,4 @@
-package com.wzq.jetpack.util
+package com.wzq.jetpack.util.ext
 
 import android.app.Activity
 import android.content.Context

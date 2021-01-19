@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.wzq.jetpack.R
-import com.wzq.jetpack.util.immersive
+import com.wzq.jetpack.util.ext.immersive
 
 /**
  * create by wzq on 2021/1/5

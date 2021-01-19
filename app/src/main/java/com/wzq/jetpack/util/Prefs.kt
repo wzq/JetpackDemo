@@ -18,6 +18,16 @@ object Prefs {
     const val USER_INFO = "user_info"
     const val SEARCH_HISTORY = "SEARCH_HISTORY"
 
+    //        val dataStore =
+//            AppInitializer.getInstance(this).initializeComponent(OtherInitializer::class.java)
+//        val userId = preferencesKey<Int>("user_id")
+//        lifecycleScope.launchWhenCreated {
+//            dataStore.data.map {
+//                it[userId]
+//            }.collect {
+//                Timber.i("user id = $it")
+//            }
+//        }
     private val preference: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(BaseInitializer.app)
 
     @Suppress("UNCHECKED_CAST")

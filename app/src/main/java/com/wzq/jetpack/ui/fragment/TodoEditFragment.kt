@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.wzq.jetpack.databinding.FragmentTodoEditBinding
-import com.wzq.jetpack.util.timeFormat
+import com.wzq.jetpack.util.ext.timeFormat
 import com.wzq.jetpack.viewmodel.TodoViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 

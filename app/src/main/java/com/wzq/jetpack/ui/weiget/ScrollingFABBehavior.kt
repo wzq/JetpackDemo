@@ -35,7 +35,6 @@ class ScrollingFABBehavior(context: Context?, attrs: AttributeSet?) : FloatingAc
         dyUnconsumed: Int
     ) {
         if (dyConsumed > 0) {
-            //扒了半天源码
             child.hide(object : FloatingActionButton.OnVisibilityChangedListener(){
                 override fun onHidden(fab: FloatingActionButton?) {
                     fab?.visibility = View.INVISIBLE

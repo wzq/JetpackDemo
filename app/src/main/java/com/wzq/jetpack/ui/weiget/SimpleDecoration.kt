@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.marginStart
 import androidx.recyclerview.widget.RecyclerView
 import com.wzq.jetpack.R
-import com.wzq.jetpack.util.dp2px
+import com.wzq.jetpack.util.ext.dp2px
 
 class SimpleDecoration(context: Context?, private val resId: Int = R.color.line_gray) : RecyclerView.ItemDecoration() {
 

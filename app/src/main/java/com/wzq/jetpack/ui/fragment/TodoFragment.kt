@@ -8,7 +8,7 @@ import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.FragmentTodoBinding
 import com.wzq.jetpack.ui.adapter.TodoAdapter
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
-import com.wzq.jetpack.util.toast
+import com.wzq.jetpack.util.ext.toast
 import com.wzq.jetpack.viewmodel.TodoViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
