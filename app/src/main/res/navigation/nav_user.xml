@@ -7,14 +7,12 @@
 
     <fragment
         android:id="@+id/user"
-        android:name="com.wzq.jetpack.ui.fragment.UserFragment"
+        android:name="com.wzq.jetpack.ui.fragment.UserMenuFragment"
         android:label="user">
 
         <action
             android:id="@+id/user_to_todo"
-            app:destination="@+id/user_todo"
-            app:popUpTo="@id/user"
-            app:popUpToInclusive="true"/>
+            app:destination="@+id/user_todo" />
 
         <action
             android:id="@+id/user_to_collect"
@@ -39,10 +37,11 @@
     <fragment
         android:id="@+id/user_todo"
         android:name="com.wzq.jetpack.ui.fragment.TodoFragment"
-        android:label="todo" >
+        android:label="todo">
 
-        <action android:id="@+id/todo_to_edit"
-            app:destination="@+id/todo_edit"/>
+        <action
+            android:id="@+id/todo_to_edit"
+            app:destination="@+id/todo_edit" />
     </fragment>
 
 

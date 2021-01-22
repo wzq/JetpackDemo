@@ -31,3 +31,5 @@ jobs:
         with:
           name: my-artifact
           path: path/to/artifact/world.txt
+
+      - run: ls -R

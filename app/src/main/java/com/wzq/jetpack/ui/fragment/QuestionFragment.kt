@@ -13,10 +13,6 @@ import com.wzq.jetpack.viewmodel.QuestionViewModel
 
 class QuestionFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = QuestionFragment()
-    }
-
     private val viewModel: QuestionViewModel by viewModels()
 
     private val adapter = QuestionAdapter()
@@ -24,7 +20,7 @@ class QuestionFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentQuestionBinding.inflate(inflater, container, false)
         binding.questionList.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         binding.questionList.adapter = adapter
@@ -37,6 +33,4 @@ class QuestionFragment : Fragment() {
             adapter.submitList(it)
         }
     }
-
-
 }

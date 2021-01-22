@@ -35,8 +35,8 @@ class TodoFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.todoList.observe(viewLifecycleOwner) {
             if (it == null){
                 requireActivity().toast("请登陆")

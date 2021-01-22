@@ -3,6 +3,7 @@ package com.wzq.jetpack.ui.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.WindowCompat
+import androidx.fragment.app.FragmentManager
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.remote.NetworkStateListener
 import com.wzq.jetpack.databinding.ActivityMainBinding
@@ -19,10 +20,6 @@ class MainActivity : BaseActivity() {
 //        Timber.i("Android VM Version is $vm.")
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        WindowCompat.getInsetsController(window, window.decorView)?.also {
-            it.isAppearanceLightStatusBars = false
-            it.isAppearanceLightNavigationBars = true
-        }
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -32,6 +29,7 @@ class MainActivity : BaseActivity() {
         ) { menu ->
             when (menu.itemId) {
                 R.id.navigation_home -> HomeFragment()
+                R.id.navigation_qa -> QuestionFragment()
                 R.id.navigation_project -> ProjectFragment()
                 R.id.navigation_category -> CategoryFragment()
                 R.id.navigation_user -> UserFragment()
