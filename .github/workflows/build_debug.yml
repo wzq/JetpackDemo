@@ -25,28 +25,18 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-#      #install jdk
-#      - name: set up JDK
-#        uses: actions/setup-java@v1.4.3
-#        with:
-#          java-version: 1.8
+      #install jdk
+      - name: set up JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 1.8
 
-      #build debug apk
-#      - name: Build with Gradle
-#        # 运行命令
-#        run: chmod +x gradlew &&./gradlew assembleDebug
-
-
-      - run: mkdir -p path/to/artifact
-
-      - run: echo hello > path/to/artifact/world.txt
+      build debug apk
+      - name: Build with Gradle
+        # 运行命令
+        run: chmod +x gradlew &&./gradlew assembleDebug
 
       - uses: actions/upload-artifact@v2
         with:
-          name: my-artifact
-          path: path/to/artifact/world.txt
-
-      - uses: actions/download-artifact@v2
-        with:
-          name: my-artifact
-          path: path/to/artifact/world.txt
+          name: debug_apk
+          path: app/build/outputs/apk/debug/app-debug.apk
