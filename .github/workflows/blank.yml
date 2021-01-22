@@ -6,7 +6,7 @@ on:
   push:
     # 在指定的远程分支上，发生推送
     branches:
-      - dev
+      - master
     # 指定文件发生修改
     paths:
       - 'config.gradle'
@@ -14,7 +14,7 @@ jobs:
 # 多个job，如果有多个，每个以“-”开头
   first-job:
     # 该job 运行的系统环境，支持ubuntu 、windows、macOS
-    runs-on: ubuntu-latest
+    runs-on: macOS
     steps:
       # 下面是多个step ，每个以“-”开头
       # step：检查分支
