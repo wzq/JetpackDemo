@@ -29,4 +29,5 @@ jobs:
       - name: Build with Gradle
         # 运行命令
         run: chmod +x gradlew &&./gradlew assembleDebug
-
+        
+      - run: ls -R
