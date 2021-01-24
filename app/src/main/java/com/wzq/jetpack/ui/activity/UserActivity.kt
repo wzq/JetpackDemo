@@ -1,28 +1,52 @@
 package com.wzq.jetpack.ui.activity
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.wzq.jetpack.R
+import com.wzq.jetpack.databinding.FragmentUserBinding
+import com.wzq.jetpack.util.GlideApp
+import com.wzq.jetpack.util.ext.dp
+import com.wzq.jetpack.util.ext.openPage
+import com.wzq.jetpack.util.monitor.LoginMonitor
 
 class UserActivity : BaseActivity() {
-//    private lateinit var appBarConfiguration: AppBarConfiguration
+    private val loginMonitor = LoginMonitor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user)
-//        appBarConfiguration = AppBarConfiguration(emptySet()){
-//            finish(); true  //为了显示返回按钮
-//        }
-//        setupActionBarWithNavController(findNavController(R.id.nav_user_fragment),appBarConfiguration)
-    }
+        val binding = FragmentUserBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-//    override fun onSupportNavigateUp(): Boolean {
-//        val navController = findNavController(R.id.nav_user_fragment)
-//        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-//    }
+        loginMonitor.observe(this) {
+            binding.toolbar.title = it
+        }
+
+        binding.toolbar.setOnClickListener {
+            if (!loginMonitor.isLogin()) {
+                openPage(LoginActivity::class)
+            }
+        }
+
+        val w = 32.dp.toInt()
+        val target = object : CustomTarget<Drawable>(w, w) {
+            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                binding.toolbar.navigationIcon = resource
+            }
+
+            override fun onLoadCleared(placeholder: Drawable?) {
+                binding.toolbar.navigationIcon = placeholder
+            }
+
+        }
+        GlideApp.with(this)
+            .asDrawable()
+            .load(R.mipmap.ic_launcher)
+            .transform(CircleCrop())
+            .into(target)
+
+    }
 
 }

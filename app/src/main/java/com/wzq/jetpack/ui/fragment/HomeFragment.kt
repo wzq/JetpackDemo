@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.viewpager2.widget.ViewPager2
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.FragmentHomeBinding
-import com.wzq.jetpack.test.transition.util.SpringAddItemAnimator
+import com.wzq.jetpack.ui.activity.UserActivity
 import com.wzq.jetpack.ui.adapter.HomePageAdapter
 import com.wzq.jetpack.ui.adapter.PageArticleAdapter
+import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.ext.dp2px
+import com.wzq.jetpack.util.ext.openPage
 import com.wzq.jetpack.viewmodel.HomeViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
@@ -42,13 +44,18 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding = FragmentHomeBinding.bind(view)
-
+        binding.toolbar.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.main_user -> requireActivity().openPage(UserActivity::class)
+                R.id.main_search -> Router.go2search(requireContext())
+            }
+            true
+        }
         initPager()
         initList()
     }
 
     private fun initList() {
-        binding.homeList.itemAnimator = SpringAddItemAnimator()
         val adapter = PageArticleAdapter()
         adapter.addLoadStateListener {
             binding.homeSwipe.isRefreshing = it.refresh is LoadState.Loading
