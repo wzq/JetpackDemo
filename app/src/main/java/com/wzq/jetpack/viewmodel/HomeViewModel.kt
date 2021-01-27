@@ -30,7 +30,7 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
     val looper = flow {
         var flag = 0
         while (true) {
-            threadLog("flow run")
+//            threadLog("flow run")
             delay(5000)
             emit(++flag)
         }

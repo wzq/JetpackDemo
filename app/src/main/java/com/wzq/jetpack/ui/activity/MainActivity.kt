@@ -3,12 +3,13 @@ package com.wzq.jetpack.ui.activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.view.WindowCompat
-import androidx.fragment.app.FragmentManager
 import com.wzq.jetpack.R
 import com.wzq.jetpack.data.remote.NetworkStateListener
 import com.wzq.jetpack.databinding.ActivityMainBinding
 import com.wzq.jetpack.ui.fragment.*
 import com.wzq.jetpack.ui.weiget.setupWithFactory
+import com.wzq.jetpack.util.Router
+import com.wzq.jetpack.util.ext.openPage
 import com.wzq.jetpack.util.ext.toast
 
 class MainActivity : BaseActivity() {
@@ -23,10 +24,19 @@ class MainActivity : BaseActivity() {
 
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.toolbar.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.main_user -> openPage(UserActivity::class)
+                R.id.main_search -> Router.go2search(this)
+            }
+            true
+        }
+
         binding.bottomNavigationBar.setupWithFactory(
             R.id.host_nav,
             supportFragmentManager
         ) { menu ->
+            binding.toolbar.title = menu.title
             when (menu.itemId) {
                 R.id.navigation_home -> HomeFragment()
                 R.id.navigation_qa -> QuestionFragment()
@@ -42,9 +52,5 @@ class MainActivity : BaseActivity() {
         NetworkStateListener().observe(this) {
             if (!it) toast("网路连接失败，请检查网路！", Toast.LENGTH_LONG)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }
