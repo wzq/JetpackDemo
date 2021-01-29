@@ -40,7 +40,8 @@ typealias BottomNavFragmentFactory = (MenuItem) -> Fragment
 fun BottomNavigationView.setupWithFactory(
     @IdRes containerId: Int,
     fragmentManager: FragmentManager,
-    fragmentFactory: BottomNavFragmentFactory
+    fragmentFactory: BottomNavFragmentFactory,
+    onItemSelected: ((MenuItem) -> Unit)? = null,
 ) {
     val first = fragmentFactory(this.menu.findItem(selectedItemId))
     var currentItemTag: String = selectedItemId.toString()
@@ -58,11 +59,8 @@ fun BottomNavigationView.setupWithFactory(
             currentFragment?.apply { hide(this) }
         }
         currentItemTag = tag
+        onItemSelected?.invoke(it)
         true
-    }
-
-    setOnNavigationItemReselectedListener {
-        // TODO: 2021/1/14
     }
 }
 

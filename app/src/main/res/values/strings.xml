@@ -17,4 +17,8 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    
+    <string name="trans_collect">trans_collect_aaa</string>
+    <string name="trans_todo">trans_todo</string>
+    <string name="trans_about">trans_about</string>
 </resources>

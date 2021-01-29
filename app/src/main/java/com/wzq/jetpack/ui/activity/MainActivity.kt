@@ -25,7 +25,7 @@ class MainActivity : BaseActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.main_user -> openPage(UserActivity::class)
                 R.id.main_search -> Router.go2search(this)
             }
@@ -34,18 +34,20 @@ class MainActivity : BaseActivity() {
 
         binding.bottomNavigationBar.setupWithFactory(
             R.id.host_nav,
-            supportFragmentManager
-        ) { menu ->
-            binding.toolbar.title = menu.title
-            when (menu.itemId) {
-                R.id.navigation_home -> HomeFragment()
-                R.id.navigation_qa -> QuestionFragment()
-                R.id.navigation_project -> ProjectFragment()
-                R.id.navigation_category -> CategoryFragment()
-                R.id.navigation_user -> UserFragment()
-                else -> throw IllegalArgumentException("can not get fragment ${menu.title}")
-            }
-        }
+            supportFragmentManager,
+            fragmentFactory = { menu ->
+                when (menu.itemId) {
+                    R.id.navigation_home -> HomeFragment()
+                    R.id.navigation_qa -> QuestionFragment()
+                    R.id.navigation_project -> ProjectFragment()
+                    R.id.navigation_category -> CategoryFragment()
+                    R.id.navigation_user -> UserFragment()
+                    else -> throw IllegalArgumentException("can not get fragment ${menu.title}")
+                }
+            },
+            onItemSelected = {
+                binding.toolbar.title = it.title
+            })
     }
 
     private fun lookNetwork() {

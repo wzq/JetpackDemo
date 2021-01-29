@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/b1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:transitionName="go_to_collect"
+        android:text="收藏文章" />
 
     <Button
-            android:id="@+id/b1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="收藏文章" />
-
-
-    <Button
-            android:id="@+id/b2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="待完成任务" />
+        android:id="@+id/b2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:transitionName="go_to_todo"
+        android:text="待完成任务" />
 
 
     <Button
-            android:id="@+id/b3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TEST PAGE" />
+        android:id="@+id/b3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TEST PAGE" />
+
+    <Button
+        android:id="@+id/b4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:transitionName="asdasd"
+        android:text="About" />
 
 </LinearLayout>

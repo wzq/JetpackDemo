@@ -11,6 +11,7 @@
             android:id="@+id/todo_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:transitionName="@string/trans_todo"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
@@ -22,7 +23,7 @@
             app:fabSize="auto"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_add_white_24dp"/>
+            app:srcCompat="@drawable/ic_add_white_24dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

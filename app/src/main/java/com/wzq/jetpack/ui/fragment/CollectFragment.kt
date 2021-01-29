@@ -8,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.paging.map
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.FragmentCollectBinding
 import com.wzq.jetpack.ui.adapter.PageArticleAdapter

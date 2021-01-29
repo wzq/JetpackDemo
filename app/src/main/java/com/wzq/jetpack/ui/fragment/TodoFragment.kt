@@ -1,12 +1,16 @@
 package com.wzq.jetpack.ui.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.MaterialContainerTransform
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.FragmentTodoBinding
+import com.wzq.jetpack.test.transition.util.themeColor
 import com.wzq.jetpack.ui.adapter.TodoAdapter
+import com.wzq.jetpack.ui.transcation.LARGE_EXPAND_DURATION
 import com.wzq.jetpack.ui.weiget.SimpleDecoration
 import com.wzq.jetpack.util.ext.toast
 import com.wzq.jetpack.viewmodel.TodoViewModel
@@ -16,6 +20,16 @@ class TodoFragment : BaseFragment() {
 
     private val viewModel by viewModels<TodoViewModel> { ViewModelFactory() }
     private val adapter = TodoAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            drawingViewId = R.id.nav_user_fragment
+            duration = LARGE_EXPAND_DURATION
+            scrimColor = Color.YELLOW
+            setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
