@@ -26,7 +26,7 @@ class TodoFragment : BaseFragment() {
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             drawingViewId = R.id.nav_user_fragment
             duration = LARGE_EXPAND_DURATION
-            scrimColor = Color.YELLOW
+            scrimColor = Color.TRANSPARENT
             setAllContainerColors(requireContext().themeColor(R.attr.colorSurface))
         }
     }
@@ -35,7 +35,7 @@ class TodoFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentTodoBinding.inflate(inflater, container, false)
             .apply { lifecycleOwner = viewLifecycleOwner }
         binding.todoList.addItemDecoration(SimpleDecoration(activity, R.color.line_gray))

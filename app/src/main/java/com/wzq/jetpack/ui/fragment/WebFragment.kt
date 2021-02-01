@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.lifecycle.MutableLiveData
 import com.wzq.jetpack.databinding.FragmentWebBinding
 import timber.log.Timber
@@ -47,6 +48,10 @@ class WebFragment : BaseFragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            isEnabled = false; remove()
+            back()
+        }
         webPageState.observe(viewLifecycleOwner) { isFinish ->
             if (isFinish) {
                 binding.webRefresh.visibility = View.VISIBLE

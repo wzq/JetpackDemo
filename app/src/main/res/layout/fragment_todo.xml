@@ -4,15 +4,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
-        
+        android:layout_height="match_parent"
+        android:transitionName="@string/trans_todo">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/todo_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:transitionName="@string/trans_todo"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
