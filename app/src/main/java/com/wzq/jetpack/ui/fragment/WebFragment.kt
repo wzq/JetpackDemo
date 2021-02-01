@@ -8,19 +8,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
+import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import com.wzq.jetpack.databinding.FragmentWebBinding
+import timber.log.Timber
 
 
 /**
  * Created by wzq on 2019-07-15
  *
  */
-class WebFragment: BaseFragment() {
+class WebFragment : BaseFragment() {
 
     private lateinit var binding: FragmentWebBinding
 
+    private val webPageState = MutableLiveData<Boolean>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
 
         binding = FragmentWebBinding.inflate(inflater, container, false)
         val url = activity?.intent?.getStringExtra("url") ?: ""
@@ -37,7 +45,20 @@ class WebFragment: BaseFragment() {
         return binding.root
     }
 
-    fun back(){
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        webPageState.observe(viewLifecycleOwner) { isFinish ->
+            if (isFinish) {
+                binding.webRefresh.visibility = View.VISIBLE
+                binding.webLoading.visibility = View.GONE
+            } else {
+                binding.webRefresh.visibility = View.GONE
+                binding.webLoading.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun back() {
         if (binding.web.canGoBack()) {
             binding.web.goBack()
         } else {
@@ -48,53 +69,63 @@ class WebFragment: BaseFragment() {
     @SuppressLint("SetJavaScriptEnabled")
     private fun config(binding: FragmentWebBinding) {
         val webSettings = binding.web.settings
-        webSettings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
-        webSettings.javaScriptEnabled = true
-        webSettings.domStorageEnabled = true
-        //设置编码
-        webSettings.defaultTextEncodingName = "utf-8"
+        binding.web.webViewClient = Client(webPageState)
+        binding.web.webChromeClient = ChromeClient(binding.webTitle)
+
+        webSettings.javaScriptEnabled = true //开启JS支持
+
+        webSettings.allowFileAccess = false //是否允许文件访问
+
+        webSettings.domStorageEnabled = true //开启Localstorage
+
+        webSettings.cacheMode = WebSettings.LOAD_DEFAULT //设置缓存模式
+
         //设置此属性，可任意比例缩放
         webSettings.useWideViewPort = true
         webSettings.loadWithOverviewMode = true
         //webView自适应
         webSettings.layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL
-
-        //开启Localstorage
-        webSettings.domStorageEnabled = true
-        val appCachePath = activity?.cacheDir?.absolutePath
-        webSettings.setAppCachePath(appCachePath)
-        webSettings.allowFileAccess = true
-        webSettings.setAppCacheEnabled(true)
-
-
         //设置背景颜色 透明
-        binding.web.setBackgroundColor(Color.argb(0, 0, 0, 0))
-        //设置监听事件
-        binding.web.webViewClient = Client()
+        binding.web.setBackgroundColor(Color.TRANSPARENT)
 
-        binding.web.webChromeClient = ChromeClient()
+        //设置缓存地址 设置后webview可以离线运行，建议通过设置cacheMode代替 废弃
+//        val appCachePath = activity?.cacheDir?.absolutePath
+//        webSettings.setAppCachePath(appCachePath)
+//        webSettings.setAppCacheEnabled(true)
+
+//        webSettings.savePassword = false //是否保存密码 废弃
+
+        //设置编码 默认UTF-8
+        //  webSettings.defaultTextEncodingName = "utf-8"
     }
 
-    inner class Client : WebViewClient() {
+
+    class Client(private val pageState: MutableLiveData<Boolean>) : WebViewClient() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-            binding.webRefresh.visibility = View.GONE
-            binding.webLoading.visibility = View.VISIBLE
+            pageState.postValue(false)
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-            binding.webRefresh.visibility = View.VISIBLE
-            binding.webLoading.visibility = View.GONE
+            pageState.postValue(true)
+        }
+
+        override fun shouldOverrideUrlLoading(
+            view: WebView?,
+            request: WebResourceRequest?
+        ): Boolean {
+            Timber.d("shouldOverrideUrlLoading url = ${request?.url}")
+            return super.shouldOverrideUrlLoading(view, request)
         }
     }
 
-    inner class ChromeClient : WebChromeClient() {
+    class ChromeClient(private val titleView: TextView) : WebChromeClient() {
 
         override fun onReceivedTitle(view: WebView?, title: String?) {
             super.onReceivedTitle(view, title)
-            binding.webTitle.text = title
+            titleView.text = title
         }
     }
 }
