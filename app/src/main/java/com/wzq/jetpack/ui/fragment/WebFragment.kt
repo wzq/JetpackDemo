@@ -11,6 +11,8 @@ import android.webkit.*
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.lifecycle.MutableLiveData
+import androidx.webkit.WebResourceErrorCompat
+import androidx.webkit.WebViewClientCompat
 import com.wzq.jetpack.databinding.FragmentWebBinding
 import timber.log.Timber
 
@@ -53,6 +55,7 @@ class WebFragment : BaseFragment() {
             back()
         }
         webPageState.observe(viewLifecycleOwner) { isFinish ->
+            Timber.d("web load $isFinish")
             if (isFinish) {
                 binding.webRefresh.visibility = View.VISIBLE
                 binding.webLoading.visibility = View.GONE
@@ -105,7 +108,7 @@ class WebFragment : BaseFragment() {
     }
 
 
-    class Client(private val pageState: MutableLiveData<Boolean>) : WebViewClient() {
+    class Client(private val pageState: MutableLiveData<Boolean>) : WebViewClientCompat() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
@@ -117,13 +120,29 @@ class WebFragment : BaseFragment() {
             pageState.postValue(true)
         }
 
-        override fun shouldOverrideUrlLoading(
-            view: WebView?,
-            request: WebResourceRequest?
-        ): Boolean {
-            Timber.d("shouldOverrideUrlLoading url = ${request?.url}")
+        override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+            Timber.d("shouldOverrideUrlLoading url = ${request.url}")
             return super.shouldOverrideUrlLoading(view, request)
         }
+
+        override fun onReceivedError(
+            view: WebView,
+            request: WebResourceRequest,
+            error: WebResourceErrorCompat
+        ) {
+            Timber.d("onReceivedError url = ${request.url}")
+            super.onReceivedError(view, request, error)
+        }
+
+        override fun onReceivedError(
+            view: WebView?,
+            errorCode: Int,
+            description: String?,
+            failingUrl: String?
+        ) {
+            super.onReceivedError(view, errorCode, description, failingUrl)
+        }
+
     }
 
     class ChromeClient(private val titleView: TextView) : WebChromeClient() {
