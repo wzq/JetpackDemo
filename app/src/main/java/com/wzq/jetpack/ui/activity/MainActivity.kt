@@ -32,22 +32,24 @@ class MainActivity : BaseActivity() {
             true
         }
 
-        binding.bottomNavigationBar.setupWithFactory(
-            R.id.host_nav,
-            supportFragmentManager,
-            fragmentFactory = { menu ->
-                when (menu.itemId) {
-                    R.id.navigation_home -> HomeFragment()
-                    R.id.navigation_qa -> QuestionFragment()
-                    R.id.navigation_project -> ProjectFragment()
-                    R.id.navigation_category -> CategoryFragment()
-                    R.id.navigation_user -> UserFragment()
-                    else -> throw IllegalArgumentException("can not get fragment ${menu.title}")
-                }
-            },
-            onItemSelected = {
-                binding.toolbar.title = it.title
-            })
+        if (savedInstanceState == null){
+            binding.bottomNavigationBar.setupWithFactory(
+                R.id.host_nav,
+                supportFragmentManager,
+                fragmentFactory = { menu ->
+                    when (menu.itemId) {
+                        R.id.navigation_home -> HomeFragment()
+                        R.id.navigation_qa -> QuestionFragment()
+                        R.id.navigation_project -> ProjectFragment()
+                        R.id.navigation_category -> CategoryFragment()
+                        R.id.navigation_user -> UserFragment()
+                        else -> throw IllegalArgumentException("can not get fragment ${menu.title}")
+                    }
+                },
+                onItemSelected = {
+                    binding.toolbar.title = it.title
+                })
+        }
     }
 
     private fun lookNetwork() {

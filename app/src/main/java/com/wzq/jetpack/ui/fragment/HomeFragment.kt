@@ -44,10 +44,16 @@ class HomeFragment : BaseFragment() {
 
         initPager()
         initList()
+
+        if (savedInstanceState == null){
+            viewModel.articleList.observe(viewLifecycleOwner) {
+                adapter.submitData(lifecycle, it)
+            }
+        }
     }
+    val adapter = PageArticleAdapter()
 
     private fun initList() {
-        val adapter = PageArticleAdapter()
         adapter.addLoadStateListener {
             binding.homeSwipe.isRefreshing = it.refresh is LoadState.Loading
         }
@@ -61,9 +67,6 @@ class HomeFragment : BaseFragment() {
             )
         )
         binding.homeList.adapter = adapter
-        viewModel.articleList.observe(viewLifecycleOwner) {
-            adapter.submitData(lifecycle, it)
-        }
     }
 
     private fun initPager() {

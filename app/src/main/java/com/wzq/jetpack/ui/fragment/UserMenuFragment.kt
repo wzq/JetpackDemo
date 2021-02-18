@@ -24,7 +24,7 @@ class UserMenuFragment : BaseFragment(R.layout.fragment_user_menu) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        postponeEnterTransition(6000, TimeUnit.MILLISECONDS)
+        postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
 
         exitTransition = MaterialElevationScale(false).apply {
@@ -39,7 +39,8 @@ class UserMenuFragment : BaseFragment(R.layout.fragment_user_menu) {
         val binding = FragmentUserMenuBinding.bind(view)
         binding.b1.setOnClickListener {
             val directions = UserMenuFragmentDirections.userToCollect()
-            findNavController().navigate(directions)
+            val extraArgs = FragmentNavigatorExtras(it to getString(R.string.trans_collect))
+            findNavController().navigate(directions, extraArgs)
         }
 
         binding.b2.setOnClickListener {
