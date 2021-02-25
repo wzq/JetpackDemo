@@ -38,7 +38,7 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
                 openPage(ImmersiveActivity::class)
             }
             R.id.b2 -> {
-                openPage(TestNavActivity::class)
+//                openPage(TestNavActivity::class)
             }
             R.id.b3 -> {
             }
