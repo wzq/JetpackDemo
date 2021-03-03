@@ -18,7 +18,6 @@ import com.wzq.jetpack.util.ext.dp2px
 import com.wzq.jetpack.viewmodel.HomeViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
-
 /**
  * Created by wzq on 2019-07-12
  *
@@ -45,7 +44,7 @@ class HomeFragment : BaseFragment() {
         initPager()
         initList()
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             viewModel.articleList.observe(viewLifecycleOwner) {
                 adapter.submitData(lifecycle, it)
             }
@@ -76,9 +75,12 @@ class HomeFragment : BaseFragment() {
                 indicatorChanged(position)
             }
         })
-        viewModel.looper.observe(viewLifecycleOwner, {
-            binding.homePage.currentItem = it
-        })
+        viewModel.looper.observe(
+            viewLifecycleOwner,
+            {
+                binding.homePage.currentItem = it
+            }
+        )
         viewModel.banners.observe(viewLifecycleOwner) {
             buildIndicator(it.size)
             pagerAdapter.submitList(it)
@@ -106,5 +108,4 @@ class HomeFragment : BaseFragment() {
             binding.homePageIndicator.addView(rb)
         }
     }
-
 }

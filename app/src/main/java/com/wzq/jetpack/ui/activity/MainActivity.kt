@@ -32,7 +32,7 @@ class MainActivity : BaseActivity() {
             true
         }
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             binding.bottomNavigationBar.setupWithFactory(
                 R.id.host_nav,
                 supportFragmentManager,
@@ -48,7 +48,8 @@ class MainActivity : BaseActivity() {
                 },
                 onItemSelected = {
                     binding.toolbar.title = it.title
-                })
+                }
+            )
         }
     }
 

@@ -2,19 +2,22 @@ package com.wzq.jetpack.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.wzq.jetpack.data.*
+import com.wzq.jetpack.data.CategoryRepo
+import com.wzq.jetpack.data.HomeRepo
+import com.wzq.jetpack.data.ProjectRepo
+import com.wzq.jetpack.data.SearchRepo
 import com.wzq.jetpack.data.TodoRepo
-
+import com.wzq.jetpack.data.UserRepo
 
 /**
  * Created by wzq on 2019-07-12
  *
  */
-class ViewModelFactory: ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        val vm =  when(modelClass) {
+        val vm = when (modelClass) {
             HomeViewModel::class.java -> {
                 HomeViewModel(HomeRepo())
             }
@@ -38,7 +41,6 @@ class ViewModelFactory: ViewModelProvider.NewInstanceFactory() {
             }
             else -> throw IllegalArgumentException("Unknown ViewModel: ${modelClass.name}")
         }
-        return  vm as T
+        return vm as T
     }
-
 }

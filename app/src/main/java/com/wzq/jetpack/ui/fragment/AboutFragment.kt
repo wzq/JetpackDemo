@@ -12,8 +12,7 @@ import com.wzq.jetpack.test.transition.util.themeColor
 import com.wzq.jetpack.ui.transcation.LARGE_EXPAND_DURATION
 import java.util.concurrent.TimeUnit
 
-class AboutFragment: Fragment() {
-
+class AboutFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,5 +32,4 @@ class AboutFragment: Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
-
 }

@@ -7,12 +7,11 @@ import androidx.core.view.WindowCompat
 import com.wzq.jetpack.R
 import com.wzq.jetpack.util.Router
 
-
 /**
  * Created by wzq on 2019-07-15
  *
  */
-abstract class BaseActivity: AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +26,7 @@ abstract class BaseActivity: AppCompatActivity() {
         if (item.itemId == android.R.id.home) {
             finish()
         }
-        if (item.itemId == R.id.main_search){
+        if (item.itemId == R.id.main_search) {
             Router.go2search(this)
         }
         return super.onOptionsItemSelected(item)

@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
-
 /**
  * Created by wzq on 2019-07-12
  *
@@ -28,5 +27,4 @@ class HomeRepo : BaseRepo() {
 
     suspend fun getArticles(pageNum: Int = 0) =
         Linker.api.getArticles(pageNum)?.data?.datas ?: emptyList<Article>()
-
 }

@@ -12,12 +12,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.transition.TransitionManager
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.ItemTestAnimBinding
 import com.wzq.jetpack.test.transition.util.SpringAddItemAnimator
 import com.wzq.jetpack.ui.transcation.Stagger
-import kotlinx.coroutines.delay
 
 /**
  * create by wzq on 2020/12/30
@@ -50,7 +48,6 @@ class AnimListActivity : AppCompatActivity() {
         }
     }
 
-
     private fun fakeData(): List<String> {
         return mutableListOf<String>().apply {
             (0..50).forEach {
@@ -59,7 +56,6 @@ class AnimListActivity : AppCompatActivity() {
         }
     }
 }
-
 
 class AnimListAdapter : ListAdapter<String, AnimListAdapter.Holder>(Diff()) {
 

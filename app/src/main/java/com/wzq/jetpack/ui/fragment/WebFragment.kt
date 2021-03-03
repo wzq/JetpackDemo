@@ -16,7 +16,6 @@ import androidx.webkit.WebViewClientCompat
 import com.wzq.jetpack.databinding.FragmentWebBinding
 import timber.log.Timber
 
-
 /**
  * Created by wzq on 2019-07-15
  *
@@ -47,7 +46,6 @@ class WebFragment : BaseFragment() {
 
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -80,33 +78,32 @@ class WebFragment : BaseFragment() {
         binding.web.webViewClient = Client(webPageState)
         binding.web.webChromeClient = ChromeClient(binding.webTitle)
 
-        webSettings.javaScriptEnabled = true //开启JS支持
+        webSettings.javaScriptEnabled = true // 开启JS支持
 
-        webSettings.allowFileAccess = false //是否允许文件访问
+        webSettings.allowFileAccess = false // 是否允许文件访问
 
-        webSettings.domStorageEnabled = true //开启Localstorage
+        webSettings.domStorageEnabled = true // 开启Localstorage
 
-        webSettings.cacheMode = WebSettings.LOAD_DEFAULT //设置缓存模式
+        webSettings.cacheMode = WebSettings.LOAD_DEFAULT // 设置缓存模式
 
-        //设置此属性，可任意比例缩放
+        // 设置此属性，可任意比例缩放
         webSettings.useWideViewPort = true
         webSettings.loadWithOverviewMode = true
-        //webView自适应
+        // webView自适应
         webSettings.layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL
-        //设置背景颜色 透明
+        // 设置背景颜色 透明
         binding.web.setBackgroundColor(Color.TRANSPARENT)
 
-        //设置缓存地址 设置后webview可以离线运行，建议通过设置cacheMode代替 废弃
+        // 设置缓存地址 设置后webview可以离线运行，建议通过设置cacheMode代替 废弃
 //        val appCachePath = activity?.cacheDir?.absolutePath
 //        webSettings.setAppCachePath(appCachePath)
 //        webSettings.setAppCacheEnabled(true)
 
 //        webSettings.savePassword = false //是否保存密码 废弃
 
-        //设置编码 默认UTF-8
+        // 设置编码 默认UTF-8
         //  webSettings.defaultTextEncodingName = "utf-8"
     }
-
 
     class Client(private val pageState: MutableLiveData<Boolean>) : WebViewClientCompat() {
 
@@ -142,7 +139,6 @@ class WebFragment : BaseFragment() {
         ) {
             super.onReceivedError(view, errorCode, description, failingUrl)
         }
-
     }
 
     class ChromeClient(private val titleView: TextView) : WebChromeClient() {

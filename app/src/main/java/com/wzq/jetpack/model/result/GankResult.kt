@@ -2,7 +2,6 @@ package com.wzq.jetpack.model.result
 
 import com.google.gson.annotations.SerializedName
 
-
 data class GankResult(
     @SerializedName("category")
     val category: List<String>,
@@ -53,8 +52,8 @@ data class GankItem(
     @SerializedName("who")
     val who: String
 )
-//@JsonClass(generateAdapter = true)
-//data class GankItem(
+// @JsonClass(generateAdapter = true)
+// data class GankItem(
 //    val createdAt: String?,
 //    val desc: String?,
 //    @Json(name = "_id")
@@ -65,4 +64,4 @@ data class GankItem(
 //    val url: String?,
 //    val used: Boolean?,
 //    val who: String?
-//)
+// )

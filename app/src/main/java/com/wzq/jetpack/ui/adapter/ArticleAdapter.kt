@@ -12,12 +12,11 @@ import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.thread.ioScope
 import kotlinx.coroutines.launch
 
-
 /**
  * Created by wzq on 2019-07-12
  *
  */
-class ArticleAdapter: ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleDiffCallback()) {
+class ArticleAdapter : ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = getItem(position)
@@ -26,7 +25,6 @@ class ArticleAdapter: ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleDif
         holder.binding.root.tag = article.link
         holder.binding.itemHomeStar.tag = article.id
         holder.binding.executePendingBindings()
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,8 +37,7 @@ class ArticleAdapter: ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleDif
         )
     }
 
-
-    class ViewHolder(val binding: ItemHomeBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.itemHomeStar.setOnClickListener {
                 val repo = BaseRepo()
@@ -62,8 +59,7 @@ class ArticleAdapter: ListAdapter<Article, ArticleAdapter.ViewHolder>(ArticleDif
     }
 }
 
-
-private class ArticleDiffCallback: DiffUtil.ItemCallback<Article>(){
+private class ArticleDiffCallback : DiffUtil.ItemCallback<Article>() {
     override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
         return oldItem.id == newItem.id
     }
@@ -71,5 +67,4 @@ private class ArticleDiffCallback: DiffUtil.ItemCallback<Article>(){
     override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
         return oldItem == newItem
     }
-
 }

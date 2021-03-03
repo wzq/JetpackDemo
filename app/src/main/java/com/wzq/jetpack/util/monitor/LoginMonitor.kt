@@ -7,15 +7,13 @@ import com.wzq.jetpack.util.Prefs
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-
 /**
  * Created by wzq on 2019-07-26
  *
  */
-class LoginMonitor: LiveData<String?>() {
+class LoginMonitor : LiveData<String?>() {
 
     private val userName by Preference(Prefs.USER_NAME, "点击登录")
-
 
     override fun onActive() {
         super.onActive()
@@ -33,5 +31,4 @@ class LoginMonitor: LiveData<String?>() {
     }
 
     fun isLogin(): Boolean = userName != "点击登录"
-
 }

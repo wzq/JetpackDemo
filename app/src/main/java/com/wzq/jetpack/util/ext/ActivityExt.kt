@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import kotlin.reflect.KClass
 
-
 /**
  * Created by wzq on 2019-07-16
  *

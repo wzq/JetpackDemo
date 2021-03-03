@@ -1,6 +1,5 @@
 package com.wzq.jetpack.test
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
-import androidx.viewbinding.ViewBinding
 import com.wzq.jetpack.R
 import com.wzq.jetpack.databinding.ActivityTestBinding
 import com.wzq.jetpack.test.dialog.TestDialogActivity
@@ -21,7 +19,6 @@ import com.wzq.jetpack.util.ext.openPage
  *
  */
 class TestActivity : AppCompatActivity(), View.OnClickListener {
-
 
     lateinit var containerView: FragmentContainerView
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +35,6 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
                 openPage(ImmersiveActivity::class)
             }
             R.id.b2 -> {
-//                openPage(TestNavActivity::class)
             }
             R.id.b3 -> {
             }
@@ -70,7 +66,6 @@ class TestActivity : AppCompatActivity(), View.OnClickListener {
             super.onBackPressed()
         }
     }
-
 }
 //        activity?.also {
 //            it.onBackPressedDispatcher.addCallback(viewLifecycleOwner) {

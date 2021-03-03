@@ -10,14 +10,18 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
-class VerticalItemDecoration(private val mDividerViewTypeMap: SparseArray<Drawable>,
-                             private val mFirstDrawable: Drawable?,
-                             private val mLastDrawable: Drawable?) : RecyclerView.ItemDecoration() {
+class VerticalItemDecoration(
+    private val mDividerViewTypeMap: SparseArray<Drawable>,
+    private val mFirstDrawable: Drawable?,
+    private val mLastDrawable: Drawable?
+) : RecyclerView.ItemDecoration() {
 
-
-
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView,
-                                state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
 
         // last position
         if (isLastPosition(view, parent)) {
@@ -138,12 +142,10 @@ class VerticalItemDecoration(private val mDividerViewTypeMap: SparseArray<Drawab
         fun create(): VerticalItemDecoration {
             return VerticalItemDecoration(mDividerViewTypeMap, mFirstDrawable, mLastDrawable)
         }
-
     }
 
     companion object {
 
         private val ATTRS = intArrayOf(android.R.attr.listDivider)
     }
-
 }

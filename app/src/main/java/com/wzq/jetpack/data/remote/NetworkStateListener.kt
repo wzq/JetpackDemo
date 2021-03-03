@@ -14,12 +14,11 @@ import android.os.Build
 import androidx.lifecycle.LiveData
 import com.wzq.jetpack.BaseInitializer
 
-
 /**
  * Created by wzq on 2019-07-24
  *
  */
-class NetworkStateListener: LiveData<Boolean>() {
+class NetworkStateListener : LiveData<Boolean>() {
 
     val context = BaseInitializer.app
     private var connectivityManager: ConnectivityManager = context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager

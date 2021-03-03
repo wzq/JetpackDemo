@@ -9,14 +9,15 @@ import com.wzq.jetpack.model.result.LoginResult
 /**
  * Created by wzq on 2019-07-16
  */
-class UserRepo: BaseRepo(){
+class UserRepo : BaseRepo() {
 
-    fun login(account:String, password: String): LiveData<LoginResult?> {
+    fun login(account: String, password: String): LiveData<LoginResult?> {
         val data = MutableLiveData<LoginResult?>()
-        Linker.api.loginWanAndroid(account, password).enqueue(RespCallback {
-            data.value = it.getOrNull()
-        })
+        Linker.api.loginWanAndroid(account, password).enqueue(
+            RespCallback {
+                data.value = it.getOrNull()
+            }
+        )
         return data
     }
-
 }

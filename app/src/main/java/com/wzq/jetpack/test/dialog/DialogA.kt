@@ -11,7 +11,7 @@ import com.wzq.jetpack.ui.weiget.BottomDialogFragment
  * create by wzq on 2021/1/8
  *
  */
-class DialogA: BottomDialogFragment() {
+class DialogA : BottomDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

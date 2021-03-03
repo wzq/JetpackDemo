@@ -1,6 +1,5 @@
 package com.wzq.jetpack.model
 
-
 /**
  * Created by wzq on 2019-07-24
  *
@@ -13,7 +12,7 @@ data class Category(
     val visible: Int,
     val children: List<Category>
 ) {
-    fun fetchChildrenName(): String{
+    fun fetchChildrenName(): String {
         var name = ""
         children.forEach {
             name += "${it.name}    "

@@ -8,7 +8,6 @@ interface GankApi {
     @GET("http://gank.io/api/today")
     suspend fun getDaliyInfo(): GankResult
 
-
     @GET("http://gank.io/adsdxc")
     suspend fun errorTest(): GankResult
 }

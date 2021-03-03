@@ -17,7 +17,8 @@ open class SmartNestedScrollView(context: Context, attrs: AttributeSet?, defStyl
         if (findNestedRecyclerView(child) != null) {
             val lp = child?.layoutParams as ViewGroup.MarginLayoutParams
             val childHeightMeasureSpec = View.MeasureSpec.makeMeasureSpec(
-                lp.topMargin + lp.bottomMargin, View.MeasureSpec.AT_MOST)
+                lp.topMargin + lp.bottomMargin, View.MeasureSpec.AT_MOST
+            )
             child.measure(parentWidthMeasureSpec, childHeightMeasureSpec)
         } else {
             super.measureChildWithMargins(child, parentWidthMeasureSpec, widthUsed, parentHeightMeasureSpec, heightUsed)

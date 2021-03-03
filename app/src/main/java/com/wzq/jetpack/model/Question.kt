@@ -1,6 +1,5 @@
 package com.wzq.jetpack.model
 
-
 data class Question(
     val apkLink: String,
     val audit: Int,

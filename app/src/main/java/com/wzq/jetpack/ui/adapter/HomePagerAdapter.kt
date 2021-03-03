@@ -9,7 +9,6 @@ import com.wzq.jetpack.databinding.PagerHomeBinding
 import com.wzq.jetpack.model.Banner
 import com.wzq.jetpack.util.Router
 
-
 /**
  * Created by wzq on 2019-07-12
  *
@@ -25,7 +24,7 @@ class HomePageAdapter : ListAdapter<Banner, HomePageAdapter.ViewHolder>(DiffCall
         return super.getItem(p)
     }
 
-    fun realItemCount(): Int{
+    fun realItemCount(): Int {
         return super.getItemCount()
     }
 
@@ -36,7 +35,6 @@ class HomePageAdapter : ListAdapter<Banner, HomePageAdapter.ViewHolder>(DiffCall
         holder.binding.executePendingBindings()
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             PagerHomeBinding.inflate(
@@ -46,7 +44,6 @@ class HomePageAdapter : ListAdapter<Banner, HomePageAdapter.ViewHolder>(DiffCall
             )
         )
     }
-
 
     class ViewHolder(val binding: PagerHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         init {

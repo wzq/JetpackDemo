@@ -9,7 +9,6 @@ import com.wzq.jetpack.databinding.FragmentCategorySecBinding
 import com.wzq.jetpack.viewmodel.CategoryViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
-
 /**
  * Created by wzq on 2019-08-01
  *
@@ -20,7 +19,6 @@ class CategorySecFragment : BaseFragment() {
         fun instance(id: Int): CategorySecFragment = CategorySecFragment().apply {
             arguments = Bundle().also { it.putInt("id", id) }
         }
-
     }
 
     val viewMoel by viewModels<CategoryViewModel> { ViewModelFactory() }

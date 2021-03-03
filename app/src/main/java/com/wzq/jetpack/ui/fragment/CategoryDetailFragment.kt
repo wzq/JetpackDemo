@@ -14,7 +14,7 @@ import com.wzq.jetpack.viewmodel.CategoryViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 import timber.log.Timber
 
-class CategoryDetailFragment : BaseFragment(){
+class CategoryDetailFragment : BaseFragment() {
 
     companion object {
         fun instance(id: Int): CategoryDetailFragment {
@@ -43,9 +43,12 @@ class CategoryDetailFragment : BaseFragment(){
         listView.addItemDecoration(SimpleDecoration(activity, R.color.line_gray))
         listView.adapter = adapter
 
-        viewModel.getArticleList(id).observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.getArticleList(id).observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
 
         return root
     }

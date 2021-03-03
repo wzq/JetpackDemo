@@ -3,7 +3,6 @@ package com.wzq.jetpack.ui.fragment
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 
-
 /**
  * Created by wzq on 2019-07-12
  *

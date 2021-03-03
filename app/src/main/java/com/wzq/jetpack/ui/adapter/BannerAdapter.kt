@@ -17,7 +17,6 @@ import com.wzq.jetpack.util.ext.dp2px
  */
 class BannerAdapter(val data: List<Banner> = mutableListOf()) : RecyclerView.Adapter<BannerAdapter.Holder>() {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val root = LayoutInflater.from(parent.context).inflate(R.layout.item_banner, parent, false)
         return Holder(root)
@@ -67,6 +66,5 @@ class BannerAdapter(val data: List<Banner> = mutableListOf()) : RecyclerView.Ada
                 indicator.addView(rb)
             }
         }
-
     }
 }

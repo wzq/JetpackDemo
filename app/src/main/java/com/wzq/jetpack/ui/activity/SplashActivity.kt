@@ -33,7 +33,6 @@ class SplashActivity : AppCompatActivity() {
         root.setBackgroundColor(Color.WHITE)
         setContentView(root)
 
-
         immersive()
     }
 }

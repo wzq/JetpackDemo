@@ -9,12 +9,11 @@ import com.wzq.jetpack.databinding.ItemCategoryBinding
 import com.wzq.jetpack.model.Category
 import com.wzq.jetpack.util.Router
 
-
 /**
  * Created by wzq on 2019-07-18
  *
  */
-class CategoryAdapter: ListAdapter<Category, CategoryAdapter.ViewHolder>(CategoryDiffCallback()) {
+class CategoryAdapter : ListAdapter<Category, CategoryAdapter.ViewHolder>(CategoryDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(ItemCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -26,7 +25,7 @@ class CategoryAdapter: ListAdapter<Category, CategoryAdapter.ViewHolder>(Categor
         holder.binding.executePendingBindings()
     }
 
-    class ViewHolder(val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 val tag = it.tag
@@ -38,7 +37,7 @@ class CategoryAdapter: ListAdapter<Category, CategoryAdapter.ViewHolder>(Categor
     }
 }
 
-private class CategoryDiffCallback: DiffUtil.ItemCallback<Category>(){
+private class CategoryDiffCallback : DiffUtil.ItemCallback<Category>() {
     override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
         return oldItem.id == newItem.id
     }
@@ -46,5 +45,4 @@ private class CategoryDiffCallback: DiffUtil.ItemCallback<Category>(){
     override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
         return oldItem.name == newItem.name
     }
-
 }

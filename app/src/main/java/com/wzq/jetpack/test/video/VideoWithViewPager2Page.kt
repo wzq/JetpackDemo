@@ -1,22 +1,22 @@
-//package com.wzq.jetpack.test.video
+// package com.wzq.jetpack.test.video
 //
-//import android.annotation.SuppressLint
-//import android.os.Bundle
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import android.widget.TextView
-//import androidx.fragment.app.Fragment
-//import androidx.recyclerview.widget.RecyclerView
-//import androidx.viewpager2.widget.ViewPager2
-//import com.wzq.jetpack.R
+// import android.annotation.SuppressLint
+// import android.os.Bundle
+// import android.view.LayoutInflater
+// import android.view.View
+// import android.view.ViewGroup
+// import android.widget.TextView
+// import androidx.fragment.app.Fragment
+// import androidx.recyclerview.widget.RecyclerView
+// import androidx.viewpager2.widget.ViewPager2
+// import com.wzq.jetpack.R
 //
 //
-///**
+// /**
 // * create by wzq on 2020/11/6
 // *
 // */
-//class VideoWithViewPager2Page : Fragment() {
+// class VideoWithViewPager2Page : Fragment() {
 //
 //
 //    lateinit var pager: ViewPager2
@@ -47,9 +47,9 @@
 //        pager.adapter = null
 //        super.onDestroyView()
 //    }
-//}
+// }
 //
-//class PagerAdapter : RecyclerView.Adapter<PagerAdapter.VideoHolder>() {
+// class PagerAdapter : RecyclerView.Adapter<PagerAdapter.VideoHolder>() {
 //    class VideoHolder(val root: CustomVideoView) : RecyclerView.ViewHolder(root)
 //
 //    val data = mutableListOf(
@@ -83,5 +83,5 @@
 //        super.onViewRecycled(holder)
 //        holder.root.releasePlayer()
 //    }
-//}
+// }
 //

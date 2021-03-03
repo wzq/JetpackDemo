@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.wzq.jetpack.data.local.TagConverters
 
-
 /**
  * Created by wzq on 2019-07-12
  *

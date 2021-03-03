@@ -15,7 +15,6 @@ import com.wzq.jetpack.ui.adapter.ArticleAdapter
 import com.wzq.jetpack.viewmodel.SearchViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
-
 /**
  * Created by wzq on 2019-07-29
  *
@@ -49,16 +48,22 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         }
 
         val chipGroup = findViewById<ChipGroup>(R.id.search_hot)
-        viewModel.hotWords.observe(this, Observer {
-            if (it.isNotEmpty()) hotTitle.visibility = View.VISIBLE
-            it.forEach { et ->
-                chipGroup.addView(createChip(et.name))
+        viewModel.hotWords.observe(
+            this,
+            Observer {
+                if (it.isNotEmpty()) hotTitle.visibility = View.VISIBLE
+                it.forEach { et ->
+                    chipGroup.addView(createChip(et.name))
+                }
             }
-        })
+        )
 
-        viewModel.searchResult.observe(this, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.searchResult.observe(
+            this,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
     }
 
     private fun createChip(it: String): Chip {
@@ -68,7 +73,6 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         return chip
     }
 
-
     private var searchView: SearchView? = null
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_search, menu)
@@ -77,7 +81,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
         searchView?.onActionViewExpanded()
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query.isNullOrBlank()) return  false
+                if (query.isNullOrBlank()) return false
                 listView.visibility = View.VISIBLE
                 searchFront.visibility = View.GONE
                 historyGroup.addView(createChip(query), 0)
@@ -93,9 +97,7 @@ class SearchActivity : BaseActivity(), View.OnClickListener {
                 }
                 return false
             }
-
         })
         return super.onCreateOptionsMenu(menu)
     }
-
 }

@@ -12,7 +12,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
  */
 class ScrollingFABBehavior(context: Context?, attrs: AttributeSet?) : FloatingActionButton.Behavior(context, attrs) {
 
-
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
         child: FloatingActionButton,
@@ -20,9 +19,8 @@ class ScrollingFABBehavior(context: Context?, attrs: AttributeSet?) : FloatingAc
         target: View,
         nestedScrollAxes: Int
     ): Boolean {
-        //垂直滚动
+        // 垂直滚动
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL
-
     }
 
     override fun onNestedScroll(
@@ -35,7 +33,7 @@ class ScrollingFABBehavior(context: Context?, attrs: AttributeSet?) : FloatingAc
         dyUnconsumed: Int
     ) {
         if (dyConsumed > 0) {
-            child.hide(object : FloatingActionButton.OnVisibilityChangedListener(){
+            child.hide(object : FloatingActionButton.OnVisibilityChangedListener() {
                 override fun onHidden(fab: FloatingActionButton?) {
                     fab?.visibility = View.INVISIBLE
                 }
@@ -45,4 +43,3 @@ class ScrollingFABBehavior(context: Context?, attrs: AttributeSet?) : FloatingAc
         }
     }
 }
-

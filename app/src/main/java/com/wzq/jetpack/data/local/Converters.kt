@@ -29,15 +29,13 @@ class Converters {
     @TypeConverter fun calendarToDatestamp(calendar: Calendar): Long = calendar.timeInMillis
 
     @TypeConverter fun datestampToCalendar(value: Long): Calendar =
-            Calendar.getInstance().apply { timeInMillis = value }
-
+        Calendar.getInstance().apply { timeInMillis = value }
 }
 
 class TagConverters {
     @TypeConverter
     fun stringToObject(value: String): List<Tag> {
         val listType = object : TypeToken<List<Tag>>() {
-
         }.type
         return Gson().fromJson(value, listType)
     }

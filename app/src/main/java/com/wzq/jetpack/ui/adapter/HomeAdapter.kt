@@ -12,12 +12,11 @@ import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.thread.ioScope
 import kotlinx.coroutines.launch
 
-
 /**
  * Created by wzq on 2019-07-12
  *
  */
-class HomeAdapter: PagingDataAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCallback()) {
+class HomeAdapter : PagingDataAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = getItem(position) ?: return
         holder.binding.itemHomeStar.isSelected = article.collect
@@ -25,7 +24,6 @@ class HomeAdapter: PagingDataAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCa
         holder.binding.root.tag = article.link
         holder.binding.itemHomeStar.tag = article.id
         holder.binding.executePendingBindings()
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,7 +36,7 @@ class HomeAdapter: PagingDataAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCa
         )
     }
 
-    class ViewHolder(val binding: ItemHomeBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.itemHomeStar.setOnClickListener {
                 val repo = BaseRepo()
@@ -59,8 +57,7 @@ class HomeAdapter: PagingDataAdapter<Article, HomeAdapter.ViewHolder>(HomeDiffCa
     }
 }
 
-
-private class HomeDiffCallback: DiffUtil.ItemCallback<Article>(){
+private class HomeDiffCallback : DiffUtil.ItemCallback<Article>() {
     override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
         return oldItem.id == newItem.id
     }
@@ -68,5 +65,4 @@ private class HomeDiffCallback: DiffUtil.ItemCallback<Article>(){
     override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
         return oldItem.title == newItem.title
     }
-
 }

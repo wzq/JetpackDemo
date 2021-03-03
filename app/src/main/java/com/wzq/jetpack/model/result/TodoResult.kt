@@ -4,7 +4,7 @@ import com.wzq.jetpack.model.Todo
 
 data class TodoResult(
     val data: TodoData
-): BaseResult()
+) : BaseResult()
 
 data class TodoData(
     val curPage: Int,

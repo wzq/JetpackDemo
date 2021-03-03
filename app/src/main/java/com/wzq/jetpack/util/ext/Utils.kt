@@ -10,7 +10,6 @@ import android.view.View
 import timber.log.Timber
 import java.util.concurrent.Executors
 
-
 /**
  * Created by wzq on 2019-07-14
  *
@@ -23,7 +22,6 @@ val NETWORK_IO = Executors.newFixedThreadPool(5)
 fun timeFormat(time: Long): String {
     return DateFormat.format("yyyy-MM-dd", time).toString()
 }
-
 
 fun dp2px(dp: Int): Int {
     return TypedValue.applyDimension(

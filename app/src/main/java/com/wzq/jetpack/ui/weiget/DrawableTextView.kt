@@ -10,7 +10,8 @@ import androidx.appcompat.widget.AppCompatTextView
  */
 class DrawableTextView : AppCompatTextView {
     constructor(
-        context: Context, attrs: AttributeSet?,
+        context: Context,
+        attrs: AttributeSet?,
         defStyle: Int
     ) : super(context, attrs, defStyle)
 

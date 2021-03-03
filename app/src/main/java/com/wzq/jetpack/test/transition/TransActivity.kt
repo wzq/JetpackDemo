@@ -41,10 +41,8 @@ class TransActivity : AppCompatActivity() {
             binding.fabBottom.isVisible = true
         }
 
-
         val size = 200.dp.toInt()
         GlideApp.with(this).load(R.drawable.sample)
             .override(size, size).into(binding.img)
-
     }
 }

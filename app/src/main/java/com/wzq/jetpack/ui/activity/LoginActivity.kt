@@ -13,7 +13,6 @@ import com.wzq.jetpack.viewmodel.LoginViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 import org.greenrobot.eventbus.EventBus
 
-
 /**
  * Created by wzq on 2019-07-16
  *
@@ -36,19 +35,20 @@ class LoginActivity : BaseActivity() {
         binding.loginSubmit.setOnClickListener {
             val a = binding.loginAccount.text.toString()
             val p = binding.loginPassword.text.toString()
-            viewModel.login(a, p).observe(this, Observer {
-                val id = it?.data?.id ?: 0
-                if(id > 0) {
-                    showDialog()
-                    userId = id
-                    userName = it?.data?.nickname ?: ""
-                    EventBus.getDefault().post(it)
+            viewModel.login(a, p).observe(
+                this,
+                Observer {
+                    val id = it?.data?.id ?: 0
+                    if (id > 0) {
+                        showDialog()
+                        userId = id
+                        userName = it?.data?.nickname ?: ""
+                        EventBus.getDefault().post(it)
+                    }
                 }
-            })
+            )
         }
-
     }
-
 
     private fun showDialog() {
         MaterialAlertDialogBuilder(this)
@@ -59,5 +59,4 @@ class LoginActivity : BaseActivity() {
             }
             .show()
     }
-
 }

@@ -16,7 +16,6 @@
 
 package com.wzq.jetpack.util.ext
 
-
 import android.app.Activity
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity

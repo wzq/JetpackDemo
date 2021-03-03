@@ -7,9 +7,9 @@ import com.wzq.jetpack.model.result.GankResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class GankViewModel internal constructor(): ViewModel() {
+class GankViewModel internal constructor() : ViewModel() {
 
-    private val gankResult  = MutableLiveData<GankResult>()
+    private val gankResult = MutableLiveData<GankResult>()
     val dailyList: LiveData<List<GankItem>> = gankResult.map {
         it.results.android.reversed()
     }
@@ -22,5 +22,4 @@ class GankViewModel internal constructor(): ViewModel() {
             }
         }
     }
-
 }

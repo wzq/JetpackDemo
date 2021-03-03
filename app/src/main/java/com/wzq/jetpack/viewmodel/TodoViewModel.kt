@@ -14,9 +14,7 @@ class TodoViewModel(val repo: TodoRepo) : ViewModel() {
         emit(result.data)
     }
 
-
     fun submit(params: Map<String, String>): LiveData<TodoResult> {
         return repo.addTodo(params)
     }
-
 }

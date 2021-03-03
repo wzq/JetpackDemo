@@ -1,6 +1,5 @@
 package com.wzq.jetpack.model.result
 
-
 /**
  * Created by wzq on 2019-07-12
  *

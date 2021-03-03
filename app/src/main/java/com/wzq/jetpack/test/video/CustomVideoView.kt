@@ -1,24 +1,24 @@
-//package com.wzq.jetpack.test.video
+// package com.wzq.jetpack.test.video
 //
-//import android.content.Context
-//import android.graphics.Color
-//import android.net.Uri
-//import android.util.AttributeSet
-//import android.util.Log
-//import android.view.ViewGroup
-//import android.widget.FrameLayout
-//import com.google.android.exoplayer2.ExoPlayer
-//import com.google.android.exoplayer2.MediaItem
-//import com.google.android.exoplayer2.Player
-//import com.google.android.exoplayer2.SimpleExoPlayer
-//import com.google.android.exoplayer2.ui.PlayerView
-//import timber.log.Timber
+// import android.content.Context
+// import android.graphics.Color
+// import android.net.Uri
+// import android.util.AttributeSet
+// import android.util.Log
+// import android.view.ViewGroup
+// import android.widget.FrameLayout
+// import com.google.android.exoplayer2.ExoPlayer
+// import com.google.android.exoplayer2.MediaItem
+// import com.google.android.exoplayer2.Player
+// import com.google.android.exoplayer2.SimpleExoPlayer
+// import com.google.android.exoplayer2.ui.PlayerView
+// import timber.log.Timber
 //
-///**
+// /**
 // * create by wzq on 2020/11/16
 // *
 // */
-//class CustomVideoView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+// class CustomVideoView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
 //    FrameLayout(context, attrs, defStyleAttr), Player.EventListener {
 //
 //    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -107,4 +107,4 @@
 //        Timber.i(stateString)
 //    }
 //
-//}
+// }

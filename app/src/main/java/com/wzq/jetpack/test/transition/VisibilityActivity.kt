@@ -1,10 +1,8 @@
 package com.wzq.jetpack.test.transition
 
 import android.os.Bundle
-import android.view.View
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
-import androidx.transition.TransitionManager
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import com.wzq.jetpack.databinding.ActivityTestAnimVBinding
@@ -14,7 +12,6 @@ import com.wzq.jetpack.databinding.ActivityTestAnimVBinding
  *
  */
 class VisibilityActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +39,5 @@ class VisibilityActivity : AppCompatActivity() {
             addTarget(android.R.id.content)
             duration = 250L
         }
-
     }
 }

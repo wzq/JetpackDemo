@@ -23,10 +23,10 @@ class OtherInitializer : Initializer<DataStore<Preferences>> {
         Timber.d("other init")
         val defaultName = context.packageName + "_preferences"
         return context.createDataStore(
-            BuildConfig.APPLICATION_ID, migrations = listOf(
+            BuildConfig.APPLICATION_ID,
+            migrations = listOf(
                 SharedPreferencesMigration(context, defaultName)
             )
         )
     }
-
 }

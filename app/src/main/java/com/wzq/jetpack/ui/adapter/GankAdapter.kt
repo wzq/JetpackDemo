@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wzq.jetpack.databinding.ItemGankBinding
-import com.wzq.jetpack.databinding.ItemHomeBinding
 import com.wzq.jetpack.model.result.GankItem
 import com.wzq.jetpack.util.Router
-
 
 /**
  * Created by wzq on 2019-07-12
@@ -20,10 +18,9 @@ class GankAdapter : ListAdapter<GankItem, GankAdapter.ViewHolder>(GankDiffCallba
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
         holder.binding.data = item
-        holder.binding.root.tag =  item.url
+        holder.binding.root.tag = item.url
         holder.binding.executePendingBindings()
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -35,7 +32,6 @@ class GankAdapter : ListAdapter<GankItem, GankAdapter.ViewHolder>(GankDiffCallba
         )
     }
 
-
     class ViewHolder(val binding: ItemGankBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             ViewGroupCompat.setTransitionGroup(itemView as ViewGroup, true)
@@ -43,7 +39,6 @@ class GankAdapter : ListAdapter<GankItem, GankAdapter.ViewHolder>(GankDiffCallba
         }
     }
 }
-
 
 private class GankDiffCallback : DiffUtil.ItemCallback<GankItem>() {
     override fun areItemsTheSame(oldItem: GankItem, newItem: GankItem): Boolean {

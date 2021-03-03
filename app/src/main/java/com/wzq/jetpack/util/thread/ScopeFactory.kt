@@ -6,7 +6,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
 
-
 fun ioScope(ex: ((t: Throwable) -> Unit)? = null): CoroutineScope {
 
     val exceptionHandler: CoroutineContext = CoroutineExceptionHandler { _, throwable ->

@@ -1,24 +1,24 @@
-//package com.wzq.jetpack.test.video
+// package com.wzq.jetpack.test.video
 //
-//import android.annotation.SuppressLint
-//import android.net.Uri
-//import android.os.Build
-//import android.os.Bundle
-//import android.view.LayoutInflater
-//import android.view.View
-//import android.view.ViewGroup
-//import androidx.fragment.app.Fragment
-//import com.google.android.exoplayer2.*
-//import com.google.android.exoplayer2.ui.PlayerView
-//import com.wzq.jetpack.R
-//import timber.log.Timber
+// import android.annotation.SuppressLint
+// import android.net.Uri
+// import android.os.Build
+// import android.os.Bundle
+// import android.view.LayoutInflater
+// import android.view.View
+// import android.view.ViewGroup
+// import androidx.fragment.app.Fragment
+// import com.google.android.exoplayer2.*
+// import com.google.android.exoplayer2.ui.PlayerView
+// import com.wzq.jetpack.R
+// import timber.log.Timber
 //
 //
-///**
+// /**
 // * create by wzq on 2020/11/6
 // *
 // */
-//class VideoPage : Fragment() {
+// class VideoPage : Fragment() {
 //
 //    override fun onCreateView(
 //        inflater: LayoutInflater,
@@ -100,4 +100,4 @@
 //        player.release()
 //    }
 //
-//}
+// }

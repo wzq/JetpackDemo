@@ -7,19 +7,16 @@ import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.wzq.jetpack.data.HomeRepo
 import com.wzq.jetpack.data.source.HomePagerSource
-import com.wzq.jetpack.util.ext.threadLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-
 
 /**
  * Created by wzq on 2019-07-12
  *
  */
 class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel() {
-
 
     val banners = repo.getBanners()
 
@@ -35,5 +32,4 @@ class HomeViewModel internal constructor(private val repo: HomeRepo) : ViewModel
             emit(++flag)
         }
     }.flowOn(Dispatchers.Default).asLiveData()
-
 }

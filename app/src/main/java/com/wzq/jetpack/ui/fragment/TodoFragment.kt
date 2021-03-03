@@ -52,7 +52,7 @@ class TodoFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.todoList.observe(viewLifecycleOwner) {
-            if (it == null){
+            if (it == null) {
                 requireActivity().toast("请登陆")
             } else adapter.submitList(it.datas)
         }
@@ -62,5 +62,4 @@ class TodoFragment : BaseFragment() {
         inflater.inflate(R.menu.menu_todo, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
-
 }

@@ -8,10 +8,9 @@ import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.util.Prefs
 import kotlinx.coroutines.launch
 
-class SearchViewModel internal constructor(private val repo: SearchRepo): ViewModel() {
+class SearchViewModel internal constructor(private val repo: SearchRepo) : ViewModel() {
 
     val hotWords = repo.getHotWords()
-
 
     val searchResult = MutableLiveData<List<Article>>()
 
@@ -23,7 +22,6 @@ class SearchViewModel internal constructor(private val repo: SearchRepo): ViewMo
             searchResult.postValue(s.data.datas)
         }
     }
-
 
     val history = arrayListOf<String>().apply {
         val s = Prefs.get(Prefs.SEARCH_HISTORY, "")

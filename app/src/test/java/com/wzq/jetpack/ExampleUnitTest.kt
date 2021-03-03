@@ -1,6 +1,5 @@
 package com.wzq.jetpack
 
-import android.util.SparseArray
 import com.google.gson.Gson
 import com.google.gson.JsonNull
 import com.google.gson.JsonObject
@@ -36,12 +35,11 @@ class ExampleUnitTest {
 
         println(a shl 2)
 
-
         val arr = arrayListOf(Pair(1, null), Pair(2, "asd"), Pair(3, ""))
 
         arr.mapNotNull {
             val s = it.second
-            if (s.isNullOrEmpty()) null  else s
+            if (s.isNullOrEmpty()) null else s
         }.also {
             println(it)
         }
@@ -54,7 +52,6 @@ class ExampleUnitTest {
         }
         println(1)
     }
-
 
     suspend fun apple() {
         delay(1000)
@@ -126,7 +123,7 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun test04(): Unit {
+    fun test04() {
         val html = html {
             head {
                 title { +"XML encoding with Kotlin" }
@@ -150,7 +147,6 @@ class ExampleUnitTest {
             }
         }
         println(html.toString())
-
     }
 
     @Test
@@ -182,11 +178,8 @@ class ExampleUnitTest {
             }
 
             println("$t1 --- $t2")
-
         }
-
     }
-
 
     @Test
     fun test06() {
@@ -195,14 +188,15 @@ class ExampleUnitTest {
             yield(1)
 //            Thread.sleep(1000)
             yieldAll(listOf(3, 5))
-         //   yieldAll(generateSequence(7) { it + 2 })
+            //   yieldAll(generateSequence(7) { it + 2 })
         }
 
-        println(oddNumbers.onEach {
-            println(it)
-        })
+        println(
+            oddNumbers.onEach {
+                println(it)
+            }
+        )
     }
-
 
     @Test
     fun test07() {
@@ -229,5 +223,4 @@ class ExampleUnitTest {
         val msg: String,
         val data: JsonNull?
     )
-
 }

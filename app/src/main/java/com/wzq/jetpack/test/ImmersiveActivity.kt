@@ -13,7 +13,7 @@ import com.wzq.jetpack.util.ext.immersive
  * create by wzq on 2020/11/5
  *
  */
-class ImmersiveActivity: AppCompatActivity() {
+class ImmersiveActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class ImmersiveActivity: AppCompatActivity() {
         val root = findViewById<View>(R.id.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
-            val ins =  insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val ins = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.updatePadding(top = ins.top, bottom = ins.bottom)
             insets
         }

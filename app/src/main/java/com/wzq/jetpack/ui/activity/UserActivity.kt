@@ -39,14 +39,11 @@ class UserActivity : BaseActivity() {
             override fun onLoadCleared(placeholder: Drawable?) {
                 binding.toolbar.navigationIcon = placeholder
             }
-
         }
         GlideApp.with(this)
             .asDrawable()
             .load(R.mipmap.ic_launcher)
             .transform(CircleCrop())
             .into(target)
-
     }
-
 }

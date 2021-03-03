@@ -8,20 +8,18 @@ import com.wzq.jetpack.BaseInitializer
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.model.Banner
 
-
 /**
  * Created by wzq on 2019-07-23
  *
  */
 const val DATABASE_NAME = "jetpack-demo.db"
 
-
 @Database(entities = [Article::class, Banner::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun articleDao(): ArticleDao
 
-    abstract fun  bannerDao(): BannerDao
+    abstract fun bannerDao(): BannerDao
 
     companion object {
 
@@ -29,7 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
         @Volatile
         private var instance: AppDatabase? = null
 
-        fun getInstance(): AppDatabase{
+        fun getInstance(): AppDatabase {
             return getInstance(BaseInitializer.app)
         }
 
@@ -45,7 +43,6 @@ abstract class AppDatabase : RoomDatabase() {
             val builder = Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
             return builder.build()
-
         }
     }
 }

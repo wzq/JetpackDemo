@@ -26,5 +26,4 @@ class BaseInitializer : Initializer<Unit> {
     override fun dependencies(): List<Class<out Initializer<*>>> {
         return emptyList()
     }
-
 }

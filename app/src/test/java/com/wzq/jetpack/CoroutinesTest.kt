@@ -17,7 +17,7 @@ class CoroutinesTest {
     val thrown: ExpectedException = ExpectedException.none()
 
     @Test
-    fun whenException(){
+    fun whenException() {
         val scope = CoroutineScope(SupervisorJob())
 
         scope.launch {
@@ -28,8 +28,6 @@ class CoroutinesTest {
 
         scope.launch {
             println(2)
-
         }
-
     }
 }

@@ -6,12 +6,11 @@ import com.wzq.jetpack.data.CategoryRepo
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.model.Category
 
-
 /**
  * Created by wzq on 2019-07-12
  *
  */
-class CategoryViewModel internal constructor(private val repo: CategoryRepo): ViewModel() {
+class CategoryViewModel internal constructor(private val repo: CategoryRepo) : ViewModel() {
 
     fun getCategoryList(): LiveData<List<Category>> {
         return repo.getCategory()
@@ -20,5 +19,4 @@ class CategoryViewModel internal constructor(private val repo: CategoryRepo): Vi
     fun getArticleList(cid: Int): LiveData<List<Article>> {
         return repo.getCategoryArticle(cid)
     }
-
 }

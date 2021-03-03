@@ -8,15 +8,13 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wzq.jetpack.R
 import com.wzq.jetpack.ui.fragment.CategoryDetailFragment
-import kotlinx.coroutines.GlobalScope
 import timber.log.Timber
-
 
 /**
  * Created by wzq on 2019-07-24
  *
  */
-class CategoryActivity: BaseActivity() {
+class CategoryActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +35,12 @@ class CategoryActivity: BaseActivity() {
         TabLayoutMediator(tab, pager) { it, position ->
             it.text = titles[position]
         }.attach()
-
     }
 
-
-    class PagerAdapter(val activity: CategoryActivity, val data: List<Int>): FragmentStateAdapter(activity){
+    class PagerAdapter(
+        val activity: CategoryActivity,
+        val data: List<Int>
+    ) : FragmentStateAdapter(activity) {
         override fun getItemCount(): Int = data.size
 
         override fun createFragment(position: Int): Fragment {

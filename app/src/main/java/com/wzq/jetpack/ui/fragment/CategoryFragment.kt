@@ -12,7 +12,6 @@ import com.wzq.jetpack.ui.weiget.SimpleDecoration
 import com.wzq.jetpack.viewmodel.CategoryViewModel
 import com.wzq.jetpack.viewmodel.ViewModelFactory
 
-
 /**
  * Created by wzq on 2019-07-12
  *
@@ -21,7 +20,7 @@ class CategoryFragment : BaseFragment() {
 
     private val viewModel by viewModels<CategoryViewModel> { ViewModelFactory() }
 
-    val adapter by lazy{ CategoryAdapter() }
+    val adapter by lazy { CategoryAdapter() }
 
     lateinit var binding: FragmentCategoryBinding
 
@@ -40,19 +39,23 @@ class CategoryFragment : BaseFragment() {
 
     private fun refresh() {
         binding.categorySwipe.isRefreshing = true
-        viewModel.getCategoryList().observe(viewLifecycleOwner, {
-            binding.categorySwipe.isRefreshing = false
-            adapter.submitList(it)
-        })
+        viewModel.getCategoryList().observe(
+            viewLifecycleOwner,
+            {
+                binding.categorySwipe.isRefreshing = false
+                adapter.submitList(it)
+            }
+        )
     }
-
 
     private fun refresh1() {
         binding.categorySwipe.isRefreshing = true
-        viewModel.getCategoryList().observe(viewLifecycleOwner, {
-            binding.categorySwipe.isRefreshing = false
-            adapter.submitList(it)
-        })
+        viewModel.getCategoryList().observe(
+            viewLifecycleOwner,
+            {
+                binding.categorySwipe.isRefreshing = false
+                adapter.submitList(it)
+            }
+        )
     }
-
 }

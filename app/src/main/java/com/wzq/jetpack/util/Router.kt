@@ -6,14 +6,13 @@ import com.wzq.jetpack.model.Category
 import com.wzq.jetpack.test.TestActivity
 import com.wzq.jetpack.ui.activity.*
 
-
 /**
  * Created by wzq on 2019-07-15
  *
  */
 object Router {
 
-    fun go2web(context: Context, url: String){
+    fun go2web(context: Context, url: String) {
         val p = Intent(context, WebActivity::class.java)
         p.putExtra("url", url)
         context.startActivity(p)
@@ -23,10 +22,8 @@ object Router {
         context.startActivity(Intent(context, LoginActivity::class.java))
     }
 
-
-    fun go2category(context: Context, category: Category){
+    fun go2category(context: Context, category: Category) {
         val intent = Intent(context, CategoryActivity::class.java)
-
 
         val s1 = arrayListOf<Int>()
         val s2 = arrayListOf<String>()
@@ -43,21 +40,21 @@ object Router {
 
     fun go2search(context: Context, keyword: String? = null) {
         val intent = Intent(context, SearchActivity::class.java)
-        if (!keyword.isNullOrBlank()){
+        if (!keyword.isNullOrBlank()) {
             intent.putExtra("key", keyword)
         }
         context.startActivity(intent)
     }
 
-    fun go2collect(context: Context){
+    fun go2collect(context: Context) {
         context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 0) })
     }
 
-    fun go2about(context: Context){
+    fun go2about(context: Context) {
         context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 1) })
     }
 
-    fun go2todo(context: Context){
+    fun go2todo(context: Context) {
         context.startActivity(Intent(context, UserActivity::class.java).apply { putExtra("type", 2) })
     }
 

@@ -12,14 +12,12 @@ class Snapshot<out T>(private val value: Any?) {
         fun <T> success(value: T): Snapshot<T> = Snapshot(value)
         fun <T> failure(exception: Throwable): Snapshot<T> = Snapshot(Error(exception))
 
-
         suspend fun <T> runCatch(block: suspend () -> T): Snapshot<T> =
             try {
                 success(block())
             } catch (exception: Throwable) {
                 failure(exception)
             }
-
     }
 
     fun isSuccess() = value !is Error

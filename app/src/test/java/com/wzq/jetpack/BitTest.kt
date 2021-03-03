@@ -19,7 +19,6 @@ class BitTest {
         val map = arrayMapOf<String, String>()
     }
 
-
     /**
      * @return new index
      */

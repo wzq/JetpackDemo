@@ -1,9 +1,7 @@
 package com.wzq.jetpack.ui.weiget
 
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
-import android.widget.TextView
 import com.google.android.material.textfield.TextInputEditText
 
 class FixedTextInputEditText(context: Context, attrs: AttributeSet?) : TextInputEditText(context, attrs) {
@@ -24,5 +22,4 @@ class FixedTextInputEditText(context: Context, attrs: AttributeSet?) : TextInput
 //        f.isAccessible = true
 //        return f.get(this) as? CharSequence
 //    }
-
 }

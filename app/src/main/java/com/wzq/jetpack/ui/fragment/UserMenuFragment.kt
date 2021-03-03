@@ -12,7 +12,6 @@ import com.wzq.jetpack.databinding.FragmentUserMenuBinding
 import com.wzq.jetpack.test.TestActivity
 import com.wzq.jetpack.ui.transcation.LARGE_EXPAND_DURATION
 import com.wzq.jetpack.util.ext.openPage
-import java.util.concurrent.TimeUnit
 
 class UserMenuFragment : BaseFragment(R.layout.fragment_user_menu) {
 
@@ -34,7 +33,6 @@ class UserMenuFragment : BaseFragment(R.layout.fragment_user_menu) {
         reenterTransition = MaterialElevationScale(true).apply {
             duration = LARGE_EXPAND_DURATION
         }
-
 
         val binding = FragmentUserMenuBinding.bind(view)
         binding.b1.setOnClickListener {
@@ -61,5 +59,4 @@ class UserMenuFragment : BaseFragment(R.layout.fragment_user_menu) {
             findNavController().navigate(directions, extraArgs)
         }
     }
-
 }

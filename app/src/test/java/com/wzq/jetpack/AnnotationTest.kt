@@ -27,11 +27,10 @@ abstract class BaseA {
         println(111)
     }
 }
-class TestA: BaseA() {
+class TestA : BaseA() {
     override fun say(s: String) {
         println(s)
     }
-
 }
 
 @Target(AnnotationTarget.CLASS)

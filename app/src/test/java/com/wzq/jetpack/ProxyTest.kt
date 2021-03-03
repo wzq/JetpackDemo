@@ -1,15 +1,12 @@
 package com.wzq.jetpack
 
 import org.junit.Test
-import java.lang.reflect.InvocationHandler
-import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 
 /**
  * create by wzq on 2021/1/4
  *
  */
-
 
 interface A {
     fun say()

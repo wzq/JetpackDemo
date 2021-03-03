@@ -110,5 +110,4 @@ class SpringAddItemAnimator : DefaultItemAnimator() {
         view.alpha = 1f
         view.translationY = 0f
     }
-
 }

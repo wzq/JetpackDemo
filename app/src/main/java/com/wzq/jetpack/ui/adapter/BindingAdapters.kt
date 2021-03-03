@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.wzq.jetpack.util.ext.timeFormat
 
-
 /**
  * Created by wzq on 2019-07-15
  *
@@ -36,18 +35,18 @@ fun bindRenderHtml(view: TextView, description: String?) {
 
 @BindingAdapter("formatTime")
 fun bindTimeFormat(view: TextView, time: Long?) {
-    if (time != null){
+    if (time != null) {
         view.text = timeFormat(time)
-    }else {
+    } else {
         view.text = ""
     }
 }
 
 @BindingAdapter("formatTime")
 fun bindTimeFormat(view: TextView, time: String?) {
-    view.text = if (time.isNullOrBlank()){
+    view.text = if (time.isNullOrBlank()) {
         ""
-    }else {
+    } else {
         time.substring(0, time.indexOf("T"))
     }
 }

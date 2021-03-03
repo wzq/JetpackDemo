@@ -15,8 +15,8 @@ class SimpleDecoration(context: Context?, private val resId: Int = R.color.line_
 
     val offset: Int = dp2px(1)
 
-    val paint =  Paint().apply {
-        if (context != null){
+    val paint = Paint().apply {
+        if (context != null) {
             color = ContextCompat.getColor(context, resId)
         }
         style = Paint.Style.FILL
@@ -24,7 +24,9 @@ class SimpleDecoration(context: Context?, private val resId: Int = R.color.line_
     }
 
     override fun getItemOffsets(
-        outRect: Rect, view: View, parent: RecyclerView,
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
         state: RecyclerView.State
     ) {
 
@@ -34,7 +36,6 @@ class SimpleDecoration(context: Context?, private val resId: Int = R.color.line_
         }
 
         outRect.bottom = offset
-
     }
 
     override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
@@ -55,7 +56,6 @@ class SimpleDecoration(context: Context?, private val resId: Int = R.color.line_
             val bottom = top + offset
             val r = Rect(left, top, right, bottom)
             c.drawRect(r, paint)
-
         }
     }
 

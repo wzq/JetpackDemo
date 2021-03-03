@@ -6,7 +6,6 @@ import android.preference.PreferenceManager
 import com.wzq.jetpack.BaseInitializer
 import timber.log.Timber
 
-
 /**
  * Created by wzq on 2019-07-18
  *
@@ -57,8 +56,7 @@ object Prefs {
         }.apply()
     }
 
-
-    fun appendString(name:String, value: String, repeatable: Boolean = true) {
+    fun appendString(name: String, value: String, repeatable: Boolean = true) {
         val rv = if (repeatable) {
             get(name, "").plus(value)
         } else {

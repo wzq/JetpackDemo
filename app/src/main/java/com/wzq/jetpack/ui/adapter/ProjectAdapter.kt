@@ -13,14 +13,13 @@ import com.wzq.jetpack.databinding.ItemProjectBinding
 import com.wzq.jetpack.model.Article
 import com.wzq.jetpack.util.Router
 
-
 /**
  * Created by wzq on 2019-07-12
  *
  */
 class ProjectAdapter(private val host: Fragment) :
     PagingDataAdapter<Article, ProjectAdapter.ViewHolder>(ProjectDiffCallback()),
-    ListPreloader.PreloadModelProvider<Article>  {
+    ListPreloader.PreloadModelProvider<Article> {
 
     override fun getPreloadItems(position: Int): List<Article> {
         return listOf(getItem(position)!!)
@@ -36,7 +35,6 @@ class ProjectAdapter(private val host: Fragment) :
         holder.binding.article = article
         holder.binding.root.tag = article?.link
         holder.binding.executePendingBindings()
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,7 +47,6 @@ class ProjectAdapter(private val host: Fragment) :
         )
     }
 
-
     class ViewHolder(val binding: ItemProjectBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
@@ -59,7 +56,6 @@ class ProjectAdapter(private val host: Fragment) :
     }
 }
 
-
 private class ProjectDiffCallback : DiffUtil.ItemCallback<Article>() {
     override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
         return oldItem.id == newItem.id
@@ -68,5 +64,4 @@ private class ProjectDiffCallback : DiffUtil.ItemCallback<Article>() {
     override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
         return oldItem.title == newItem.title
     }
-
 }

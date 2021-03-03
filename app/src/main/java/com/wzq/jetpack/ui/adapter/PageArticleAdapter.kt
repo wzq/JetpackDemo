@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wzq.jetpack.data.BaseRepo
 import com.wzq.jetpack.databinding.ItemHomeBinding
@@ -13,12 +12,11 @@ import com.wzq.jetpack.util.Router
 import com.wzq.jetpack.util.thread.ioScope
 import kotlinx.coroutines.launch
 
-
 /**
  * Created by wzq on 2019-07-12
  *
  */
-class PageArticleAdapter: PagingDataAdapter<Article, PageArticleAdapter.ViewHolder>(PageArticleDiffCallback()) {
+class PageArticleAdapter : PagingDataAdapter<Article, PageArticleAdapter.ViewHolder>(PageArticleDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = getItem(position) ?: return
@@ -27,7 +25,6 @@ class PageArticleAdapter: PagingDataAdapter<Article, PageArticleAdapter.ViewHold
         holder.binding.root.tag = article.link
         holder.binding.itemHomeStar.tag = article.id
         holder.binding.executePendingBindings()
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,8 +37,7 @@ class PageArticleAdapter: PagingDataAdapter<Article, PageArticleAdapter.ViewHold
         )
     }
 
-
-    class ViewHolder(val binding: ItemHomeBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ItemHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.itemHomeStar.setOnClickListener {
                 val repo = BaseRepo()
@@ -63,8 +59,7 @@ class PageArticleAdapter: PagingDataAdapter<Article, PageArticleAdapter.ViewHold
     }
 }
 
-
-private class PageArticleDiffCallback: DiffUtil.ItemCallback<Article>(){
+private class PageArticleDiffCallback : DiffUtil.ItemCallback<Article>() {
     override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
         return oldItem.id == newItem.id
     }
@@ -72,5 +67,4 @@ private class PageArticleDiffCallback: DiffUtil.ItemCallback<Article>(){
     override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
         return oldItem == newItem
     }
-
 }

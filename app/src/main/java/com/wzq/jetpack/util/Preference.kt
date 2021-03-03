@@ -7,7 +7,6 @@ import com.wzq.jetpack.BaseInitializer
 import timber.log.Timber
 import kotlin.reflect.KProperty
 
-
 /**
  * Created by wzq on 2019-07-17
  *

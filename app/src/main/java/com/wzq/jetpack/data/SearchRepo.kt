@@ -18,9 +18,6 @@ class SearchRepo : BaseRepo() {
         return data
     }
 
-
     suspend fun searchAny(key: String, page: Int) =
         Linker.api.queryBySearchKey(page, key)
-
-
 }
