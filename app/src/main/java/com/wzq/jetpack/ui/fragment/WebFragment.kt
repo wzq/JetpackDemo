@@ -43,7 +43,6 @@ class WebFragment : BaseFragment() {
             binding.web.loadUrl(url)
             binding.webRefresh.setOnClickListener { binding.web.reload() }
         }
-
         return binding.root
     }
 
@@ -53,7 +52,7 @@ class WebFragment : BaseFragment() {
             back()
         }
         webPageState.observe(viewLifecycleOwner) { isFinish ->
-            Timber.d("web load $isFinish")
+//            Timber.d("web ${binding.web.url} load $isFinish")
             if (isFinish) {
                 binding.webRefresh.visibility = View.VISIBLE
                 binding.webLoading.visibility = View.GONE
@@ -105,15 +104,17 @@ class WebFragment : BaseFragment() {
         //  webSettings.defaultTextEncodingName = "utf-8"
     }
 
-    class Client(private val pageState: MutableLiveData<Boolean>) : WebViewClientCompat() {
+    inner class Client(private val pageState: MutableLiveData<Boolean>) : WebViewClientCompat() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
+            Timber.d("onPageStarted- $url -- ${binding.web.url}")
             pageState.postValue(false)
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
+            Timber.d("onPageFinished- $url -- ${view?.progress}")
             pageState.postValue(true)
         }
 
@@ -146,6 +147,11 @@ class WebFragment : BaseFragment() {
         override fun onReceivedTitle(view: WebView?, title: String?) {
             super.onReceivedTitle(view, title)
             titleView.text = title
+        }
+
+        override fun onProgressChanged(view: WebView?, newProgress: Int) {
+            super.onProgressChanged(view, newProgress)
+            Timber.d("onProgressChanged- ${view?.url} -- ${newProgress}")
         }
     }
 }
