@@ -1,6 +1,7 @@
 package com.wzq.jetpack.data.source
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.wzq.jetpack.data.remote.Linker
 import com.wzq.jetpack.model.Article
 import timber.log.Timber
@@ -31,5 +32,9 @@ class HomePagerSource : PagingSource<Int, Article>() {
             e.printStackTrace()
             LoadResult.Error(e)
         }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, Article>): Int? {
+        return null
     }
 }
