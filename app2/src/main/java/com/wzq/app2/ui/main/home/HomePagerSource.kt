@@ -13,7 +13,7 @@ class HomePagerSource : PagingSource<Int, Article>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         return try {
             val pageNum = params.key ?: 0
-            val result = Linker.mainApi.getArticles(pageNum).data
+            val result = Linker.mainApi.getArticles(pageNum).getOrThrow()
             val nextPage = result.let {
                 if (it.curPage >= it.pageCount) {
                     null

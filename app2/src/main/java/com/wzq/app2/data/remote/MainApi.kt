@@ -1,7 +1,8 @@
 package com.wzq.app2.data.remote
 
 import com.wzq.app2.data.model.ArticleList
-import com.wzq.app2.data.model.DataResult.Success
+import com.wzq.app2.data.model.Category
+import com.wzq.app2.data.model.DataResult
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -25,15 +26,15 @@ interface MainApi {
      * @param pageNum
      */
     @GET("article/list/{pageNum}/json")
-    suspend fun getArticles(@Path("pageNum") pageNum: Int): Success<ArticleList>
+    suspend fun getArticles(@Path("pageNum") pageNum: Int): DataResult<ArticleList>
 
     @GET("article/listproject/{pageNum}/json")
-    suspend fun getProjects(@Path("pageNum") pageNum: Int): Success<ArticleList>
+    suspend fun getProjects(@Path("pageNum") pageNum: Int): DataResult<ArticleList>
 
-//    /**
-//     * 获取知识体系
-//     * http://www.wanandroid.com/tree/json
-//     */
-//    @GET("tree/json")
-//    fun getCategory(): Call<CategoryResult>
+    /**
+     * 获取知识体系
+     * http://www.wanandroid.com/tree/json
+     */
+    @GET("tree/json")
+    fun getCategory(): DataResult<List<Category>>
 }
