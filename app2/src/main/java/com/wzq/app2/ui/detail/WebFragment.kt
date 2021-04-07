@@ -8,17 +8,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.*
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
+import android.webkit.WebView
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.webkit.WebResourceErrorCompat
 import androidx.webkit.WebViewClientCompat
 import com.wzq.app2.databinding.FragmentWebBinding
 import com.wzq.app2.ui.BaseFragment
+import timber.log.Timber
 
 /**
  * Created by wzq on 2019-07-15
@@ -29,8 +32,16 @@ class WebFragment : BaseFragment() {
     private lateinit var binding: FragmentWebBinding
 
     private val webPageState = MutableLiveData<Boolean>()
-
-    val args: WebFragmentArgs by navArgs()
+    
+    companion object {
+        fun newInstance(url: String): WebFragment {
+            val args = Bundle()
+            args.putString("url", url)
+            val fragment = WebFragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +50,7 @@ class WebFragment : BaseFragment() {
     ): View {
 
         binding = FragmentWebBinding.inflate(inflater, container, false)
-        val url = args.url
+        val url = arguments?.getString("url") ?: ""
 
         binding.webBack.setOnClickListener { back() }
         binding.webClose.setOnClickListener { findNavController().navigateUp() }
@@ -58,7 +69,7 @@ class WebFragment : BaseFragment() {
             back()
         }
         webPageState.observe(viewLifecycleOwner) { isFinish ->
-//            Timber.d("web ${binding.web.url} load $isFinish")
+            Timber.d("web ${binding.web.url} load $isFinish")
             if (isFinish) {
                 binding.webRefresh.visibility = View.VISIBLE
                 binding.webLoading.visibility = View.GONE
@@ -73,7 +84,7 @@ class WebFragment : BaseFragment() {
         if (binding.web.canGoBack()) {
             binding.web.goBack()
         } else {
-            findNavController().navigateUp()
+            activity?.finish()
         }
     }
 
@@ -114,19 +125,19 @@ class WebFragment : BaseFragment() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-//            Timber.d("onPageStarted- $url -- ${binding.web.url}")
+            Timber.d("onPageStarted- $url -- ${binding.web.url}")
             pageState.postValue(false)
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-//            Timber.d("onPageFinished- $url -- ${view?.progress}")
+            Timber.d("onPageFinished- $url -- ${view?.progress}")
             pageState.postValue(true)
         }
 
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
-//            Timber.d("shouldOverrideUrlLoading url = ${request.url}")
+            Timber.d("shouldOverrideUrlLoading url = ${request.url}")
             return super.shouldOverrideUrlLoading(view, request)
         }
 
@@ -136,7 +147,7 @@ class WebFragment : BaseFragment() {
             request: WebResourceRequest,
             error: WebResourceErrorCompat
         ) {
-//            Timber.d("onReceivedError url = ${request.url}")
+            Timber.d("onReceivedError url = ${request.url}")
             super.onReceivedError(view, request, error)
         }
 
@@ -159,7 +170,7 @@ class WebFragment : BaseFragment() {
 
         override fun onProgressChanged(view: WebView?, newProgress: Int) {
             super.onProgressChanged(view, newProgress)
-//            Timber.d("onProgressChanged- ${view?.url} -- ${newProgress}")
+            Timber.d("onProgressChanged- ${view?.url} -- ${newProgress}")
         }
     }
 }

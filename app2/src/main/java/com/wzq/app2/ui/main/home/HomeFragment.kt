@@ -4,18 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.wzq.app2.R
 import com.wzq.app2.databinding.FragmentHomeBinding
+import com.wzq.app2.ui.BaseFragment
 import com.wzq.app2.ui.main.MainFragmentDirections
-import com.wzq.app2.ui.main.MainViewModel
 import com.wzq.app2.weidget.SimpleDecoration
+import kotlinx.coroutines.flow.collect
 
-class HomeFragment : Fragment(), HomeAdapter.ItemClickListener {
+class HomeFragment : BaseFragment(), HomeAdapter.ItemClickListener {
 
-    private val viewModel by activityViewModels<MainViewModel>()
+    private val viewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,14 +32,15 @@ class HomeFragment : Fragment(), HomeAdapter.ItemClickListener {
         val listAdapter = HomeAdapter(this)
         binding.listView.addItemDecoration(SimpleDecoration())
         binding.listView.adapter = listAdapter
-
-        viewModel.homeData.observe(viewLifecycleOwner) {
-            listAdapter.submitList(it.getOrNull()?.data?.datas)
+        lifecycleScope.launchWhenStarted {
+            viewModel.articleList.flow.collect {
+                listAdapter.submitData(requireActivity().lifecycle, it)
+            }
         }
     }
 
     override fun onItemClick(url: String) {
-        val directions = MainFragmentDirections.actionMainToWeb(url)
+        val directions = MainFragmentDirections.actionMainFragmentToWebActivity(url)
         findNavController().navigate(directions)
     }
 

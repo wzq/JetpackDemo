@@ -1,4 +1,4 @@
-package com.wzq.app2.ui.main.home
+package com.wzq.app2.ui.main.project
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,13 +10,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.wzq.app2.R
 
-class CategoryFragment : Fragment() {
+class ProjectFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         return root
     }

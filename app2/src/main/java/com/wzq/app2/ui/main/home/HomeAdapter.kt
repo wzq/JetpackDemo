@@ -2,7 +2,7 @@ package com.wzq.app2.ui.main.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wzq.app2.data.model.Article
 import com.wzq.app2.data.model.ArticleDiff
@@ -13,9 +13,13 @@ import com.wzq.app2.util.timeFormat
  * create by wzq on 2021/4/6
  *
  */
-class HomeAdapter(val itemClickListener: ItemClickListener) : ListAdapter<Article, HomeAdapter.Holder>(ArticleDiff()) {
+class HomeAdapter(private val itemClickListener: ItemClickListener) :
+    PagingDataAdapter<Article, HomeAdapter.Holder>(ArticleDiff()) {
 
-    class Holder(private val binding: ItemArticleBinding, val itemClickListener: ItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+    class Holder(
+        private val binding: ItemArticleBinding,
+        private val itemClickListener: ItemClickListener
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
@@ -52,10 +56,11 @@ class HomeAdapter(val itemClickListener: ItemClickListener) : ListAdapter<Articl
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.bindTo(getItem(position))
+        val article = getItem(position) ?: return
+        holder.bindTo(article)
     }
 
-    interface ItemClickListener{
+    interface ItemClickListener {
         fun onItemClick(url: String)
 
         fun onLikeClick(id: Int)

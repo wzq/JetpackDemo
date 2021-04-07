@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.wzq.app2.ui.main.MainFragment"
-        android:label="MainFragment" >
+        android:label="MainFragment">
         <action
-            android:id="@+id/action_main_to_web"
-            app:destination="@id/webFragment" />
+            android:id="@+id/action_mainFragment_to_webActivity"
+            app:destination="@id/webActivity" />
     </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.wzq.app2.ui.login.LoginFragment"
-        android:label="LoginFragment" />
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 
-    <fragment
-        android:id="@+id/webFragment"
-        android:name="com.wzq.app2.ui.detail.WebFragment"
-        android:label="WebFragment" >
+    <activity
+        android:id="@+id/webActivity"
+        android:name="com.wzq.app2.ui.detail.WebActivity"
+        android:label="WebActivity">
         <argument
             android:name="url"
-            app:argType="string"
-            android:defaultValue="" />
-    </fragment>
+            app:argType="string" />
+    </activity>
 
 </navigation>
