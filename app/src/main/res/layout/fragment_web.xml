@@ -22,8 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?colorPrimary"
-        android:orientation="horizontal"
-        app:layout_behavior="com.wzq.jetpack.ui.weiget.TestBehavior">
+        android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/web_back"
