@@ -1,15 +1,14 @@
 package com.wzq.sample.data.model
 
+import kotlin.NullPointerException
+
 /**
  * create by wzq on 2021/4/6
  *
  */
 
 @Suppress("UNCHECKED_CAST")
-open class DataResult<out T>(val data: T?) {
-
-    val errorCode: Int = 0
-    val errorMsg: String = ""
+class DataResult<out T>(val data: T? = null) {
 
     companion object {
 
@@ -25,20 +24,17 @@ open class DataResult<out T>(val data: T?) {
             return DataResult(value)
         }
 
-        fun <T> error(value: Exception): DataResult<T> {
-            return DataResult(null)
+        fun error(ex: Exception): DataResult<Nothing> {
+            val data = DataResult<Nothing>()
+            data.failure = Failure(ex)
+            return data
         }
 
-        fun createErrorResult(value: Exception){
-            Result.Error(value)
-        }
     }
 
-    val isSuccess: Boolean get() = data !is Exception
+    var failure: Failure? = null
 
-
-    val isFailure: Boolean get() = data is Exception
-
+    val isFailure: Boolean get() = failure != null
 
     fun getOrNull(): T? {
         return when {
@@ -48,14 +44,16 @@ open class DataResult<out T>(val data: T?) {
     }
 
     fun getOrThrow(): T {
-        if (data is Exception){
-            throw data
+        if (isFailure) {
+            throw failure!!.ex
+        } else if (data == null) {
+            throw NullPointerException("data is null")
         }
-        return data as T
+        return data
     }
 
 
-    data class Error(
+    data class Failure(
         val ex: Exception
     )
 }
