@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.wzq.sample.R
 import com.wzq.sample.data.remote.Linker
 import com.wzq.sample.databinding.FragmentCategoryBinding
+import com.wzq.sample.weidget.SimpleDecoration
 
 class CategoryFragment : Fragment() {
 
@@ -26,6 +27,7 @@ class CategoryFragment : Fragment() {
         val binding = FragmentCategoryBinding.bind(view)
         val adapter = CategoryAdapter()
         binding.listView.adapter = adapter
+        binding.listView.addItemDecoration(SimpleDecoration())
         lifecycleScope.launchWhenStarted {
             val data = Linker.mainApi.getCategory().getOrNull()
             adapter.submitList(data)

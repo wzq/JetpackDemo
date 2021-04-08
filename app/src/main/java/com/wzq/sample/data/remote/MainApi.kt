@@ -36,5 +36,5 @@ interface MainApi {
      * http://www.wanandroid.com/tree/json
      */
     @GET("tree/json")
-    fun getCategory(): DataResult<List<Category>>
+    suspend fun getCategory(): DataResult<List<Category>>
 }

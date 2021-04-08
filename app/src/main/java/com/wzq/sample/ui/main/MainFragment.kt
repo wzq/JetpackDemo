@@ -35,8 +35,8 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     private val fragments = listOf(
         HomeFragment(),
-        CategoryFragment(),
-        ProjectFragment()
+        ProjectFragment(),
+        CategoryFragment()
     )
 
     private fun setupBottomNav(
