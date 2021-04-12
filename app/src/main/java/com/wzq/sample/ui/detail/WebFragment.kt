@@ -51,8 +51,8 @@ class WebFragment : BaseFragment() {
 
         binding = FragmentWebBinding.inflate(inflater, container, false)
 
-        val url =
-            "https://bmigucitic.cmread.com:8517/zxHtml/html/memberCardBind/memberCardBind.html?isShowRule=true&tokenid=51e7f00f1ad1620870e8503c15651831&cm=M31F0008"
+        val url = arguments?.getString("url") ?: ""
+
 
         binding.webBack.setOnClickListener { back() }
         binding.webClose.setOnClickListener { findNavController().navigateUp() }
