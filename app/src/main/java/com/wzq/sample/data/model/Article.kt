@@ -1,6 +1,9 @@
 package com.wzq.sample.data.model
 
 import androidx.recyclerview.widget.DiffUtil
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  * Created by wzq on 2019-07-12
@@ -8,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
  */
 data class ArticleList(
     val curPage: Int,
-    var datas: MutableList<Article>,
+    val datas: MutableList<Article>,
     val offset: Int,
     val over: Boolean,
     val pageCount: Int,
@@ -16,6 +19,7 @@ data class ArticleList(
     val total: Int
 )
 
+@Entity
 data class Article(
     val apkLink: String,
     val author: String,
@@ -26,7 +30,7 @@ data class Article(
     val desc: String,
     val envelopePic: String,
     val fresh: Boolean,
-    val id: Int,
+    @PrimaryKey val id: Int,
     val link: String,
     val niceDate: String,
     val origin: String,
