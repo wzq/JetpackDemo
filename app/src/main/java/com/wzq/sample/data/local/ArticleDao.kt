@@ -26,6 +26,6 @@ interface ArticleDao {
     @Query("delete from article")
     fun clearAll()
 
-    @Query("select * from article order by id")
+    @Query("select * from article order by publishTime desc")
     fun getPagingArticles(): PagingSource<Int, Article>
 }

@@ -12,7 +12,7 @@ import com.wzq.sample.data.model.Article
  * create by wzq on 2021/4/9
  *
  */
-@Database(entities = [Article::class, RemoteKey::class], version = 3)
+@Database(entities = [Article::class, RemoteKey::class], version = 4)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -38,6 +38,9 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        /**
+         *  fallbackToDestructiveMigration 如果未找到表改动合并策略，则重建表，数据会丢失
+         */
         private fun buildDatabase(context: Context): AppDatabase {
             val builder = Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).fallbackToDestructiveMigration()
             return builder.build()

@@ -35,6 +35,7 @@ class HomeFragment : BaseFragment(), HomeAdapter.ItemClickListener {
         val listAdapter = HomeAdapter(this)
         binding.listView.addItemDecoration(SimpleDecoration())
         binding.listView.adapter = listAdapter
+        
         lifecycleScope.launchWhenStarted {
             viewModel.articleList.flow.collect {
                 listAdapter.submitData(requireActivity().lifecycle, it)

@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.map
  */
 class HomeViewModel : ViewModel() {
 
-    val database = AppDatabase.getInstance()
+    private val database = AppDatabase.getInstance()
 
     @ExperimentalPagingApi
     val articleList = Pager(

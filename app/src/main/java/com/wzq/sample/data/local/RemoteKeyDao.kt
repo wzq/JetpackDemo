@@ -12,7 +12,7 @@ import androidx.room.Query
  *
  */
 @Entity(tableName = "remote_keys")
-data class RemoteKey(@PrimaryKey val label: String, val nextKey: Int?)
+data class RemoteKey(@PrimaryKey val label: String, val nextKey: Int)
 
 @Dao
 interface RemoteKeyDao {
