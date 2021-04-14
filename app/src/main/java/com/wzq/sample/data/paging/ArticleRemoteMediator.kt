@@ -1,4 +1,4 @@
-package com.wzq.sample.ui.main.home
+package com.wzq.sample.data.paging
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -9,16 +9,19 @@ import com.wzq.sample.data.local.AppDatabase
 import com.wzq.sample.data.local.RemoteKey
 import com.wzq.sample.data.model.Article
 import com.wzq.sample.data.model.ArticleList
-import com.wzq.sample.data.remote.Linker
 
 /**
  * create by wzq on 2021/4/14
- * db + network
+ *
  */
-@ExperimentalPagingApi
-class HomeRemoteMediator(private val db: AppDatabase) : RemoteMediator<Int, Article>() {
+typealias ArticleRemoteSource = suspend (Int) -> ArticleList
 
-    private val tag = "home_data"
+@ExperimentalPagingApi
+class ArticleRemoteMediator(
+    private val label: String,
+    private val db: AppDatabase,
+    private val remoteSource: ArticleRemoteSource
+) : RemoteMediator<Int, Article>() {
 
     private val articleDao = db.articleDao()
     private val remoteKeyDao = db.remoteKeyDao()
@@ -27,22 +30,21 @@ class HomeRemoteMediator(private val db: AppDatabase) : RemoteMediator<Int, Arti
         loadType: LoadType,
         state: PagingState<Int, Article>
     ): MediatorResult {
-        println(loadType.name)
         return try {
             val loadKey: Int = when (loadType) {
                 LoadType.REFRESH -> 0 //页数从0开始
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
                     val remoteKey = db.withTransaction {
-                        remoteKeyDao.remoteKeyByQuery(tag)
-                    } // 实际不会为空
+                        remoteKeyDao.remoteKeyByQuery(this.label)
+                    }
                     remoteKey.nextKey
                 }
             }
 
-            val remoteData = getDataFromRemote(loadKey)
+            val remoteData = remoteSource(loadKey)
             if (remoteData.datas.isNullOrEmpty()) {
-                //数据为空 结束加载更多数据
+                //数据为空 结束加载更多
                 return MediatorResult.Success(endOfPaginationReached = true)
             }
 
@@ -51,9 +53,9 @@ class HomeRemoteMediator(private val db: AppDatabase) : RemoteMediator<Int, Arti
                 if (loadType == LoadType.REFRESH) {
                     //刷新时清空数据
                     articleDao.clearAll()
-                    remoteKeyDao.deleteByQuery(tag)
+                    remoteKeyDao.deleteByQuery(this.label)
                 }
-                remoteKeyDao.insertOrReplace(RemoteKey(tag, loadKey + 1)) //更新远程建+1
+                remoteKeyDao.insertOrReplace(RemoteKey(this.label, loadKey + 1)) //更新远程建+1
                 articleDao.insertAll(remoteData.datas) //添加数据库内容
             }
 
@@ -66,12 +68,6 @@ class HomeRemoteMediator(private val db: AppDatabase) : RemoteMediator<Int, Arti
             e.printStackTrace()
             MediatorResult.Error(e)
         }
-    }
-
-    @Throws
-    private suspend fun getDataFromRemote(loadKey: Int): ArticleList {
-        val response = Linker.mainApi.getArticles(loadKey)
-        return response.getOrThrow()
     }
 
 }
