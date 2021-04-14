@@ -7,7 +7,10 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.TypedValue
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import kotlin.reflect.KClass
 
@@ -55,4 +58,20 @@ fun Fragment.openPage(
     } else {
         startActivity(intent)
     }
+}
+
+fun View.getStatusBarHeight(): Int {
+    ViewCompat.getRootWindowInsets(this)?.also { insets ->
+        val systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+        return systemInsets.top
+    }
+    return -1
+}
+
+fun Context.getActionBarHeight(): Int {
+    val tv = TypedValue()
+    if (theme.resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+        return TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
+    }
+    return -1
 }

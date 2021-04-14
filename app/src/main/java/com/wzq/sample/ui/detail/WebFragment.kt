@@ -10,17 +10,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
+import android.webkit.WebResourceResponse
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.widget.TextView
 import androidx.activity.addCallback
-import androidx.annotation.RequiresApi
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.webkit.WebResourceErrorCompat
 import androidx.webkit.WebViewClientCompat
 import com.wzq.sample.databinding.FragmentWebBinding
+import com.wzq.sample.databinding.ViewWebTitleBinding
 import com.wzq.sample.ui.BaseFragment
+import com.wzq.sample.util.ImeInsetsCallback
 import timber.log.Timber
 
 /**
@@ -30,6 +35,7 @@ import timber.log.Timber
 class WebFragment : BaseFragment() {
 
     private lateinit var binding: FragmentWebBinding
+    private lateinit var titleBar: ViewWebTitleBinding
 
     private val webPageState = MutableLiveData<Boolean>()
     
@@ -50,17 +56,25 @@ class WebFragment : BaseFragment() {
     ): View {
 
         binding = FragmentWebBinding.inflate(inflater, container, false)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            binding.root.updatePadding(bottom = systemInsets.bottom)
+            insets
+        }
+        ViewCompat.setWindowInsetsAnimationCallback(binding.root, ImeInsetsCallback(binding.web))
+
+
+        titleBar = binding.webTitleBar
 
         val url = arguments?.getString("url") ?: ""
 
-
-        binding.webBack.setOnClickListener { back() }
-        binding.webClose.setOnClickListener { findNavController().navigateUp() }
+        titleBar.webBack.setOnClickListener { back() }
+        titleBar.webClose.setOnClickListener { findNavController().navigateUp() }
 
         if (url.isNotEmpty()) {
             config(binding)
             binding.web.loadUrl(url)
-            binding.webRefresh.setOnClickListener { binding.web.reload() }
+            titleBar.webRefresh.setOnClickListener { binding.web.reload() }
         }
         return binding.root
     }
@@ -73,13 +87,14 @@ class WebFragment : BaseFragment() {
         webPageState.observe(viewLifecycleOwner) { isFinish ->
             Timber.d("web ${binding.web.url} load $isFinish")
             if (isFinish) {
-                binding.webRefresh.visibility = View.VISIBLE
-                binding.webLoading.visibility = View.GONE
+                titleBar.webRefresh.visibility = View.VISIBLE
+                titleBar.webLoading.visibility = View.GONE
             } else {
-                binding.webRefresh.visibility = View.GONE
-                binding.webLoading.visibility = View.VISIBLE
+                titleBar.webRefresh.visibility = View.GONE
+                titleBar.webLoading.visibility = View.VISIBLE
             }
         }
+
     }
 
     private fun back() {
@@ -94,7 +109,7 @@ class WebFragment : BaseFragment() {
     private fun config(binding: FragmentWebBinding) {
         val webSettings = binding.web.settings
         binding.web.webViewClient = Client(webPageState)
-        binding.web.webChromeClient = ChromeClient(binding.webTitle)
+        binding.web.webChromeClient = ChromeClient(titleBar.webTitle)
 
         webSettings.javaScriptEnabled = true // 开启JS支持
 
@@ -137,13 +152,11 @@ class WebFragment : BaseFragment() {
             pageState.postValue(true)
         }
 
-        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
             Timber.d("shouldOverrideUrlLoading url = ${request.url}")
             return super.shouldOverrideUrlLoading(view, request)
         }
 
-        @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
         override fun onReceivedError(
             view: WebView,
             request: WebResourceRequest,
@@ -153,14 +166,15 @@ class WebFragment : BaseFragment() {
             super.onReceivedError(view, request, error)
         }
 
-        override fun onReceivedError(
-            view: WebView?,
-            errorCode: Int,
-            description: String?,
-            failingUrl: String?
+        override fun onReceivedHttpError(
+            view: WebView,
+            request: WebResourceRequest,
+            errorResponse: WebResourceResponse
         ) {
-            super.onReceivedError(view, errorCode, description, failingUrl)
+            Timber.d("onReceivedHttpError url = ${request.url}")
+            super.onReceivedHttpError(view, request, errorResponse)
         }
+
     }
 
     class ChromeClient(private val titleView: TextView) : WebChromeClient() {
@@ -172,7 +186,7 @@ class WebFragment : BaseFragment() {
 
         override fun onProgressChanged(view: WebView?, newProgress: Int) {
             super.onProgressChanged(view, newProgress)
-            Timber.d("onProgressChanged- ${view?.url} -- ${newProgress}")
+            Timber.d("onProgressChanged- ${view?.url} -- $newProgress")
         }
     }
 }

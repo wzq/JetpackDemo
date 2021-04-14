@@ -18,9 +18,6 @@ abstract class BaseActivity : AppCompatActivity {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        }
         WindowCompat.setDecorFitsSystemWindows(window, false)
         Timber.tag(javaClass.simpleName).i("onCreate")
 
