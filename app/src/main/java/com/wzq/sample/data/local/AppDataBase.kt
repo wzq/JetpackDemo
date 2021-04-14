@@ -12,11 +12,13 @@ import com.wzq.sample.data.model.Article
  * create by wzq on 2021/4/9
  *
  */
-@Database(entities = [Article::class], version = 1)
+@Database(entities = [Article::class, RemoteKey::class], version = 3)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun articleDao(): ArticleDao
+
+    abstract fun remoteKeyDao(): RemoteKeyDao
 
     companion object {
 
@@ -37,7 +39,7 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): AppDatabase {
-            val builder = Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+            val builder = Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).fallbackToDestructiveMigration()
             return builder.build()
         }
     }

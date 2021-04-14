@@ -38,7 +38,7 @@ class WebFragment : BaseFragment() {
     private lateinit var titleBar: ViewWebTitleBinding
 
     private val webPageState = MutableLiveData<Boolean>()
-    
+
     companion object {
         fun newInstance(url: String): WebFragment {
             val args = Bundle()
@@ -69,7 +69,7 @@ class WebFragment : BaseFragment() {
         val url = arguments?.getString("url") ?: ""
 
         titleBar.webBack.setOnClickListener { back() }
-        titleBar.webClose.setOnClickListener { findNavController().navigateUp() }
+        titleBar.webClose.setOnClickListener { back(true) }
 
         if (url.isNotEmpty()) {
             config(binding)
@@ -97,8 +97,8 @@ class WebFragment : BaseFragment() {
 
     }
 
-    private fun back() {
-        if (binding.web.canGoBack()) {
+    private fun back(finish: Boolean = false) {
+        if (!finish && binding.web.canGoBack()) {
             binding.web.goBack()
         } else {
             activity?.finish()

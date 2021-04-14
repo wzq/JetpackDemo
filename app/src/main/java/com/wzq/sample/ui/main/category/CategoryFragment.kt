@@ -29,12 +29,12 @@ class CategoryFragment : Fragment() {
         binding.listView.adapter = adapter
         binding.listView.addItemDecoration(SimpleDecoration())
         lifecycleScope.launchWhenStarted {
-            try {
-                val data = Linker.mainApi.getCategory().getOrNull()
-                adapter.submitList(data)
-            }catch(ex: Exception){
-                ex.printStackTrace()
-            }
+//            try {
+//                val data = Linker.mainApi.getCategory().getOrNull()
+//                adapter.submitList(data)
+//            }catch(ex: Exception){
+//                ex.printStackTrace()
+//            }
         }
     }
 }

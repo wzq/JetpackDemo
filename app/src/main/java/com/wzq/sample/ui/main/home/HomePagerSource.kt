@@ -7,7 +7,7 @@ import com.wzq.sample.data.remote.Linker
 
 /**
  * create by wzq on 2020/7/30
- *
+ * only network
  */
 class HomePagerSource : PagingSource<Int, Article>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {

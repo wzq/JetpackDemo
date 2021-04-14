@@ -1,5 +1,6 @@
 package com.wzq.sample.data.local
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -24,4 +25,7 @@ interface ArticleDao {
 
     @Query("delete from article")
     fun clearAll()
+
+    @Query("select * from article order by id")
+    fun getPagingArticles(): PagingSource<Int, Article>
 }

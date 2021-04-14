@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import com.wzq.sample.R
 import com.wzq.sample.databinding.FragmentHomeBinding
 import com.wzq.sample.ui.BaseFragment
 import com.wzq.sample.ui.main.MainFragmentDirections
 import com.wzq.sample.weidget.SimpleDecoration
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 class HomeFragment : BaseFragment(), HomeAdapter.ItemClickListener {
 
@@ -26,6 +28,7 @@ class HomeFragment : BaseFragment(), HomeAdapter.ItemClickListener {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+    @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentHomeBinding.bind(view)

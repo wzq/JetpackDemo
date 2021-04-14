@@ -19,15 +19,15 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
         val adapter = ProjectAdapter()
         binding.listView.adapter = adapter
 
-        lifecycleScope.launchWhenStarted {
-            Pager(
-                config = PagingConfig(PAGE_SIZE),
-                pagingSourceFactory = {
-                    ProjectPagerSource()
-                }
-            ).flow.collect {
-                adapter.submitData(it)
-            }
-        }
+//        lifecycleScope.launchWhenStarted {
+//            Pager(
+//                config = PagingConfig(PAGE_SIZE),
+//                pagingSourceFactory = {
+//                    ProjectPagerSource()
+//                }
+//            ).flow.collect {
+//                adapter.submitData(it)
+//            }
+//        }
     }
 }
