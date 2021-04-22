@@ -18,12 +18,12 @@ import retrofit2.http.Path
  */
 interface MainApi {
 
-//    /**
-//     * 获取轮播图
-//     * http://www.wanandroid.com/banner/json
-//     */
-//    @GET("banner/json")
-//    suspend fun getBanners(): BannerResult
+    /**
+     * 获取轮播图
+     * http://www.wanandroid.com/banner/json
+     */
+    @GET("banner/json")
+    suspend fun getBanners()
 
     /**
      * 获取文章列表

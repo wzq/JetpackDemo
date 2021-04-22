@@ -2,10 +2,12 @@ package com.wzq.sample.weidget
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
+import com.wzq.sample.R
 import com.wzq.sample.util.getActionBarHeight
 import com.wzq.sample.util.getStatusBarHeight
 
@@ -38,6 +40,6 @@ class TitleBar : FrameLayout {
     }
 
     private fun initDefaultView(){
-        // TODO: 2021/4/13
+        LayoutInflater.from(context).inflate(R.layout.view_toolbar, this)
     }
 }
