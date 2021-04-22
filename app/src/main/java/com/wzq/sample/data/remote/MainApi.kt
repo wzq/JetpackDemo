@@ -3,7 +3,12 @@ package com.wzq.sample.data.remote
 import com.wzq.sample.data.model.ArticleList
 import com.wzq.sample.data.model.Category
 import com.wzq.sample.data.model.DataResult
+import com.wzq.sample.ui.login.LoginResult
+import retrofit2.Call
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 
@@ -37,4 +42,17 @@ interface MainApi {
      */
     @GET("tree/json")
     suspend fun getCategory(): DataResult<List<Category>>
+
+    /**
+     * 登录
+     * http://www.wanandroid.com/user/login
+     * @param username
+     * @param password
+     */
+    @POST("user/login")
+    @FormUrlEncoded
+    fun loginWanAndroid(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Call<LoginResult>
 }

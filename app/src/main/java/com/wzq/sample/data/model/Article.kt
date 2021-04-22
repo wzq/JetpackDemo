@@ -19,7 +19,7 @@ data class ArticleList(
     val total: Int
 )
 
-@Entity
+@Entity(tableName = "article")
 data class Article(
     val apkLink: String,
     val author: String,
