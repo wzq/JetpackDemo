@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import com.wzq.sample.data.MainRepo
 import com.wzq.sample.data.local.AppDatabase
 import com.wzq.sample.data.paging.ArticleRemoteMediator
-import com.wzq.sample.data.remote.Linker
 import com.wzq.sample.util.PAGE_SIZE
 
 /**
@@ -14,6 +14,7 @@ import com.wzq.sample.util.PAGE_SIZE
  *
  */
 class HomeViewModel : ViewModel() {
+    private val repo = MainRepo()
 
     private val database = AppDatabase.getInstance()
 
@@ -22,7 +23,10 @@ class HomeViewModel : ViewModel() {
         label = "home_data",
         db = database
     ) {
-        Linker.mainApi.getArticles(it).getOrThrow()
+        println(it)
+        repo.getHomeArticles(it).getOrNull()?.data.also {
+            println(it)
+        }
     }
 
     @ExperimentalPagingApi

@@ -2,7 +2,7 @@ package com.wzq.sample.data.remote
 
 import com.wzq.sample.data.model.ArticleList
 import com.wzq.sample.data.model.Category
-import com.wzq.sample.data.model.DataResult
+import com.wzq.sample.data.model.Response
 import com.wzq.sample.ui.login.LoginResult
 import retrofit2.Call
 import retrofit2.http.Field
@@ -31,17 +31,17 @@ interface MainApi {
      * @param pageNum
      */
     @GET("article/list/{pageNum}/json")
-    suspend fun getArticles(@Path("pageNum") pageNum: Int): DataResult<ArticleList>
+    suspend fun getArticles(@Path("pageNum") pageNum: Int): Response<ArticleList>
 
     @GET("article/listproject/{pageNum}/json")
-    suspend fun getProjects(@Path("pageNum") pageNum: Int): DataResult<ArticleList>
+    suspend fun getProjects(@Path("pageNum") pageNum: Int): Response<ArticleList>
 
     /**
      * 获取知识体系
      * http://www.wanandroid.com/tree/json
      */
     @GET("tree/json")
-    suspend fun getCategory(): DataResult<List<Category>>
+    suspend fun getCategory(): Response<List<Category>>
 
     /**
      * 登录

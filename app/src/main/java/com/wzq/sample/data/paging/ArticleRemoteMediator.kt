@@ -14,7 +14,7 @@ import com.wzq.sample.data.model.ArticleList
  * create by wzq on 2021/4/14
  *
  */
-typealias ArticleRemoteSource = suspend (Int) -> ArticleList
+typealias ArticleRemoteSource = suspend (Int) -> ArticleList?
 
 @ExperimentalPagingApi
 class ArticleRemoteMediator(
@@ -43,7 +43,7 @@ class ArticleRemoteMediator(
             }
 
             val remoteData = remoteSource(loadKey)
-            if (remoteData.datas.isNullOrEmpty()) {
+            if (remoteData == null || remoteData.datas.isNullOrEmpty()) {
                 //数据为空 结束加载更多
                 return MediatorResult.Success(endOfPaginationReached = true)
             }

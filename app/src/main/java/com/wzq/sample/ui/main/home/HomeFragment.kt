@@ -37,8 +37,12 @@ class HomeFragment : BaseFragment(), HomeAdapter.ItemClickListener {
         binding.listView.adapter = listAdapter
         
         lifecycleScope.launchWhenStarted {
-            viewModel.articleList.flow.collect {
-                listAdapter.submitData(requireActivity().lifecycle, it)
+//            viewModel.articleList.flow.collect {
+//                listAdapter.submitData(requireActivity().lifecycle, it)
+//            }
+
+           viewModel.articleList.flow.collectLatest {
+               listAdapter.submitData(it)
             }
         }
     }
