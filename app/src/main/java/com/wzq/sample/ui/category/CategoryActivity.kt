@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wzq.sample.databinding.ActivityCategoryBinding
 import com.wzq.sample.ui.BaseActivity
-import com.wzq.sample.ui.detail.WebFragment
+import com.wzq.sample.util.systemBarMode
 
 /**
  * create by wzq on 2021/5/31
@@ -16,6 +16,7 @@ class CategoryActivity: BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        systemBarMode(false)
         val binding = ActivityCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -41,7 +42,7 @@ class CategoryActivity: BaseActivity() {
         override fun getItemCount(): Int = data.size
 
         override fun createFragment(position: Int): Fragment {
-            return WebFragment.newInstance("data[position]")
+            return Fragment()
         }
     }
 }

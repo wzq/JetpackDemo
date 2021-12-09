@@ -4,12 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.TypedValue
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import kotlin.reflect.KClass
@@ -74,4 +77,18 @@ fun Context.getActionBarHeight(): Int {
         return TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
     }
     return -1
+}
+
+fun AppCompatActivity.immersive() {
+    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+    window.statusBarColor = Color.TRANSPARENT
+    window.navigationBarColor = Color.TRANSPARENT
+    WindowCompat.setDecorFitsSystemWindows(window, false)
+}
+
+fun AppCompatActivity.systemBarMode(isLightMode: Boolean) {
+    WindowCompat.getInsetsController(window, window.decorView)?.also {
+        it.isAppearanceLightStatusBars = isLightMode
+        it.isAppearanceLightNavigationBars = isLightMode
+    }
 }
