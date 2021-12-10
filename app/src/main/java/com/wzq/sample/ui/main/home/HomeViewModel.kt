@@ -18,7 +18,7 @@ class HomeViewModel : ViewModel() {
 
     private val database = AppDatabase.getInstance()
 
-    @ExperimentalPagingApi
+    @OptIn(ExperimentalPagingApi::class)
     val mediator = ArticleRemoteMediator(
         label = "home_data",
         db = database
@@ -29,7 +29,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    @ExperimentalPagingApi
+    @OptIn(ExperimentalPagingApi::class)
     val articleList = Pager(
         PagingConfig(PAGE_SIZE),
         remoteMediator = mediator

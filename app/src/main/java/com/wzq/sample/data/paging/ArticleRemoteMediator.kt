@@ -36,7 +36,7 @@ class ArticleRemoteMediator(
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
                     val remoteKey = db.withTransaction {
-                        remoteKeyDao.remoteKeyByQuery(this.label)
+                        remoteKeyDao.keyByQuery(this.label)
                     }
                     remoteKey.nextKey
                 }

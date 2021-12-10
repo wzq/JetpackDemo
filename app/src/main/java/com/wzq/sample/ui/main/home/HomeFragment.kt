@@ -28,7 +28,6 @@ class HomeFragment : BaseFragment(), HomeAdapter.ItemClickListener {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentHomeBinding.bind(view)

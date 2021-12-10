@@ -17,7 +17,6 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
 
     private val viewModel by viewModels<ProjectViewModel>()
 
-    @ExperimentalPagingApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentProjectBinding.bind(view)
 

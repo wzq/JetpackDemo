@@ -1,11 +1,6 @@
 package com.wzq.sample.data.local
 
-import androidx.room.Dao
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.PrimaryKey
-import androidx.room.Query
+import androidx.room.*
 
 /**
  * create by wzq on 2021/4/14
@@ -20,7 +15,7 @@ interface RemoteKeyDao {
     suspend fun insertOrReplace(remoteKey: RemoteKey)
 
     @Query("SELECT * FROM remote_keys WHERE label = :query")
-    suspend fun remoteKeyByQuery(query: String): RemoteKey
+    suspend fun keyByQuery(query: String): RemoteKey
 
     @Query("DELETE FROM remote_keys WHERE label = :query")
     suspend fun deleteByQuery(query: String)
