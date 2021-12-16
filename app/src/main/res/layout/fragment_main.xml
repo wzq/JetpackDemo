@@ -7,6 +7,15 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleCentered="true"
+        app:navigationIcon="@drawable/ic_baseline_menu_24"
+        app:menu="@menu/menu_main"
+        app:titleTextColor="?attr/colorControlNormal"
+        app:title="@string/app_name"/>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/content"
         android:layout_width="match_parent"

@@ -4,22 +4,25 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <com.wzq.sample.weidget.TitleBar
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorPrimary" />
+        app:titleTextColor="?attr/colorControlNormal"
+        app:navigationIcon="@drawable/ic_arrow_back_24dp"
+        app:navigationIconTint="?attr/colorControlNormal"/>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/category_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorPrimary"
         app:tabIndicator="@drawable/indicator_category"
         app:tabIndicatorColor="@android:color/transparent"
-        app:tabTextColor="@color/text_gray_400"
-        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="?colorControlNormal"
+        app:tabSelectedTextColor="?colorControlActivated"
         app:tabIndicatorFullWidth="false"
         app:tabIndicatorGravity="bottom"
         app:tabTextAppearance="@style/Widget.TabText"

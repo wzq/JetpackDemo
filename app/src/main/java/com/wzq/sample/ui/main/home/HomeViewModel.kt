@@ -23,10 +23,7 @@ class HomeViewModel : ViewModel() {
         label = "home_data",
         db = database
     ) {
-        println(it)
-        repo.getHomeArticles(it).getOrNull()?.data.also {
-            println(it)
-        }
+        repo.getHomeArticles(it).getOrNull()?.data
     }
 
     @OptIn(ExperimentalPagingApi::class)

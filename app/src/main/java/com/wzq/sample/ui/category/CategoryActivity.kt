@@ -20,8 +20,10 @@ class CategoryActivity: BaseActivity() {
         val binding = ActivityCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        title = intent.getStringExtra("title")
+        binding.toolbar.title = intent.getStringExtra("title")
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
         val ids = intent.getIntegerArrayListExtra("ids") ?: return
         val titles = intent.getStringArrayListExtra("titles") ?: return
 
@@ -36,13 +38,13 @@ class CategoryActivity: BaseActivity() {
     }
 
     class PagerAdapter(
-        val activity: CategoryActivity,
+        activity: CategoryActivity,
         val data: List<Int>
     ) : FragmentStateAdapter(activity) {
         override fun getItemCount(): Int = data.size
 
         override fun createFragment(position: Int): Fragment {
-            return Fragment()
+            return CategoryListFragment.newInstance(data[position])
         }
     }
 }

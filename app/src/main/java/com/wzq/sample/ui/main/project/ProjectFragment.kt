@@ -23,10 +23,10 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
         val adapter = ProjectAdapter()
         binding.listView.adapter = adapter
 
-//        lifecycleScope.launchWhenStarted {
-//           viewModel.articleList.flow.collect {
-//                adapter.submitData(it)
-//            }
-//        }
+        lifecycleScope.launchWhenStarted {
+           viewModel.articleList.flow.collect {
+                adapter.submitData(it)
+            }
+        }
     }
 }

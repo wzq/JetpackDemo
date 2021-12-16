@@ -5,11 +5,7 @@ import com.wzq.sample.data.model.Category
 import com.wzq.sample.data.model.Response
 import com.wzq.sample.ui.login.LoginResult
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 
 /**
@@ -42,6 +38,15 @@ interface MainApi {
      */
     @GET("tree/json")
     suspend fun getCategory(): Response<List<Category>>
+
+    /**
+     * 知识体系下的文章
+     * http://www.wanandroid.com/article/list/0/json?cid=168
+     * @param page
+     * @param cid
+     */
+    @GET("article/list/{page}/json")
+    suspend fun getCategoryArticles(@Path("page") page: Int, @Query("cid") cid: Int): Response<ArticleList>
 
     /**
      * 登录
