@@ -3,3 +3,5 @@
 ## showcase ##
 
 ![pic](/art/pic.gif)
+
+## see [flutter version](https://github.com/wzq/flutter_demo) ##
