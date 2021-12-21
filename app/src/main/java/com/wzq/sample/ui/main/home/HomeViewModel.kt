@@ -34,4 +34,6 @@ class HomeViewModel : ViewModel() {
         database.articleDao().getPagingArticles()
     }
 
+    suspend fun banner() = repo.getBanner()
+
 }

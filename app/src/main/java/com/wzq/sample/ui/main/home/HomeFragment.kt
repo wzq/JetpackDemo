@@ -20,6 +20,8 @@ class HomeFragment : BaseFragment(), HomeAdapter.ItemClickListener {
 
     private val viewModel by viewModels<HomeViewModel>()
 
+    private val bannerAdapter = BannerAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,11 +36,13 @@ class HomeFragment : BaseFragment(), HomeAdapter.ItemClickListener {
         val listAdapter = HomeAdapter(this)
         binding.listView.addItemDecoration(SimpleDecoration())
         binding.listView.adapter = listAdapter
+
+        binding.bannerView.adapter = bannerAdapter
         
         lifecycleScope.launchWhenStarted {
-//            viewModel.articleList.flow.collect {
-//                listAdapter.submitData(requireActivity().lifecycle, it)
-//            }
+
+            val banners = viewModel.banner().getOrNull()
+            bannerAdapter.submitData(banners?.data)
 
            viewModel.articleList.flow.collectLatest {
                listAdapter.submitData(it)

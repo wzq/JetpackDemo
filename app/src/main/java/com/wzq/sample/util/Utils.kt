@@ -56,7 +56,7 @@ fun Fragment.openPage(
 ) {
     val intent = Intent(context, clazz.java)
     if (args != null) intent.putExtras(args)
-    if (this is Activity && reqCode > -1) {
+    if (reqCode > -1) {
         startActivityForResult(intent, reqCode)
     } else {
         startActivity(intent)

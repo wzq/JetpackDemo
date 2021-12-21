@@ -26,4 +26,8 @@ class MainRepo {
     suspend fun getCategory() = Result.runCatch {
         Linker.mainApi.getCategory()
     }
+
+    suspend fun getBanner() = Result.runCatch {
+        Linker.mainApi.getBanners()
+    }
 }

@@ -1,6 +1,7 @@
 package com.wzq.sample.data.remote
 
 import com.wzq.sample.data.model.ArticleList
+import com.wzq.sample.data.model.Banner
 import com.wzq.sample.data.model.Category
 import com.wzq.sample.data.model.Response
 import com.wzq.sample.ui.login.LoginResult
@@ -19,7 +20,7 @@ interface MainApi {
      * http://www.wanandroid.com/banner/json
      */
     @GET("banner/json")
-    suspend fun getBanners()
+    suspend fun getBanners(): Response<List<Banner>>
 
     /**
      * 获取文章列表
