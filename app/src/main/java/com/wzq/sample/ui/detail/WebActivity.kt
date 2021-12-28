@@ -5,6 +5,7 @@ import androidx.fragment.app.commitNow
 import androidx.navigation.navArgs
 import com.wzq.sample.R
 import com.wzq.sample.ui.BaseActivity
+import com.wzq.sample.util.systemBarMode
 
 /**
  * create by wzq on 2021/4/7
@@ -16,6 +17,7 @@ class WebActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        systemBarMode(false)
         setContentView(R.layout.activity_web)
 
         supportFragmentManager.commitNow {
