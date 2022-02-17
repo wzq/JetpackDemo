@@ -67,7 +67,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     //ui-view
-    implementation "com.google.android.material:material:1.5.0-beta01"
+    implementation "com.google.android.material:material:1.5.0"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
@@ -103,7 +103,7 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
     //image-loader
-    implementation 'io.coil-kt:coil:1.1.1'
+    implementation 'io.coil-kt:coil:1.4.0'
 
     //test
     testImplementation 'junit:junit:4.13.2'

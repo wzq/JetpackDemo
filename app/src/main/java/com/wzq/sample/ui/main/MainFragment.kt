@@ -1,6 +1,8 @@
 package com.wzq.sample.ui.main
 
+import android.content.Intent
 import android.os.Bundle
+import android.text.StaticLayout
 import android.util.SparseArray
 import android.view.MenuItem
 import android.view.View
@@ -11,6 +13,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commitNow
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wzq.sample.R
+import com.wzq.sample.databinding.FragmentMainBinding
+import com.wzq.sample.experiment.T1Activity
 import com.wzq.sample.ui.BaseFragment
 import com.wzq.sample.ui.main.category.CategoryFragment
 import com.wzq.sample.ui.main.home.HomeFragment
@@ -24,10 +28,16 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val navView = view.findViewById<BottomNavigationView>(R.id.nav_view)
+        val binding = FragmentMainBinding.bind(view)
+        binding.toolbar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.main_search) {
+                startActivity(Intent(activity, T1Activity::class.java))
+            }
+            false
+        }
 
         setupBottomNav(
-            navView,
+            binding.navView,
             R.id.content,
             fragmentManager = childFragmentManager
         )
@@ -65,7 +75,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         }
 
 
-        navView.setOnNavigationItemSelectedListener {
+        navView.setOnItemSelectedListener {
             fragmentManager.commitNow {
                 hide(source[currentItem])
                 show(source[it.itemId])
@@ -73,8 +83,9 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
             }
             true
         }
-        navView.setOnNavigationItemReselectedListener {
+        navView.setOnItemReselectedListener {
             // TODO: 2021/4/6
         }
+
     }
 }

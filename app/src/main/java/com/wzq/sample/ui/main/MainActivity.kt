@@ -8,6 +8,15 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        clearFragmentManager()
         setContentView(R.layout.activity_main)
+   }
+
+    private fun clearFragmentManager() {
+        supportFragmentManager.beginTransaction().also { transition ->
+            supportFragmentManager.fragments.forEach {
+                transition.remove(it)
+            }
+        }.commitNow()
     }
 }
