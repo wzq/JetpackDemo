@@ -24,12 +24,4 @@ class App : Application() {
             Timber.d("app init")
         }
     }
-
-
-    private fun getScreenInfo() {
-        ContextCompat.getSystemService(this, WindowManager::class.java)?.run {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-            this.defaultDisplay
-        }
-    }
 }
