@@ -1,9 +1,6 @@
 package com.wzq.sample
 
 import android.app.Application
-import android.os.Build
-import android.view.WindowManager
-import androidx.core.content.ContextCompat
 import timber.log.Timber
 
 /**

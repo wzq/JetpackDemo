@@ -136,13 +136,16 @@ class WebFragment : BaseFragment() {
 
         // 设置编码 默认UTF-8
         //  webSettings.defaultTextEncodingName = "utf-8"
+
+        //        webSettings.loadsImagesAutomatically = false
+
     }
 
-    inner class Client(private val pageState: MutableLiveData<Boolean>) : WebViewClientCompat() {
+    class Client(private val pageState: MutableLiveData<Boolean>) : WebViewClientCompat() {
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
-            Timber.d("onPageStarted- $url -- ${binding.web.url}")
+            Timber.d("onPageStarted- ${url == view?.url}")
             pageState.postValue(false)
         }
 
