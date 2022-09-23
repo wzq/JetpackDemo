@@ -80,10 +80,10 @@ class WebFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            isEnabled = false; remove()
-            back()
-        }
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+//            isEnabled = false; remove()
+//            back()
+//        }
         webPageState.observe(viewLifecycleOwner) { isFinish ->
             Timber.d("web ${binding.web.url} load $isFinish")
             if (isFinish) {

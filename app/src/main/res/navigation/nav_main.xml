@@ -28,4 +28,16 @@
             app:argType="string" />
     </activity>
 
+    <action
+        android:id="@+id/action_to_webFragment"
+        app:destination="@id/webFragment">
+    </action>
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="com.wzq.sample.ui.detail.WebFragment">
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
+
 </navigation>
