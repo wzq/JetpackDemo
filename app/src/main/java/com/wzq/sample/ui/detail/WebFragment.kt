@@ -80,10 +80,6 @@ class WebFragment : BaseFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-//            isEnabled = false; remove()
-//            back()
-//        }
         webPageState.observe(viewLifecycleOwner) { isFinish ->
             Timber.d("web ${binding.web.url} load $isFinish")
             if (isFinish) {
@@ -101,7 +97,7 @@ class WebFragment : BaseFragment() {
         if (!finish && binding.web.canGoBack()) {
             binding.web.goBack()
         } else {
-            activity?.finish()
+           findNavController().navigateUp()
         }
     }
 

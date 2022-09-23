@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalPagingApi::class)
+
 package com.wzq.sample.data.paging
 
 import androidx.paging.ExperimentalPagingApi
@@ -16,7 +18,6 @@ import com.wzq.sample.data.model.ArticleList
  */
 typealias ArticleRemoteSource = suspend (Int) -> ArticleList?
 
-@ExperimentalPagingApi
 class ArticleRemoteMediator(
     private val label: String,
     private val db: AppDatabase,

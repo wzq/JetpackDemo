@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.wzq.sample.NavMainDirections
@@ -15,45 +14,37 @@ import com.wzq.sample.R
 import com.wzq.sample.databinding.FragmentHomeBinding
 import com.wzq.sample.ui.LifecycleFragment
 import com.wzq.sample.weidget.SimpleDecoration
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class HomeFragment : LifecycleFragment(), HomeAdapter.ItemClickListener {
 
     private val viewModel by viewModels<HomeViewModel>()
 
     private val bannerAdapter = BannerAdapter()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                println(1111)
-            }
-        }
-    }
+    private val listAdapter = HomeAdapter(this)
 
     override fun createView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val listAdapter = HomeAdapter(this)
         binding.listView.addItemDecoration(SimpleDecoration())
         binding.listView.adapter = listAdapter
+        viewModel.articleList.flow.flowWithLifecycle(lifecycle).onEach {
+            listAdapter.submitData(it)
+        }.launchIn(lifecycleScope)
 
         binding.bannerView.adapter = bannerAdapter
+        viewModel.banners.flowWithLifecycle(lifecycle).onEach {
+            bannerAdapter.submitData(it)
+        }.launchIn(lifecycleScope)
 
-        lifecycleScope.launchWhenStarted {
-
-            val banners = viewModel.banner().getOrNull()
-            bannerAdapter.submitData(banners?.data)
-            viewModel.articleList.flow.collectLatest {
-                listAdapter.submitData(it)
-            }
-        }
         return binding.root
+    }
+
+    override fun onShow(view: View) {
+        viewModel.banner()
+        listAdapter.refresh()
     }
 
     override fun onItemClick(url: String) {

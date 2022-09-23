@@ -1,13 +1,19 @@
+@file:OptIn(ExperimentalPagingApi::class)
+
 package com.wzq.sample.ui.main.home
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.wzq.sample.data.MainRepo
 import com.wzq.sample.data.local.AppDatabase
+import com.wzq.sample.data.model.Banner
 import com.wzq.sample.data.paging.ArticleRemoteMediator
 import com.wzq.sample.util.PAGE_SIZE
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 
 /**
  * create by wzq on 2021/4/6
@@ -16,24 +22,24 @@ import com.wzq.sample.util.PAGE_SIZE
 class HomeViewModel : ViewModel() {
     private val repo = MainRepo()
 
-    private val database = AppDatabase.getInstance()
+    val banners = MutableStateFlow<List<Banner>>(emptyList())
 
-    @OptIn(ExperimentalPagingApi::class)
-    val mediator = ArticleRemoteMediator(
+    private val mediator = ArticleRemoteMediator(
         label = "home_data",
-        db = database
+        db = AppDatabase.getInstance()
     ) {
         repo.getHomeArticles(it).getOrNull()?.data
     }
 
-    @OptIn(ExperimentalPagingApi::class)
     val articleList = Pager(
         PagingConfig(PAGE_SIZE),
         remoteMediator = mediator
     ) {
-        database.articleDao().getPagingArticles()
+        AppDatabase.getInstance().articleDao().getPagingArticles()
     }
 
-    suspend fun banner() = repo.getBanner()
+    fun banner() = viewModelScope.launch {
+        banners.value = repo.getBanner().getOrNull()?.data ?: emptyList()
+    }
 
 }
