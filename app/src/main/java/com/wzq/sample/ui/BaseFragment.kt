@@ -37,25 +37,25 @@ abstract class BaseFragment: Fragment {
     }
 
 
-//    override fun onStart() {
-//        super.onStart()
-//        Timber.tag(javaClass.simpleName).i("onStart")
-//    }
-//
-//    override fun onResume() {
-//        super.onResume()
-//        Timber.tag(javaClass.simpleName).i("onResume")
-//    }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        Timber.tag(javaClass.simpleName).i("onPause")
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        Timber.tag(javaClass.simpleName).i("onStop")
-//    }
+    override fun onStart() {
+        super.onStart()
+        Timber.tag(javaClass.simpleName).i("onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.tag(javaClass.simpleName).i("onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.tag(javaClass.simpleName).i("onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.tag(javaClass.simpleName).i("onStop")
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

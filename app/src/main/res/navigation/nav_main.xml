@@ -4,14 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
     app:startDestination="@id/mainFragment">
+
+    <action
+        android:id="@+id/action_to_webFragment"
+        app:destination="@id/webFragment" />
+
+    <action
+        android:id="@+id/action_to_login"
+        app:destination="@id/loginFragment"
+        app:launchSingleTop="true" />
+
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.wzq.sample.ui.main.MainFragment"
-        android:label="MainFragment">
-        <action
-            android:id="@+id/action_mainFragment_to_webActivity"
-            app:destination="@id/webActivity" />
-    </fragment>
+        android:label="MainFragment" />
 
     <fragment
         android:id="@+id/loginFragment"
@@ -19,19 +25,6 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
 
-    <activity
-        android:id="@+id/webActivity"
-        android:name="com.wzq.sample.ui.detail.WebActivity"
-        android:label="WebActivity">
-        <argument
-            android:name="url"
-            app:argType="string" />
-    </activity>
-
-    <action
-        android:id="@+id/action_to_webFragment"
-        app:destination="@id/webFragment">
-    </action>
     <fragment
         android:id="@+id/webFragment"
         android:name="com.wzq.sample.ui.detail.WebFragment">

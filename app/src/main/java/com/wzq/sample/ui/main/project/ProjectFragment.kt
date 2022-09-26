@@ -24,9 +24,9 @@ class ProjectFragment : Fragment(R.layout.fragment_project) {
         binding.listView.adapter = adapter
 
         lifecycleScope.launchWhenStarted {
-           viewModel.articleList.flow.collect {
-                adapter.submitData(it)
-            }
+//           viewModel.articleList.flow.collect {
+//                adapter.submitData(it)
+//            }
         }
     }
 }

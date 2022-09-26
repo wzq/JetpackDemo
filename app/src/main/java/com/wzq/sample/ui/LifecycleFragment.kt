@@ -16,10 +16,6 @@ abstract class LifecycleFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View?
 
-    open fun onShow(view: View) {}
-
-    open fun onHide() {}
-
     open fun onFreedView() {
         savedView = null
     }
@@ -31,16 +27,6 @@ abstract class LifecycleFragment : BaseFragment() {
             savedView = createView(inflater, container, savedInstanceState)
         }
         return savedView
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        onShow(view)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        onHide()
     }
 
     override fun onDestroy() {

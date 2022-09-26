@@ -39,12 +39,9 @@ class HomeFragment : LifecycleFragment(), HomeAdapter.ItemClickListener {
             bannerAdapter.submitData(it)
         }.launchIn(lifecycleScope)
 
-        return binding.root
-    }
-
-    override fun onShow(view: View) {
         viewModel.banner()
         listAdapter.refresh()
+        return binding.root
     }
 
     override fun onItemClick(url: String) {

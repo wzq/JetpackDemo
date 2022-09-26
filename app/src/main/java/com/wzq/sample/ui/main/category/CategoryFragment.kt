@@ -29,9 +29,9 @@ class CategoryFragment : Fragment() {
         binding.listView.adapter = adapter
         binding.listView.addItemDecoration(SimpleDecoration())
         lifecycleScope.launchWhenStarted {
-            val repo = MainRepo()
-            val data = repo.getCategory().getOrNull()
-            adapter.submitList(data?.data)
+//            val repo = MainRepo()
+//            val data = repo.getCategory().getOrNull()
+//            adapter.submitList(data?.data)
         }
     }
 }
