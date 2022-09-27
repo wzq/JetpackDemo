@@ -42,7 +42,8 @@ abstract class AppDatabase : RoomDatabase() {
          *  fallbackToDestructiveMigration 如果未找到表改动合并策略，则重建表，数据会丢失
          */
         private fun buildDatabase(context: Context): AppDatabase {
-            val builder = Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).fallbackToDestructiveMigration()
+            val builder = Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
             return builder.build()
         }
     }

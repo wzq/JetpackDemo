@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.wzq.sample">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,26 +20,15 @@
             android:authorities="${applicationId}.androidx-startup"
             android:exported="false"
             tools:node="merge">
-            <!--            <meta-data-->
-            <!--                android:name="com.wzq.jetpack.BaseInitializer"-->
-            <!--                android:value="androidx.startup" />-->
-
-            <!--            <meta-data-->
-            <!--                android:name="com.wzq.jetpack.OtherInitializer"-->
-            <!--                android:value="androidx.startup"-->
-            <!--                tools:node="remove" />-->
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+            <meta-data
+                android:name="com.wzq.sample.BaseInitializer"
+                android:value="androidx.startup" />
         </provider>
 
-        <!--        <activity-->
-        <!--            android:name=".ui.SplashActivity"-->
-        <!--            android:label="@string/app_name"-->
-        <!--            android:exported="true">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.MAIN" />-->
-
-        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-        <!--            </intent-filter>-->
-        <!--        </activity>-->
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"
@@ -51,9 +39,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".ui.detail.WebActivity"-->
-<!--            android:launchMode="singleTop" />-->
 
         <activity
             android:name=".ui.category.CategoryActivity"

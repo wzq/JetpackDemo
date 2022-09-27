@@ -10,26 +10,18 @@ import androidx.room.withTransaction
 import com.wzq.sample.data.local.AppDatabase
 import com.wzq.sample.data.local.RemoteKey
 import com.wzq.sample.data.model.Article
-import com.wzq.sample.data.model.ArticleList
-
-/**
- * create by wzq on 2021/4/14
- *
- */
-typealias ArticleRemoteSource = suspend (Int) -> ArticleList?
+import com.wzq.sample.data.remote.Linker
 
 class ArticleRemoteMediator(
     private val label: String,
     private val db: AppDatabase,
-    private val remoteSource: ArticleRemoteSource
 ) : RemoteMediator<Int, Article>() {
 
     private val articleDao = db.articleDao()
     private val remoteKeyDao = db.remoteKeyDao()
 
     override suspend fun load(
-        loadType: LoadType,
-        state: PagingState<Int, Article>
+        loadType: LoadType, state: PagingState<Int, Article>
     ): MediatorResult {
         return try {
             val loadKey: Int = when (loadType) {
@@ -43,8 +35,8 @@ class ArticleRemoteMediator(
                 }
             }
 
-            val remoteData = remoteSource(loadKey)
-            if (remoteData == null || remoteData.datas.isNullOrEmpty()) {
+            val remoteData = Linker.mainApi.getArticles(loadKey).data
+            if (remoteData.datas.isEmpty()) {
                 //数据为空 结束加载更多
                 return MediatorResult.Success(endOfPaginationReached = true)
             }

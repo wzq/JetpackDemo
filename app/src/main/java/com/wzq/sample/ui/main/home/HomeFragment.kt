@@ -30,7 +30,7 @@ class HomeFragment : LifecycleFragment(), HomeAdapter.ItemClickListener {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.listView.addItemDecoration(SimpleDecoration())
         binding.listView.adapter = listAdapter
-        viewModel.articleList.flow.flowWithLifecycle(lifecycle).onEach {
+        viewModel.articleList.flowWithLifecycle(lifecycle).onEach {
             listAdapter.submitData(it)
         }.launchIn(lifecycleScope)
 

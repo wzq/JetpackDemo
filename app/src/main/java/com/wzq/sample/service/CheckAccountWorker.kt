@@ -11,12 +11,14 @@ import java.util.*
  *
  */
 class CheckAccountWorker(context: Context, workerParams: WorkerParameters) : CoroutineWorker(
-    context,
-    workerParams
+    context, workerParams
 ) {
+    var flag = 1
     override suspend fun doWork(): Result {
         return try {
-            Prefs.set("work","do work == ${Date().toLocaleString()}")
+            Prefs.set("work", "do work == ${Date().toLocaleString()}")
+            //it will work in thread pool executor
+            println("${Thread.currentThread().name} do work ${flag++}")
             Result.success()
         } catch (e: Exception) {
             e.printStackTrace()
