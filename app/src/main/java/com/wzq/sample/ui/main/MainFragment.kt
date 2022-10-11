@@ -1,6 +1,5 @@
 package com.wzq.sample.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.SparseArray
 import android.view.MenuItem
@@ -15,7 +14,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wzq.sample.NavMainDirections
 import com.wzq.sample.R
 import com.wzq.sample.databinding.FragmentMainBinding
-import com.wzq.sample.experiment.T1Activity
 import com.wzq.sample.ui.BaseFragment
 import com.wzq.sample.ui.main.category.CategoryFragment
 import com.wzq.sample.ui.main.home.HomeFragment
@@ -35,7 +33,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         }
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.main_search) {
-                startActivity(Intent(activity, T1Activity::class.java))
+                findNavController().navigate(MainFragmentDirections.actionMainToSearch())
             }
             false
         }
