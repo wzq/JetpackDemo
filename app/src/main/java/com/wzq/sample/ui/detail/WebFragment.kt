@@ -3,18 +3,12 @@ package com.wzq.sample.ui.detail
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
-import android.webkit.WebResourceRequest
-import android.webkit.WebResourceResponse
-import android.webkit.WebSettings
-import android.webkit.WebView
+import android.webkit.*
 import android.widget.TextView
-import androidx.activity.addCallback
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -38,16 +32,6 @@ class WebFragment : BaseFragment() {
     private lateinit var titleBar: ViewWebTitleBinding
 
     private val webPageState = MutableLiveData<Boolean>()
-
-    companion object {
-        fun newInstance(url: String): WebFragment {
-            val args = Bundle()
-            args.putString("url", url)
-            val fragment = WebFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,6 +60,9 @@ class WebFragment : BaseFragment() {
             binding.web.loadUrl(url)
             titleBar.webRefresh.setOnClickListener { binding.web.reload() }
         }
+
+        // 设置背景颜色 透明
+        binding.web.setBackgroundColor(Color.TRANSPARENT)
         return binding.root
     }
 
@@ -97,7 +84,7 @@ class WebFragment : BaseFragment() {
         if (!finish && binding.web.canGoBack()) {
             binding.web.goBack()
         } else {
-           findNavController().navigateUp()
+            findNavController().navigateUp()
         }
     }
 
@@ -113,27 +100,19 @@ class WebFragment : BaseFragment() {
 
         webSettings.domStorageEnabled = true // 开启Localstorage
 
-        webSettings.cacheMode = WebSettings.LOAD_DEFAULT // 设置缓存模式
+        webSettings.cacheMode = WebSettings.LOAD_DEFAULT // 设置缓存模式, 默认是LOAD_DEFAULT
 
         // 设置此属性，可任意比例缩放
         webSettings.useWideViewPort = true
         webSettings.loadWithOverviewMode = true
         // webView自适应
         webSettings.layoutAlgorithm = WebSettings.LayoutAlgorithm.NORMAL
-        // 设置背景颜色 透明
-        binding.web.setBackgroundColor(Color.TRANSPARENT)
-
-        // 设置缓存地址 设置后webview可以离线运行，建议通过设置cacheMode代替 废弃
-//        val appCachePath = activity?.cacheDir?.absolutePath
-//        webSettings.setAppCachePath(appCachePath)
-//        webSettings.setAppCacheEnabled(true)
-
-//        webSettings.savePassword = false //是否保存密码 废弃
 
         // 设置编码 默认UTF-8
-        //  webSettings.defaultTextEncodingName = "utf-8"
+//        webSettings.defaultTextEncodingName = "utf-8"
 
-        //        webSettings.loadsImagesAutomatically = false
+        //是否主动加载图片，默认是true
+//        webSettings.loadsImagesAutomatically = false
 
     }
 

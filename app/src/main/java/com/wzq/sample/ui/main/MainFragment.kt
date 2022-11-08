@@ -29,11 +29,11 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentMainBinding.bind(view)
         binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(NavMainDirections.actionToLogin())
+            findNavController().navigate(NavMainDirections.actionGlobalLoginFragment())
         }
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.main_search) {
-                findNavController().navigate(MainFragmentDirections.actionMainToSearch())
+                findNavController().navigate(MainFragmentDirections.actionGlobalSettingsFragment())
             }
             false
         }

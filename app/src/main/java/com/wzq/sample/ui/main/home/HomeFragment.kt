@@ -45,7 +45,7 @@ class HomeFragment : LifecycleFragment(), HomeAdapter.ItemClickListener {
     }
 
     override fun onItemClick(url: String) {
-        val directions = NavMainDirections.actionToWebFragment(url)
+        val directions = NavMainDirections.actionGlobalWebFragment(url)
         findNavController().navigate(directions, navOptions {
             anim {
                 enter = R.anim.slide_in_right
