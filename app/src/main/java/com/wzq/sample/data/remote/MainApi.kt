@@ -1,11 +1,10 @@
 package com.wzq.sample.data.remote
 
+import com.google.gson.JsonElement
 import com.wzq.sample.data.model.ArticleList
 import com.wzq.sample.data.model.Banner
 import com.wzq.sample.data.model.Category
 import com.wzq.sample.data.model.Response
-import com.wzq.sample.ui.login.LoginResult
-import retrofit2.Call
 import retrofit2.http.*
 
 
@@ -47,7 +46,10 @@ interface MainApi {
      * @param cid
      */
     @GET("article/list/{page}/json")
-    suspend fun getCategoryArticles(@Path("page") page: Int, @Query("cid") cid: Int): Response<ArticleList>
+    suspend fun getCategoryArticles(
+        @Path("page") page: Int,
+        @Query("cid") cid: Int
+    ): Response<ArticleList>
 
     /**
      * 登录
@@ -57,8 +59,8 @@ interface MainApi {
      */
     @POST("user/login")
     @FormUrlEncoded
-    fun loginWanAndroid(
+    suspend fun login(
         @Field("username") username: String,
         @Field("password") password: String
-    ): Call<LoginResult>
+    ): Response<JsonElement>
 }

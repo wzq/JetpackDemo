@@ -87,7 +87,7 @@ fun AppCompatActivity.immersive() {
 }
 
 fun AppCompatActivity.systemBarMode(isLightMode: Boolean) {
-    WindowCompat.getInsetsController(window, window.decorView)?.also {
+    WindowCompat.getInsetsController(window, window.decorView).also {
         it.isAppearanceLightStatusBars = isLightMode
         it.isAppearanceLightNavigationBars = isLightMode
     }

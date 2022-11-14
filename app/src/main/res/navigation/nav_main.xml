@@ -26,7 +26,8 @@
         android:name="com.wzq.sample.ui.detail.WebFragment">
         <argument
             android:name="url"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"/>
     </fragment>
 
     <fragment

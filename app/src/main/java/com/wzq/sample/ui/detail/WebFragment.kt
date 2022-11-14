@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.webkit.WebResourceErrorCompat
 import androidx.webkit.WebViewClientCompat
 import com.wzq.sample.databinding.FragmentWebBinding
@@ -33,6 +34,8 @@ class WebFragment : BaseFragment() {
 
     private val webPageState = MutableLiveData<Boolean>()
 
+    private val args: WebFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,11 +53,10 @@ class WebFragment : BaseFragment() {
 
         titleBar = binding.webTitleBar
 
-        val url = arguments?.getString("url") ?: ""
-
         titleBar.webBack.setOnClickListener { back() }
         titleBar.webClose.setOnClickListener { back(true) }
 
+        val url = args.url ?: ""
         if (url.isNotEmpty()) {
             config(binding)
             binding.web.loadUrl(url)

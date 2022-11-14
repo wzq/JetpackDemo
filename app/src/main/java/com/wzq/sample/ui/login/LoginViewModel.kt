@@ -4,7 +4,10 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.wzq.sample.R
+import com.wzq.sample.data.remote.Linker
+import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
 
@@ -16,6 +19,23 @@ class LoginViewModel : ViewModel() {
 
     fun login(username: String, password: String) {
         // can be launched in a separate asynchronous job
+        viewModelScope.launch {
+            try {
+                val resp = Linker.mainApi.login(username, password)
+                _loginResult.value = if (resp.errorCode == -1) {
+                    LoginResult(error = resp.errorCode)
+                } else {
+                    persistenceUserInfo()
+                    LoginResult(success = LoggedInUserView(username))
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun persistenceUserInfo(){
+        // TODO:
     }
 
     fun loginDataChanged(username: String, password: String) {

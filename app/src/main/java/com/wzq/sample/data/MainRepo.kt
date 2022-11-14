@@ -30,4 +30,6 @@ class MainRepo {
     suspend fun getBanner() = Result.runCatch {
         Linker.mainApi.getBanners()
     }
+
+
 }

@@ -14,7 +14,6 @@ import com.wzq.sample.data.model.Banner
 import com.wzq.sample.data.paging.ArticleRemoteMediator
 import com.wzq.sample.util.PAGE_SIZE
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.cache
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch

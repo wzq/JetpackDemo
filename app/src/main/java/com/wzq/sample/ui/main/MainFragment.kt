@@ -18,6 +18,7 @@ import com.wzq.sample.ui.BaseFragment
 import com.wzq.sample.ui.main.category.CategoryFragment
 import com.wzq.sample.ui.main.home.HomeFragment
 import com.wzq.sample.ui.main.project.ProjectFragment
+import com.wzq.sample.util.jumpTo
 
 /**
  * create by wzq on 2021/4/6
@@ -29,11 +30,11 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentMainBinding.bind(view)
         binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(NavMainDirections.actionGlobalLoginFragment())
+            findNavController().jumpTo(NavMainDirections.actionGlobalLoginFragment())
         }
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.main_search) {
-                findNavController().navigate(MainFragmentDirections.actionGlobalSettingsFragment())
+                findNavController().navigate(MainFragmentDirections.actionMainToSearch())
             }
             false
         }
