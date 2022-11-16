@@ -12,12 +12,15 @@ import android.view.ViewGroup
 abstract class LifecycleFragment : BaseFragment() {
     private var savedView: View? = null
 
+    /**
+     * only in view not ready
+     */
     abstract fun createView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View?
 
-    open fun onFreedView() {
-        savedView = null
+    open fun updateView(currentView: View?): View? {
+        return null
     }
 
     override fun onCreateView(
@@ -25,12 +28,25 @@ abstract class LifecycleFragment : BaseFragment() {
     ): View? {
         if (savedView == null) {
             savedView = createView(inflater, container, savedInstanceState)
+        } else {
+            updateView(savedView)?.apply {
+                savedView = this
+            }
         }
         return savedView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        updateView(view)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         onFreedView()
+    }
+
+    open fun onFreedView() {
+        savedView = null
     }
 }

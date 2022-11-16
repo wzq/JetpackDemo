@@ -40,10 +40,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.category.CategoryActivity"
-            android:launchMode="singleTop" />
-
     </application>
 
 </manifest>

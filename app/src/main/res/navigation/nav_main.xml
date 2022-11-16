@@ -13,6 +13,10 @@
             android:id="@+id/action_main_to_search"
             app:destination="@id/searchFragment"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_main_to_categoryDetail"
+            app:destination="@id/categoryDetailFragment"
+            app:launchSingleTop="true" />
     </fragment>
 
     <fragment
@@ -57,5 +61,24 @@
         android:id="@+id/action_global_webFragment"
         app:destination="@id/webFragment"
         app:launchSingleTop="true" />
+    <fragment
+        android:id="@+id/categoryDetailFragment"
+        android:name="com.wzq.sample.ui.category.CategoryDetailFragment"
+        android:label="CategoryDetailFragment" >
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="subId"
+            app:argType="integer[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="subTitle"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 </navigation>

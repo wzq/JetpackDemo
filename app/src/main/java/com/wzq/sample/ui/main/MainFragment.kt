@@ -2,8 +2,10 @@ package com.wzq.sample.ui.main
 
 import android.os.Bundle
 import android.util.SparseArray
+import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.core.view.forEachIndexed
 import androidx.fragment.app.Fragment
@@ -14,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wzq.sample.NavMainDirections
 import com.wzq.sample.R
 import com.wzq.sample.databinding.FragmentMainBinding
-import com.wzq.sample.ui.BaseFragment
+import com.wzq.sample.ui.LifecycleFragment
 import com.wzq.sample.ui.main.category.CategoryFragment
 import com.wzq.sample.ui.main.home.HomeFragment
 import com.wzq.sample.ui.main.project.ProjectFragment
@@ -24,11 +26,18 @@ import com.wzq.sample.util.jumpTo
  * create by wzq on 2021/4/6
  *
  */
-class MainFragment : BaseFragment(R.layout.fragment_main) {
+class MainFragment : LifecycleFragment() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val binding = FragmentMainBinding.bind(view)
+    private val fragments = listOf(
+        HomeFragment(), ProjectFragment(), CategoryFragment()
+    )
+
+    override fun createView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.toolbar.setNavigationOnClickListener {
             findNavController().jumpTo(NavMainDirections.actionGlobalLoginFragment())
         }
@@ -42,11 +51,8 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         setupBottomNav(
             binding.navView, R.id.content, fragmentManager = childFragmentManager
         )
+        return binding.root
     }
-
-    private val fragments = listOf(
-        HomeFragment(), ProjectFragment(), CategoryFragment()
-    )
 
     private fun setupBottomNav(
         navView: BottomNavigationView,

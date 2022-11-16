@@ -4,34 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.wzq.sample.R
 import com.wzq.sample.data.MainRepo
 import com.wzq.sample.databinding.FragmentCategoryBinding
+import com.wzq.sample.ui.LifecycleFragment
 import com.wzq.sample.weidget.SimpleDecoration
+import kotlinx.coroutines.launch
 
-class CategoryFragment : Fragment() {
+class CategoryFragment : LifecycleFragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_category, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val binding = FragmentCategoryBinding.bind(view)
+    override fun createView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        val binding = FragmentCategoryBinding.inflate(layoutInflater, container, false)
         val adapter = CategoryAdapter()
         binding.listView.adapter = adapter
         binding.listView.addItemDecoration(SimpleDecoration())
-        lifecycleScope.launchWhenStarted {
-//            val repo = MainRepo()
-//            val data = repo.getCategory().getOrNull()
-//            adapter.submitList(data?.data)
+        lifecycleScope.launch {
+            val repo = MainRepo()
+            val data = repo.getCategory().getOrNull()
+            adapter.submitList(data?.data)
         }
+        return binding.root
     }
 }
