@@ -106,6 +106,10 @@ class LoginFragment : Fragment() {
                 passwordEditText.text.toString()
             )
         }
+
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
