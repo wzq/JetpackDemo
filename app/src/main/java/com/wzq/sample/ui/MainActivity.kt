@@ -15,6 +15,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         bindNavHost()
 
         jankState = JankStats.createAndTrack(

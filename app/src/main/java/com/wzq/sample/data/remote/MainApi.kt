@@ -63,4 +63,24 @@ interface MainApi {
         @Field("username") username: String,
         @Field("password") password: String
     ): Response<JsonElement>
+
+//    /**
+//     * 搜索热词
+//     * http://www.wanandroid.com/hotkey/json
+//     */
+//    @GET("hotkey/json")
+//    suspend fun getHotSearchData(): HotKeyResult
+
+    /**
+     * 搜索
+     * http://www.wanandroid.com/article/query/0/json
+     * @param page
+     * @param key
+     */
+    @POST("article/query/{page}/json")
+    @FormUrlEncoded
+    suspend fun queryBySearchKey(
+        @Path("page") page: Int,
+        @Field("k") key: String
+    ): Response<ArticleList>
 }

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 
 /**
  * create by wzq on 2022/9/21
- *
+ * if use auto save view state, need add a view id.
  */
 abstract class LifecycleFragment : BaseFragment() {
     private var savedView: View? = null
