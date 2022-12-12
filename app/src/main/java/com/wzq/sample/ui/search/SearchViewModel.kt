@@ -25,7 +25,7 @@ class SearchViewModel(private val state: SavedStateHandle) : ViewModel() {
             runCatching {
                 Linker.mainApi.queryBySearchKey(0, kw).data
             }.onSuccess {
-                _result.update { it }
+                _result.emit(it)
             }
         }
     }

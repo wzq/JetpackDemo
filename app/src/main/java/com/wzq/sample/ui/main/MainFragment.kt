@@ -43,7 +43,7 @@ class MainFragment : LifecycleFragment() {
         }
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.main_search) {
-                findNavController().navigate(MainFragmentDirections.actionMainToSearch())
+                findNavController().jumpTo(MainFragmentDirections.actionMainToSearch())
             }
             false
         }

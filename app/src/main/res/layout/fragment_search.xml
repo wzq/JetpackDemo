@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/teal_200"
-        android:fitsSystemWindows="true">
+        app:navigationIcon="@drawable/ic_arrow_back_24dp"
+        app:navigationIconTint="@color/black">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/input_keywords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:autofillHints="emailAddress"
+            android:imeOptions="actionSearch"
+            tools:ignore="LabelFor" />
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -20,4 +32,4 @@
         android:layout_weight="1"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-</FrameLayout>
+</LinearLayout>
