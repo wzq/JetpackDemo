@@ -7,7 +7,8 @@ import android.view.ViewGroup
 
 /**
  * create by wzq on 2022/9/21
- * if use auto save view state, need add a view id.
+ * In navigation.
+ * If use auto save view state, need add a view id.
  */
 abstract class LifecycleFragment : BaseFragment() {
     private var savedView: View? = null
@@ -15,38 +16,28 @@ abstract class LifecycleFragment : BaseFragment() {
     /**
      * only in view not ready
      */
-    abstract fun createView(
+    abstract fun initView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View?
-
-    open fun updateView(currentView: View?): View? {
-        return null
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         if (savedView == null) {
-            savedView = createView(inflater, container, savedInstanceState)
-        } else {
-            updateView(savedView)?.apply {
-                savedView = this
-            }
+            savedView = initView(inflater, container, savedInstanceState)
         }
         return savedView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        updateView(view)
-    }
-
     override fun onDestroy() {
         super.onDestroy()
-        onFreedView()
+        onReleasedView()
     }
 
-    open fun onFreedView() {
+    /**
+     * released [savedView] when fragment destroyed
+     */
+    open fun onReleasedView() {
         savedView = null
     }
 }

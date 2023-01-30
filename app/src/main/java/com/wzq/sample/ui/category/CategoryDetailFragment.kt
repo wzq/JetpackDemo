@@ -20,7 +20,7 @@ class CategoryDetailFragment : LifecycleFragment() {
 
     private val args by navArgs<CategoryDetailFragmentArgs>()
 
-    override fun createView(
+    override fun initView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val binding = FragmentCategoryDetailBinding.inflate(inflater, container, false)

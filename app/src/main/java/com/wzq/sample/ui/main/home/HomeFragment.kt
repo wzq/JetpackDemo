@@ -23,7 +23,7 @@ class HomeFragment : LifecycleFragment(), HomeAdapter.ItemClickListener {
     private val bannerAdapter = BannerAdapter()
     private val listAdapter = HomeAdapter(this)
 
-    override fun createView(
+    override fun initView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)

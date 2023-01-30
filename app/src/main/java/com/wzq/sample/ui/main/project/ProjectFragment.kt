@@ -18,7 +18,7 @@ class ProjectFragment : LifecycleFragment() {
 
     private val viewModel by viewModels<ProjectViewModel>()
 
-    override fun createView(
+    override fun initView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentProjectBinding.inflate(inflater, container, false)

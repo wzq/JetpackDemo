@@ -25,7 +25,7 @@ class SearchFragment : LifecycleFragment() {
 
     private val viewModel: SearchViewModel by viewModels()
 
-    override fun createView(
+    override fun initView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater, container, false)

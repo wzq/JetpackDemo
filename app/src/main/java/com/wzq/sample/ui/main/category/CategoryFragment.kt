@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class CategoryFragment : LifecycleFragment() {
 
-    override fun createView(
+    override fun initView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val binding = FragmentCategoryBinding.inflate(layoutInflater, container, false)
