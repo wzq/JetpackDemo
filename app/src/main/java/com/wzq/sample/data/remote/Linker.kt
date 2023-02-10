@@ -11,16 +11,16 @@ object Linker {
 
     private const val BASE_URL = "https://www.wanandroid.com"
 
-    private val logger = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
+    private val retrofit by lazy {
+        val logger = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        val okHttpClient = OkHttpClient.Builder().addInterceptor(logger).build()
+
+        Retrofit.Builder().baseUrl(BASE_URL.toHttpUrl()).client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create()).build()
     }
-
-    private val client = OkHttpClient.Builder().addInterceptor(logger).build()
-
-    private val retrofit = Retrofit.Builder().baseUrl(BASE_URL.toHttpUrl())
-        .client(client)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
 
     val mainApi: MainApi by lazy { retrofit.create() }
 
