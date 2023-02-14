@@ -92,3 +92,12 @@ fun AppCompatActivity.systemBarMode(isLightMode: Boolean) {
         it.isAppearanceLightNavigationBars = isLightMode
     }
 }
+
+
+
+/**
+ * 适用于单线程环境
+ *
+ * TODO: should be inline function?
+ */
+fun <T> simpleLazy(initializer: () -> T) = lazy(LazyThreadSafetyMode.NONE, initializer)
