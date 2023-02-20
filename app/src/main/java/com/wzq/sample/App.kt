@@ -10,12 +10,13 @@ import timber.log.Timber
 class App : Application() {
 
     companion object {
-        lateinit var context: Application
+        private var app: Application? = null
+        val instance: Application = app!!
     }
 
     override fun onCreate() {
         super.onCreate()
-        context = this
+        app = this
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
             Timber.d("app init")

@@ -34,7 +34,7 @@ abstract class AppDatabase : RoomDatabase() {
          */
         fun getInstance(): AppDatabase {
             return instance ?: synchronized(this) {
-                instance ?: buildDatabase(App.context).also { instance = it }
+                instance ?: buildDatabase(App.instance).also { instance = it }
             }
         }
 

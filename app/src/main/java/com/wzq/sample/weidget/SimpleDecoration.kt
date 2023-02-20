@@ -13,7 +13,7 @@ import com.wzq.sample.R
 import com.wzq.sample.util.dp
 
 class SimpleDecoration(
-    context: Context? = App.context,
+    context: Context? = App.instance,
     private val resId: Int = R.color.line_gray
 ) : RecyclerView.ItemDecoration() {
 
