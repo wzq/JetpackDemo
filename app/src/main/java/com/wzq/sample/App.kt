@@ -1,6 +1,10 @@
 package com.wzq.sample
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
+import androidx.annotation.NonUiContext
+import androidx.annotation.UiContext
 import timber.log.Timber
 
 /**
@@ -10,13 +14,18 @@ import timber.log.Timber
 class App : Application() {
 
     companion object {
-        private var app: Application? = null
-        val instance: Application = app!!
+        /**
+         * App Context which is not about ui.
+         */
+        @SuppressLint("StaticFieldLeak")
+        @NonUiContext
+        lateinit var instance: Context
     }
 
     override fun onCreate() {
         super.onCreate()
-        app = this
+        instance = applicationContext
+
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
             Timber.d("app init")

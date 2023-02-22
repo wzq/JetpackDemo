@@ -16,19 +16,24 @@ object Linker {
     private const val CACHE_FILE_NAME = "ok_http_cache"
 
     private val retrofit by lazy {
-        val logger = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
-        val okHttpClient = OkHttpClient.Builder().addInterceptor(logger).cache(buildCache()).build()
-
-        Retrofit.Builder().baseUrl(BASE_URL.toHttpUrl()).client(okHttpClient)
+        Retrofit.Builder().baseUrl(BASE_URL.toHttpUrl()).client(buildHttpClient())
             .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
-    private fun buildCache() = Cache(
-        File(App.instance.cacheDir, CACHE_FILE_NAME), 50L * 1024L * 1024L
-    )
+    private fun buildHttpClient(): OkHttpClient {
+        val logger = HttpLoggingInterceptor()
+        logger.level = HttpLoggingInterceptor.Level.BODY
+
+        val cache = Cache(
+            File(App.instance.cacheDir, CACHE_FILE_NAME), 50L * 1024L * 1024L
+        )
+
+        return OkHttpClient.Builder()
+            .addInterceptor(logger)
+            .cache(cache)
+//            .eventListener(HttpEventListener())
+            .build()
+    }
 
     val mainApi: MainApi by lazy { retrofit.create() }
 

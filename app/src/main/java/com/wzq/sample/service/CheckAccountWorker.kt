@@ -17,7 +17,7 @@ class CheckAccountWorker(context: Context, workerParams: WorkerParameters) : Cor
     var flag = 1
     override suspend fun doWork(): Result {
         return try {
-            Prefs.set("work", "do work == ${Date().toLocaleString()}")
+            Prefs.set("work", "do work == ${Date()}")
             println("${Thread.currentThread().name} do work ${flag++}")
             Result.success()
         } catch (e: Exception) {

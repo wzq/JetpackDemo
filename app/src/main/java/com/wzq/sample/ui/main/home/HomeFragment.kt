@@ -27,7 +27,7 @@ class HomeFragment : LifecycleFragment(), HomeAdapter.ItemClickListener {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.listView.addItemDecoration(SimpleDecoration())
+        binding.listView.addItemDecoration(SimpleDecoration(requireContext()))
         binding.listView.adapter = listAdapter
         viewModel.articleList.flowWithLifecycle(lifecycle).onEach {
             listAdapter.submitData(it)

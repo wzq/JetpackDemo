@@ -19,7 +19,7 @@ class CategoryFragment : LifecycleFragment() {
         val binding = FragmentCategoryBinding.inflate(layoutInflater, container, false)
         val adapter = CategoryAdapter()
         binding.listView.adapter = adapter
-        binding.listView.addItemDecoration(SimpleDecoration())
+        binding.listView.addItemDecoration(SimpleDecoration(requireContext()))
         lifecycleScope.launch {
             val repo = MainRepo()
             val data = repo.getCategory().getOrNull()

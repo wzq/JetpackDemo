@@ -7,7 +7,7 @@ package com.wzq.sample.data
 sealed class Result<out T : Any> {
 
     companion object {
-        suspend fun <T: Any> runCatch(block: suspend () -> T): Result<T> {
+         inline fun <T: Any> runCatch(block:  () -> T): Result<T> {
             return try {
                 Success(block())
             } catch (e: Exception) {

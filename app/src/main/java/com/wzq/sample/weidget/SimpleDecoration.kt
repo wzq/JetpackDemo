@@ -8,30 +8,23 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginStart
 import androidx.recyclerview.widget.RecyclerView
-import com.wzq.sample.App
 import com.wzq.sample.R
 import com.wzq.sample.util.dp
 
 class SimpleDecoration(
-    context: Context? = App.instance,
-    private val resId: Int = R.color.line_gray
+    context: Context, private val resId: Int = R.color.line_gray
 ) : RecyclerView.ItemDecoration() {
 
-    val offset: Int = (1.dp / 2).toInt()
+    private val offset: Int = (1.dp / 2).toInt()
 
-    val paint = Paint().apply {
-        if (context != null) {
-            color = ContextCompat.getColor(context, resId)
-        }
+    private val paint = Paint().apply {
+        color = ContextCompat.getColor(context, resId)
         style = Paint.Style.FILL
         strokeWidth = 0f
     }
 
     override fun getItemOffsets(
-        outRect: Rect,
-        view: View,
-        parent: RecyclerView,
-        state: RecyclerView.State
+        outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State
     ) {
 
         // last position
