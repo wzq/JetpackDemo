@@ -28,7 +28,8 @@ abstract class AppDatabase : RoomDatabase() {
         private var instance: AppDatabase? = null
 
         /**
-         * 注意：如果您的应用在单个进程中运行，在实例化 AppDatabase 对象时应遵循单例设计模式。每个 RoomDatabase 实例的成本相当高，而您几乎不需要在单个进程中访问多个实例。
+         * 注意：如果您的应用在单个进程中运行，在实例化 AppDatabase 对象时应遵循单例设计模式。
+         * 每个 RoomDatabase 实例的成本相当高，而您几乎不需要在单个进程中访问多个实例。
          * 如果您的应用在多个进程中运行，请在数据库构建器调用中包含 enableMultiInstanceInvalidation()...
          * https://developer.android.google.cn/training/data-storage/room?hl=zh_cn
          */

@@ -98,6 +98,6 @@ fun AppCompatActivity.systemBarMode(isLightMode: Boolean) {
 /**
  * 适用于单线程环境
  *
- * TODO: should be inline function?
+ * TODO: should be inline function? = no.
  */
 fun <T> simpleLazy(initializer: () -> T) = lazy(LazyThreadSafetyMode.NONE, initializer)
