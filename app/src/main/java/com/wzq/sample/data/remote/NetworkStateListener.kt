@@ -20,7 +20,7 @@ import com.wzq.sample.App
  */
 class NetworkStateListener : LiveData<Boolean>() {
 
-    private val context = App.instance
+    private val context = App.context
     private var connectivityManager: ConnectivityManager = context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
 
     private lateinit var connectivityManagerCallback: ConnectivityManager.NetworkCallback

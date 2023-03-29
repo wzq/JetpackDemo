@@ -25,7 +25,7 @@ object Linker {
         logger.level = HttpLoggingInterceptor.Level.BODY
 
         val cache = Cache(
-            File(App.instance.cacheDir, CACHE_FILE_NAME), 50L * 1024L * 1024L
+            File(App.context.cacheDir, CACHE_FILE_NAME), 50L * 1024L * 1024L
         )
 
         return OkHttpClient.Builder()
