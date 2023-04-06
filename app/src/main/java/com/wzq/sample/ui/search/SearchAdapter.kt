@@ -29,7 +29,7 @@ class SearchAdapter : ListAdapter<Article, SearchAdapter.Holder>(ArticleDiff()) 
 
         fun bindTo(data: Article) {
             binding.itemHomeTitle.text = HtmlCompat.fromHtml(data.title, HtmlCompat.FROM_HTML_MODE_COMPACT)
-            binding.itemHomeAuthor.text = data.author
+            binding.itemHomeAuthor.text = data.shareUser
             binding.itemHomeTag.text = data.chapterName
             binding.itemHomeTime.text = timeFormat(data.publishTime)
             binding.itemHomeStar.isSelected = data.collect

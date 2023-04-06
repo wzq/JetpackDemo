@@ -12,7 +12,7 @@ import com.wzq.sample.data.model.Article
  * create by wzq on 2021/4/9
  *
  */
-@Database(entities = [Article::class, RemoteKey::class], version = 5)
+@Database(entities = [Article::class, RemoteKey::class], version = 6)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 

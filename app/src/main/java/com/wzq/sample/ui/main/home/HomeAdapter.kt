@@ -35,7 +35,7 @@ class HomeAdapter(private val itemClickListener: ItemClickListener) :
 
         fun bindTo(data: Article) {
             binding.itemHomeTitle.text = data.title
-            binding.itemHomeAuthor.text = data.author
+            binding.itemHomeAuthor.text = data.shareUser
             binding.itemHomeTag.text = data.chapterName
             binding.itemHomeTime.text = timeFormat(data.publishTime)
             binding.itemHomeStar.isSelected = data.collect

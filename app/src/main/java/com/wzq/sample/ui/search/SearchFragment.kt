@@ -37,8 +37,8 @@ class SearchFragment : LifecycleFragment() {
         binding.inputKeywords.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 viewModel.search(v.text.toString())
-                true
-            } else false
+            }
+            false
         }
 
         val adapter = SearchAdapter()
