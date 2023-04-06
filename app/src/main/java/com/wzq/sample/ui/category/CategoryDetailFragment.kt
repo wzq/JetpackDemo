@@ -51,7 +51,6 @@ class CategoryDetailFragment : LifecycleFragment() {
         override fun getItemCount(): Int = data.size
 
         override fun createFragment(position: Int): Fragment {
-            println(position)
             return CategoryListFragment.newInstance(data[position])
         }
     }

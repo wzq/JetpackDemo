@@ -35,7 +35,6 @@ class SearchAdapter : ListAdapter<Article, SearchAdapter.Holder>(ArticleDiff()) 
             binding.itemHomeStar.isSelected = data.collect
             binding.root.tag = data.link
             binding.itemHomeStar.tag = data.id
-            println(binding.itemHomeAuthor.top)
         }
     }
 

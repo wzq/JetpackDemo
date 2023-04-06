@@ -20,7 +20,6 @@ class ResultConverterFactory : Converter.Factory() {
         return Converter<ResponseBody, Result<*>> { body ->
             try {
                 val result = delegate.convert(body)
-                println(result?.javaClass?.simpleName)
                 Result.success(result)
             } catch (exception: Exception) {
                 Result.failure(exception)
