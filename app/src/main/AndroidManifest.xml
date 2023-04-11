@@ -39,6 +39,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.wzq.sample.process.SingleWebActivity"
+            android:process=":web_process"/>
+
     </application>
 
 </manifest>
