@@ -9,7 +9,7 @@ import com.wzq.sample.R
  */
 
 fun NavController.jumpTo(
-    directions: NavDirections, block: (NavOptionsBuilder.() -> Unit)? = null
+    directions: NavDirections, otherOptions: (NavOptionsBuilder.() -> Unit)? = null
 ) {
     navigate(directions, navOptions {
         anim {
@@ -18,6 +18,6 @@ fun NavController.jumpTo(
             popEnter = R.anim.slide_pop_enter
             popExit = R.anim.slide_pop_exit
         }
-        block?.invoke(this)
+        if (otherOptions != null) otherOptions()
     })
 }

@@ -29,7 +29,6 @@ class SingleWebActivity : AppCompatActivity() {
         setContentView(webView)
 
         webView.loadUrl(url)
-        println(this.javaClass.name)
     }
 
     @SuppressLint("SetJavaScriptEnabled")

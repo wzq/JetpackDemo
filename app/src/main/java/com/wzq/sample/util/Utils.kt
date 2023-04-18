@@ -35,34 +35,6 @@ val Int.dp: Float
         Resources.getSystem().displayMetrics
     )
 
-fun Context.openPage(
-    clazz: KClass<out AppCompatActivity>,
-    args: Bundle? = null,
-    reqCode: Int = -1
-) {
-    val intent = Intent(this, clazz.java)
-    if (args != null) intent.putExtras(args)
-    if (this is Activity && reqCode > -1) {
-        startActivityForResult(intent, reqCode)
-    } else {
-        startActivity(intent)
-    }
-}
-
-fun Fragment.openPage(
-    clazz: KClass<out AppCompatActivity>,
-    args: Bundle? = null,
-    reqCode: Int = -1
-) {
-    val intent = Intent(context, clazz.java)
-    if (args != null) intent.putExtras(args)
-    if (reqCode > -1) {
-        startActivityForResult(intent, reqCode)
-    } else {
-        startActivity(intent)
-    }
-}
-
 fun View.getStatusBarHeight(): Int {
     ViewCompat.getRootWindowInsets(this)?.also { insets ->
         val systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -98,6 +70,5 @@ fun AppCompatActivity.systemBarMode(isLightMode: Boolean) {
 /**
  * 适用于单线程环境
  *
- * TODO: should be inline function? = no.
  */
 fun <T> simpleLazy(initializer: () -> T) = lazy(LazyThreadSafetyMode.NONE, initializer)

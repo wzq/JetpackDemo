@@ -7,7 +7,7 @@ import timber.log.Timber
 
 /**
  * create by wzq on 2021/4/12
- *
+ * 键盘事件动画
  */
 class ImeInsetsCallback(val view: View) :
     WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_STOP) {
