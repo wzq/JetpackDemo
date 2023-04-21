@@ -1,5 +1,6 @@
 package com.wzq.sample.util
 
+import androidx.annotation.Keep
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -25,6 +26,7 @@ object EventBus {
     }
 }
 
+@Keep
 data class Event(
     val id: Int = -1, val tag: String? = null, val data: Any?
 )
