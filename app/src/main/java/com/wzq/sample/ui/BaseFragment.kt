@@ -12,12 +12,12 @@ import android.view.ViewGroup
  */
 abstract class BaseFragment : LogFragment() {
 
-    private var savedView: View? = null
+    private var cacheView: View? = null
 
     open fun isUseViewCache() = true
 
     /**
-     * only in view not ready
+     * create new root view
      */
     abstract fun initView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -27,8 +27,8 @@ abstract class BaseFragment : LogFragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return if (isUseViewCache()) {
-            savedView ?: initView(inflater, container, savedInstanceState).also {
-                savedView = it
+            cacheView ?: initView(inflater, container, savedInstanceState).also {
+                cacheView = it
             }
         } else {
             initView(inflater, container, savedInstanceState)
@@ -41,9 +41,9 @@ abstract class BaseFragment : LogFragment() {
     }
 
     /**
-     * released [savedView] when fragment destroyed
+     * released [cacheView] when fragment destroyed
      */
     open fun onReleasedView() {
-        savedView = null
+        cacheView = null
     }
 }
