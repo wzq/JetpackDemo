@@ -36,12 +36,13 @@ class WebFragment : BaseFragment() {
 
     private val args: WebFragmentArgs by navArgs()
 
-    override fun onCreateView(
+    override fun isUseViewCache() = false
+
+    override fun initView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentWebBinding.inflate(inflater, container, false)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())

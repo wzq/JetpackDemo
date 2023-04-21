@@ -10,13 +10,13 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.wzq.sample.databinding.FragmentCategoryDetailBinding
-import com.wzq.sample.ui.LifecycleFragment
+import com.wzq.sample.ui.BaseFragment
 
 /**
  * create by wzq on 2022/11/16
  *
  */
-class CategoryDetailFragment : LifecycleFragment() {
+class CategoryDetailFragment : BaseFragment() {
 
     private val args by navArgs<CategoryDetailFragmentArgs>()
 

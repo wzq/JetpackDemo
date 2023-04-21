@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.wzq.sample.databinding.FragmentSearchBinding
-import com.wzq.sample.ui.LifecycleFragment
+import com.wzq.sample.ui.BaseFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.onEach
  * create by wzq on 2022/10/9
  *
  */
-class SearchFragment : LifecycleFragment() {
+class SearchFragment : BaseFragment() {
     private lateinit var binding: FragmentSearchBinding
 
     private val args by navArgs<SearchFragmentArgs>()

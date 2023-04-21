@@ -1,79 +1,49 @@
 package com.wzq.sample.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import timber.log.Timber
 
 /**
- * create by wzq on 2021/4/6
- *
+ * create by wzq on 2022/9/21
+ * In navigation.
+ * If use auto save view state, need add a view id.
  */
-abstract class BaseFragment: Fragment {
-    constructor() : super()
-    constructor(contentLayoutId: Int) : super(contentLayoutId)
+abstract class BaseFragment : LogFragment() {
 
+    private var savedView: View? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Timber.tag(javaClass.simpleName).i("onCreate")
-    }
+    open fun isUseViewCache() = true
+
+    /**
+     * only in view not ready
+     */
+    abstract fun initView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View?
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        Timber.tag(javaClass.simpleName).i("onCreateView")
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Timber.tag(javaClass.simpleName).i("onViewCreated")
-    }
-
-
-    override fun onStart() {
-        super.onStart()
-        Timber.tag(javaClass.simpleName).i("onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Timber.tag(javaClass.simpleName).i("onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Timber.tag(javaClass.simpleName).i("onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Timber.tag(javaClass.simpleName).i("onStop")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Timber.tag(javaClass.simpleName).i("onDestroyView")
+        return if (isUseViewCache()) {
+            savedView ?: initView(inflater, container, savedInstanceState).also {
+                savedView = it
+            }
+        } else {
+            initView(inflater, container, savedInstanceState)
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        Timber.tag(javaClass.simpleName).i("onDestroy")
+        onReleasedView()
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        Timber.tag(javaClass.simpleName).i("onDetach")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Timber.tag(javaClass.simpleName).i("onAttach")
+    /**
+     * released [savedView] when fragment destroyed
+     */
+    open fun onReleasedView() {
+        savedView = null
     }
 }

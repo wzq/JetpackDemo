@@ -4,17 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.wzq.sample.R
 import com.wzq.sample.databinding.FragmentProjectBinding
-import com.wzq.sample.ui.LifecycleFragment
+import com.wzq.sample.ui.BaseFragment
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class ProjectFragment : LifecycleFragment() {
+class ProjectFragment : BaseFragment() {
 
     private val viewModel by viewModels<ProjectViewModel>()
 

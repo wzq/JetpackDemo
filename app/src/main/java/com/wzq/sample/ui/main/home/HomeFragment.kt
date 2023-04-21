@@ -10,13 +10,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.wzq.sample.NavMainDirections
 import com.wzq.sample.databinding.FragmentHomeBinding
-import com.wzq.sample.ui.LifecycleFragment
+import com.wzq.sample.ui.BaseFragment
 import com.wzq.sample.util.jumpTo
 import com.wzq.sample.weidget.SimpleDecoration
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class HomeFragment : LifecycleFragment(), HomeAdapter.ItemClickListener {
+class HomeFragment : BaseFragment(), HomeAdapter.ItemClickListener {
 
     private val viewModel by viewModels<HomeViewModel>()
 

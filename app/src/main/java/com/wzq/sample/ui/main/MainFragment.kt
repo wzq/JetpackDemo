@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wzq.sample.NavMainDirections
 import com.wzq.sample.R
 import com.wzq.sample.databinding.FragmentMainBinding
-import com.wzq.sample.ui.LifecycleFragment
+import com.wzq.sample.ui.BaseFragment
 import com.wzq.sample.ui.main.category.CategoryFragment
 import com.wzq.sample.ui.main.home.HomeFragment
 import com.wzq.sample.ui.main.project.ProjectFragment
@@ -26,7 +26,7 @@ import com.wzq.sample.util.jumpTo
  * create by wzq on 2021/4/6
  *
  */
-class MainFragment : LifecycleFragment() {
+class MainFragment : BaseFragment() {
 
     private val fragments = listOf(
         HomeFragment(), ProjectFragment(), CategoryFragment()

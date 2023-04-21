@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.wzq.sample.data.MainRepo
 import com.wzq.sample.databinding.FragmentCategoryBinding
-import com.wzq.sample.ui.LifecycleFragment
+import com.wzq.sample.ui.BaseFragment
 import com.wzq.sample.weidget.SimpleDecoration
 import kotlinx.coroutines.launch
 
-class CategoryFragment : LifecycleFragment() {
+class CategoryFragment : BaseFragment() {
 
     override fun initView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
