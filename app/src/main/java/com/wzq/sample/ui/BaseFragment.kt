@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 
 /**
  * create by wzq on 2022/9/21
  * In navigation.
  * If use auto save view state, need add a view id.
  */
-abstract class BaseFragment : LogFragment() {
+abstract class BaseFragment : Fragment() {
 
     private var cacheView: View? = null
 
