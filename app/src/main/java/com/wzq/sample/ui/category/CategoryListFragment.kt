@@ -2,17 +2,12 @@ package com.wzq.sample.ui.category
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.wzq.sample.R
-import com.wzq.sample.data.model.Category
 import com.wzq.sample.data.paging.CategoryPagerSource
-import com.wzq.sample.data.remote.Linker
 import com.wzq.sample.databinding.FragmentCategoryListBinding
 import com.wzq.sample.ui.main.home.HomeAdapter
 import com.wzq.sample.util.PAGE_SIZE
