@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
  */
 class SingleWebActivity : AppCompatActivity() {
 
-    private lateinit var webView: WebView
+    private var webView: WebView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,12 +23,14 @@ class SingleWebActivity : AppCompatActivity() {
             return
         }
 
-        webView = WebView(this)
-        config(webView)
+        webView = WebView(this).also {
+            config(it)
 
-        setContentView(webView)
+            setContentView(it)
 
-        webView.loadUrl(url)
+            it.loadUrl(url)
+        }
+
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -60,7 +62,7 @@ class SingleWebActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        webView.destroy()
+        webView?.destroy()
     }
 
 }

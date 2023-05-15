@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.wzq.sample.data.model.Article
 import com.wzq.sample.data.remote.Linker
 
-class CategoryPagerSource(val cid: Int) : PagingSource<Int, Article>() {
+class CategoryPagerSource(private val cid: Int) : PagingSource<Int, Article>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Article> {
         return try {
             val result = Linker.mainApi.getCategoryArticles(page = params.key ?: 0, cid)
