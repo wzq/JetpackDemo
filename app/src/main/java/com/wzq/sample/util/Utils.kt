@@ -1,11 +1,8 @@
 package com.wzq.sample.util
 
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
-import android.os.Bundle
 import android.text.format.DateFormat
 import android.util.TypedValue
 import android.view.View
@@ -14,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.Fragment
-import kotlin.reflect.KClass
 
 /**
  * Created by wzq on 2019-07-14

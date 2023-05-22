@@ -1,7 +1,5 @@
 package com.wzq.sample.data
 
-import com.wzq.sample.data.model.ArticleList
-import com.wzq.sample.data.model.Response
 import com.wzq.sample.data.remote.Linker
 
 /**
@@ -9,27 +7,12 @@ import com.wzq.sample.data.remote.Linker
  *
  */
 class MainRepo {
-
-    suspend fun getProjects(pageNum: Int = 0): Result<Response<ArticleList>> {
-        return Result.runCatch {
-            Linker.mainApi.getProjects(pageNum)
-        }
+    suspend fun getCategory() = Linker.mainApi.runCatching {
+        getCategory()
     }
 
-    suspend fun getHomeArticles(pageNum: Int = 0): Result<Response<ArticleList>> {
-        return Result.runCatch {
-            Linker.mainApi.getArticles(pageNum)
-        }
+    suspend fun getBanner() = Linker.mainApi.runCatching {
+        getBanners()
     }
-
-
-    suspend fun getCategory() = Result.runCatch {
-        Linker.mainApi.getCategory()
-    }
-
-    suspend fun getBanner() = Result.runCatch {
-        Linker.mainApi.getBanners()
-    }
-
 
 }

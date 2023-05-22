@@ -7,8 +7,6 @@ import com.wzq.sample.data.model.ArticleList
 import com.wzq.sample.data.remote.Linker
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
@@ -22,8 +20,8 @@ class SearchViewModel(private val state: SavedStateHandle) : ViewModel() {
 
     fun search(kw: String) {
         viewModelScope.launch {
-            runCatching {
-                Linker.mainApi.queryBySearchKey(0, kw).data
+            Linker.mainApi.runCatching {
+                queryBySearchKey(0, kw).data
             }.onSuccess {
                 _result.emit(it)
             }
