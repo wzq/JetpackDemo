@@ -4,6 +4,7 @@ import com.google.gson.JsonElement
 import com.wzq.sample.data.model.ArticleList
 import com.wzq.sample.data.model.Banner
 import com.wzq.sample.data.model.Category
+import com.wzq.sample.data.model.HotKeywordsItem
 import com.wzq.sample.data.model.Response
 import retrofit2.http.*
 
@@ -64,12 +65,12 @@ interface MainApi {
         @Field("password") password: String
     ): Response<JsonElement>
 
-//    /**
-//     * 搜索热词
-//     * http://www.wanandroid.com/hotkey/json
-//     */
-//    @GET("hotkey/json")
-//    suspend fun getHotSearchData(): HotKeyResult
+    /**
+     * 搜索热词
+     * http://www.wanandroid.com/hotkey/json
+     */
+    @GET("hotkey/json")
+    suspend fun getHotSearchData(): Response<List<HotKeywordsItem>>
 
     /**
      * 搜索
