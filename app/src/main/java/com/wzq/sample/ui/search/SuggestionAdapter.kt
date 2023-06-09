@@ -2,16 +2,10 @@ package com.wzq.sample.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.text.HtmlCompat
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wzq.sample.data.model.HotKeywordsItem
-import com.wzq.sample.data.model.ArticleDiff
-import com.wzq.sample.databinding.ItemArticleBinding
 import com.wzq.sample.databinding.ItemHotWordsBinding
-import com.wzq.sample.util.jumpTo
-import com.wzq.sample.util.timeFormat
 
 class SuggestionAdapter : ListAdapter<HotKeywordsItem, SuggestionAdapter.Holder>(HotKeywordsItem.Diff()) {
     class Holder(
@@ -20,7 +14,7 @@ class SuggestionAdapter : ListAdapter<HotKeywordsItem, SuggestionAdapter.Holder>
 
         init {
             binding.root.setOnClickListener {
-                // TODO:  
+                // TODO:
             }
         }
 

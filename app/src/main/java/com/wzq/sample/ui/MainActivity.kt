@@ -33,5 +33,13 @@ class MainActivity : BaseActivity() {
             replace(android.R.id.content, hostFragment)
             setPrimaryNavigationFragment(hostFragment)
         }
+
+//        hostFragment.lifecycle.addObserver(object : DefaultLifecycleObserver {
+//            override fun onCreate(owner: LifecycleOwner) {
+//                NavMap.newGraph(hostFragment.navController, NavMap.Dest.main, NavMap.id)
+//                hostFragment.lifecycle.removeObserver(this)
+//            }
+//        })
+
     }
 }
