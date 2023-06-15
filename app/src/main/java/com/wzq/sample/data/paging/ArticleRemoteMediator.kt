@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalPagingApi::class)
-
 package com.wzq.sample.data.paging
 
 import androidx.paging.ExperimentalPagingApi
@@ -12,6 +10,7 @@ import com.wzq.sample.data.local.RemoteKey
 import com.wzq.sample.data.model.Article
 import com.wzq.sample.data.remote.Linker
 
+@OptIn(ExperimentalPagingApi::class)
 class ArticleRemoteMediator(
     private val label: String,
     private val db: AppDatabase,

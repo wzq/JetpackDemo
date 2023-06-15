@@ -19,12 +19,10 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation"  : "$projectDir/schemas".toString(),
-                              "room.incremental"     : "true",
-                              "room.expandProjection": "true"]
-            }
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+            arg("room.incremental", "true")
+            arg("room.schemaLocation", "true")
         }
     }
 

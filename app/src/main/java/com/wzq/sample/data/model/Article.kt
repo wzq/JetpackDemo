@@ -38,7 +38,7 @@ data class Article(
     val publishTime: Long,
     val superChapterId: Int,
     val superChapterName: String,
-    val tags: MutableList<Tag>,
+    val tags: List<Tag>,
     val title: String,
     val type: Int,
     val userId: Int,

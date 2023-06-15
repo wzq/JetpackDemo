@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalPagingApi::class)
-
 package com.wzq.sample.ui.main.home
 
 import androidx.lifecycle.ViewModel
@@ -14,9 +12,8 @@ import com.wzq.sample.data.model.Banner
 import com.wzq.sample.data.paging.ArticleRemoteMediator
 import com.wzq.sample.util.PAGE_SIZE
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * create by wzq on 2021/4/6
@@ -28,6 +25,7 @@ class HomeViewModel : ViewModel() {
     val banners = MutableStateFlow<List<Banner>>(emptyList())
 
 
+    @OptIn(ExperimentalPagingApi::class)
     val articleList = Pager(
         PagingConfig(PAGE_SIZE), remoteMediator = ArticleRemoteMediator(
             label = "home_data", db = AppDatabase.getInstance()
