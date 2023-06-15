@@ -4,8 +4,9 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import androidx.annotation.NonUiContext
-import com.wzq.sample.service.CrashRecordWorker
+import com.wzq.sample.util.FileUtils
 import timber.log.Timber
+import java.io.File
 import java.util.*
 
 /**
@@ -37,9 +38,9 @@ class App : Application() {
     private fun crashReport() {
         Thread.currentThread().setUncaughtExceptionHandler { t, e ->
             //record ex log
-            val log = t.name + "---" + Date().toString() + " \n" + e.stackTraceToString()
-            //start worker
-            CrashRecordWorker.start(applicationContext, log)
+            val logFile = File(applicationContext.filesDir, "crash_log_${System.currentTimeMillis()}")
+            val log = t.name + "---" + Date().toString() + " \n" + e.printStackTrace()
+            FileUtils.writeEncryptedFile(applicationContext, logFile, log)
             //let it crash
             Thread.getDefaultUncaughtExceptionHandler()?.uncaughtException(t, e)
         }
