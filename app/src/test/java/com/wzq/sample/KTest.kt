@@ -5,6 +5,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -23,7 +25,7 @@ class KTest {
             scope.launch {
                 async {
                     println(1)
-                throw RuntimeException("task1 failed")
+                    throw RuntimeException("task1 failed")
                 }.join()
                 async {
                     println(3)
@@ -35,5 +37,15 @@ class KTest {
                 }.join()
             }
         }
+    }
+
+    @Test
+    fun test1() = runTest {
+        flow<Int> {
+            (1..10).forEach { emit(it) }
+        }.collectLatest {
+            println(it)
+        }
+        println("end")
     }
 }

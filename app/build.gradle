@@ -41,6 +41,15 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17
     }
+
+    //开启k2编译器，这是实验性的
+    kotlin {
+        sourceSets.configureEach {
+            it.languageSettings {
+                languageVersion = "2.0"
+            }
+        }
+    }
     namespace 'com.wzq.sample'
 }
 
