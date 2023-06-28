@@ -5,9 +5,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
@@ -47,5 +49,27 @@ class KTest {
             println(it)
         }
         println("end")
+    }
+
+    @Test
+    fun test2() = runTest {
+        supervisorScope {
+            launch {
+                throw Error("test error1")
+            }
+            launch {
+                println(1)
+            }
+        }
+
+        coroutineScope {
+            val job = SupervisorJob()
+            launch(job) {
+                throw Error("test error2")
+            }
+            launch(job) {
+                println(2)
+            }
+        }
     }
 }
