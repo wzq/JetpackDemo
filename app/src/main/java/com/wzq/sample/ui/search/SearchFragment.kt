@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -31,11 +32,11 @@ class SearchFragment : BaseFragment() {
         binding.searchBar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
-        binding.searchView.editText.setOnEditorActionListener { v, _, _ ->
-            viewModel.search(v.text.toString())
-            binding.searchBar.text = v.text
-            binding.searchView.hide()
-            false
+        binding.searchView.editText.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                onSearch(v.text.toString())
+                true
+            } else false
         }
 
 //        binding.searchView.addTransitionListener { searchView, previousState, newState ->
@@ -53,7 +54,9 @@ class SearchFragment : BaseFragment() {
             adapter.submitList(it?.datas)
         }.launchIn(lifecycleScope)
 
-        val suggestionAdapter = SuggestionAdapter()
+        val suggestionAdapter = SuggestionAdapter {
+            onSearch(it)
+        }
         binding.searchSuggest.adapter = suggestionAdapter
 
         viewModel.hotWords.onEach {
@@ -61,5 +64,11 @@ class SearchFragment : BaseFragment() {
         }.launchIn(lifecycleScope)
 
         return binding.root
+    }
+
+    private fun onSearch(kw: String) {
+        viewModel.search(kw)
+        binding.searchBar.text = kw
+        binding.searchView.hide()
     }
 }
