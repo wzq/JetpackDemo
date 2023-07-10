@@ -14,6 +14,12 @@ dependencyResolutionManagement {
             url="https://jitpack.io"
         )
     }
+//    versionCatalogs {
+//        create("mylibs") {
+//            from(files("gradle/mylibs.versions.toml"))
+//        }
+//    }
 }
 rootProject.name = "JetpackDemo"
 include("app")
+include(":test-processor")
