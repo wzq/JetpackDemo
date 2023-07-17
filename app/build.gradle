@@ -70,7 +70,6 @@ dependencies {
     implementation libs.datastore.preferences
 
     //lifecycle
-    def lifecycle_version = '2.5.1'
     implementation libs.lifecycle.livedata.ktx
     implementation libs.lifecycle.viewmodel.ktx
 //    implementation "androidx.lifecycle:lifecycle-service:$lifecycle_version"
@@ -116,6 +115,8 @@ dependencies {
     //image-loader
     implementation libs.coil
 
+    implementation(project(":test-processor"))
+    ksp(project(":test-processor"))
     //JankStats
 //    implementation "androidx.metrics:metrics-performance:1.0.0-alpha01"
 

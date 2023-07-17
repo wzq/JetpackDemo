@@ -15,7 +15,7 @@ class ResultConverterFactory : Converter.Factory() {
         type: Type,
         annotations: Array<out Annotation>,
         retrofit: Retrofit
-    ): Converter<ResponseBody, *>? {
+    ): Converter<ResponseBody, *> {
         val delegate = retrofit.nextResponseBodyConverter<Any>(this, type, annotations)
         return Converter<ResponseBody, Result<*>> { body ->
             try {

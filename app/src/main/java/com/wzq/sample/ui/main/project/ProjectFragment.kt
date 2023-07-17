@@ -17,7 +17,7 @@ class ProjectFragment : BaseFragment() {
 
     override fun initView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentProjectBinding.inflate(inflater, container, false)
 
         val adapter = ProjectAdapter()

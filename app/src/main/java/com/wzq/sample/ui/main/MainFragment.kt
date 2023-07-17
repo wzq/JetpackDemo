@@ -32,7 +32,7 @@ class MainFragment : BaseFragment() {
 
     override fun initView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.toolbar.setNavigationOnClickListener {
             findNavController().jumpTo(NavMainDirections.actionGlobalLoginFragment())
