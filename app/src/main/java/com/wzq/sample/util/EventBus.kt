@@ -16,7 +16,7 @@ object EventBus {
     private const val REPLAY_SIZE = 1
     private const val EXT_BUFFER = 2.shl(10)
 
-    private val stickyEvents =
+    private val events =
         MutableSharedFlow<Any>(
             replay = REPLAY_SIZE,
             extraBufferCapacity = EXT_BUFFER,
@@ -24,22 +24,21 @@ object EventBus {
         ) //
 
     suspend fun produceEvent(event: Any) {
-        stickyEvents.emit(event)
-
+        events.emit(event)
     }
 
-    fun subscribe(isSticky: Boolean = true): Flow<Any> = stickyEvents.asSharedFlow().let {
-        if (!isSticky && it.replayCache.isNotEmpty()) {
-            it.drop(1)
-        } else {
-            it
+    fun subscribe(isSticky: Boolean = true): Flow<Any> =
+        events.asSharedFlow().let { flow ->
+            if (!isSticky && flow.replayCache.isNotEmpty()) {
+                flow.drop(REPLAY_SIZE)
+            } else {
+                flow
+            }
         }
-    }
-    private var isAlive = true
+
     @OptIn(ExperimentalCoroutinesApi::class)
-    fun clearAndClose(){
-        stickyEvents.resetReplayCache()
-        isAlive = false
+    fun clear() {
+        events.resetReplayCache()
     }
 
 }
