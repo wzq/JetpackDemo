@@ -17,6 +17,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.webkit.WebResourceErrorCompat
 import androidx.webkit.WebViewClientCompat
+import androidx.webkit.WebViewFeature
+import androidx.webkit.WebViewFeature.WebViewSupportFeature
 import com.wzq.sample.databinding.FragmentWebBinding
 import com.wzq.sample.databinding.ViewWebTitleBinding
 import com.wzq.sample.ui.BaseFragment
@@ -56,10 +58,10 @@ class WebFragment : BaseFragment() {
 
         titleBar.webBack.setOnClickListener { back() }
         titleBar.webClose.setOnClickListener { back(true) }
+        config(binding)
 
         val url = args.url ?: ""
         if (url.isNotEmpty()) {
-            config(binding)
             binding.web.loadUrl(url)
             titleBar.webRefresh.setOnClickListener { binding.web.reload() }
         }
@@ -127,6 +129,11 @@ class WebFragment : BaseFragment() {
             pageState.postValue(false)
         }
 
+        override fun onLoadResource(view: WebView?, url: String?) {
+            super.onLoadResource(view, url)
+
+        }
+
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
             Timber.d("onPageFinished- $url -- ${view?.progress}")
@@ -138,22 +145,18 @@ class WebFragment : BaseFragment() {
             return super.shouldOverrideUrlLoading(view, request)
         }
 
+        @SuppressLint("RequiresFeature")
         override fun onReceivedError(
             view: WebView,
             request: WebResourceRequest,
             error: WebResourceErrorCompat
         ) {
-            Timber.d("onReceivedError url = ${request.url}")
-            super.onReceivedError(view, request, error)
-        }
+            Timber.d("onReceivedError url = ${request.isForMainFrame}+${request.url} ")
 
-        override fun onReceivedHttpError(
-            view: WebView,
-            request: WebResourceRequest,
-            errorResponse: WebResourceResponse
-        ) {
-            Timber.d("onReceivedHttpError url = ${request.url}")
-            super.onReceivedHttpError(view, request, errorResponse)
+            if (WebViewFeature.isFeatureSupported(WebViewFeature.WEB_RESOURCE_ERROR_GET_CODE)){
+                Timber.d("error -> ${error.errorCode}, ${error.description}")
+            }
+            super.onReceivedError(view, request, error)
         }
 
     }

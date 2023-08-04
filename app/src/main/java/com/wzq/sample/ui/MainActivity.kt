@@ -2,6 +2,7 @@ package com.wzq.sample.ui
 
 import android.os.Bundle
 import androidx.fragment.app.commit
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.wzq.sample.R
@@ -20,11 +21,11 @@ class MainActivity : BaseActivity() {
     }
 
     private fun mainMessageCollector() {
-        EventBus.events.onEach {
+        EventBus.subscribe().onEach {
             Timber.d("message ---> $it")
         }.catch {
             it.printStackTrace()
-        }.launchIn(lifecycleScope)
+        }.flowWithLifecycle(lifecycle).launchIn(lifecycleScope)
     }
 
     private fun bindNavHost() {
