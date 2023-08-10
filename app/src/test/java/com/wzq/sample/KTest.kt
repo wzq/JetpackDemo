@@ -6,6 +6,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
@@ -70,6 +71,38 @@ class KTest {
             launch(job) {
                 println(2)
             }
+        }
+    }
+
+    @Test //inline noinline cross-inline
+    fun test3() {
+        f1 {
+            println(200.toShort())
+            return@f1
+        }
+    }
+
+    inline fun f1(crossinline block: () -> Unit) {
+        f2 {
+            block()
+        }
+    }
+
+    fun f2(block: () -> Unit) {
+        block()
+    }
+
+
+    @Test
+    fun test4() = runTest {
+        flow {
+            emit(1)
+            delay(50)
+            emit(2)
+        }.collectLatest { value ->
+            println("Collecting $value")
+            delay(100) // Emulate work
+            println("$value collected")
         }
     }
 }

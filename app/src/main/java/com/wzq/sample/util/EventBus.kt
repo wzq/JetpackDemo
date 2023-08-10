@@ -13,28 +13,30 @@ import kotlinx.coroutines.flow.drop
  */
 object EventBus {
 
-    private const val REPLAY_SIZE = 1
-    private const val EXT_BUFFER = 2.shl(10)
+    private const val EXT_BUFFER = 1024 //2.shl(10)
 
-    private val events =
+    private val events by lazy {
         MutableSharedFlow<Any>(
-            replay = REPLAY_SIZE,
+            replay = 1,
             extraBufferCapacity = EXT_BUFFER,
             BufferOverflow.DROP_OLDEST
-        ) //
+        )
+    }
 
     suspend fun produceEvent(event: Any) {
         events.emit(event)
     }
 
-    fun subscribe(isSticky: Boolean = true): Flow<Any> =
-        events.asSharedFlow().let { flow ->
-            if (!isSticky && flow.replayCache.isNotEmpty()) {
-                flow.drop(REPLAY_SIZE)
-            } else {
-                flow
+    fun subscribe(replay: Boolean = true): Flow<Any> {
+        val readOnly = events.asSharedFlow()
+        readOnly.replayCache.apply {
+            if (replay && this.isNotEmpty()) {
+                readOnly.drop(this.size)
             }
         }
+        return readOnly
+    }
+
 
     @OptIn(ExperimentalCoroutinesApi::class)
     fun clear() {

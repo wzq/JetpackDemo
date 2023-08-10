@@ -3,8 +3,13 @@ package com.wzq.sample
 import com.wzq.sample.util.EventBus
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.produceIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
@@ -14,6 +19,28 @@ import org.junit.Test
  *
  */
 class TestBus {
+
+
+    @Test
+    fun testE(): Unit {
+        runTest {
+            val f1 = channelFlow {
+                send(1)
+                send(2)
+            }
+
+            val f2 = flow {
+                emit("a")
+                emit("b")
+            }
+
+            combine(f1,f2) {
+                f1, f2 -> "$f1 + $f2"
+            }.collectLatest {
+                println(it)
+            }
+        }
+    }
 
     @Test
     fun test() = runTest {
@@ -33,9 +60,9 @@ class TestBus {
         }
 
         val job2 = launch {
-            EventBus.subscribe().onEach {
+            EventBus.subscribe().collectLatest {
                 println("job2 -> $it")
-            }.collect()
+            }
         }
 
         launch {
