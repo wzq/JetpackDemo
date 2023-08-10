@@ -75,13 +75,13 @@ dependencies {
 //    implementation "androidx.lifecycle:lifecycle-service:$lifecycle_version"
 
     //ui-view
-    implementation "com.google.android.material:material:1.9.0"
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.recyclerview:recyclerview:1.3.0'
-    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
-    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
+    implementation libs.material
+    implementation libs.constraintlayout
+    implementation libs.recyclerview
+    implementation libs.swiperefreshlayout
+    implementation libs.paging.runtime.ktx
+    implementation libs.viewpager2
+    implementation libs.dynamicanimation
 
     //navigation
     implementation libs.navigation.fragment.ktx
@@ -106,11 +106,7 @@ dependencies {
     implementation libs.gson
 
     //square
-    implementation libs.okhttp
-    implementation libs.logging.interceptor
-    implementation libs.retrofit
-    implementation libs.converter.gson
-    implementation libs.timber
+    implementation libs.bundles.square
 
     //image-loader
     implementation libs.coil

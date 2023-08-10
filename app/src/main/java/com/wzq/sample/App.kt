@@ -3,6 +3,7 @@ package com.wzq.sample
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.os.Looper
 import androidx.annotation.NonUiContext
 import com.wzq.sample.util.FileUtils
 import timber.log.Timber
@@ -36,7 +37,7 @@ class App : Application() {
     }
 
     private fun crashReport() {
-        Thread.currentThread().setUncaughtExceptionHandler { t, e ->
+        Looper.getMainLooper().thread.setUncaughtExceptionHandler { t, e ->
             //record ex log
             val logFile = File(applicationContext.filesDir, "crash_log_${System.currentTimeMillis()}")
             val log = t.name + "---" + Date().toString() + " \n" + e.printStackTrace()
