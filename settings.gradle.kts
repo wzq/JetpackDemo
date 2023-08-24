@@ -22,4 +22,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "JetpackDemo"
 include("app")
-include(":test-processor")
+include(":nav_lib")
+include(":nav_processor")

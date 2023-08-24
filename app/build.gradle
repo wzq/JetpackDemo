@@ -111,8 +111,6 @@ dependencies {
     //image-loader
     implementation libs.coil
 
-    implementation(project(":test-processor"))
-    ksp(project(":test-processor"))
     //JankStats
 //    implementation "androidx.metrics:metrics-performance:1.0.0-alpha01"
 
@@ -121,10 +119,4 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-}
-
-
-ksp {
-    arg("option1", "value1")
-    arg("option2", "value2")
 }
