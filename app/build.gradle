@@ -19,11 +19,6 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        ksp {
-            arg("room.schemaLocation", "$projectDir/schemas")
-            arg("room.incremental", "true")
-            arg("room.schemaLocation", "true")
-        }
     }
 
     buildFeatures.viewBinding = true
@@ -51,6 +46,12 @@ android {
         }
     }
     namespace 'com.wzq.sample'
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+    arg("room.incremental", "true")
+    arg("room.schemaLocation", "true")
 }
 
 dependencies {

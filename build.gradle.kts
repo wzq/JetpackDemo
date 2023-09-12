@@ -1,0 +1,13 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    alias(libs.plugins.androidApp) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.google.ksp) apply false
+
+    id("androidx.navigation.safeargs.kotlin") version "2.6.0" apply false
+//    id ("org.jetbrains.kotlin.plugin.serialization") version "1.8.0" apply false
+
+}
+
+
