@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.fragment.app.commitNow
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wzq.sample.NavMainDirections
@@ -23,9 +22,6 @@ import com.wzq.sample.ui.main.category.CategoryFragment
 import com.wzq.sample.ui.main.home.HomeFragment
 import com.wzq.sample.ui.main.project.ProjectFragment
 import com.wzq.sample.util.jumpTo
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 /**
  * create by wzq on 2021/4/6
