@@ -39,16 +39,7 @@ class MainFragment : BaseFragment() {
     ): View {
         val binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.toolbar.setNavigationOnClickListener {
-//            findNavController().jumpTo(NavMainDirections.actionGlobalLoginFragment())
-            lifecycleScope.launch {
-                val s = async {
-                    repeat(20) {
-                        delay(1000)
-                        println(it)
-                    }
-                }
-                s.cancel()
-            }
+            findNavController().jumpTo(NavMainDirections.actionGlobalLoginFragment())
         }
         binding.toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.main_search) {
