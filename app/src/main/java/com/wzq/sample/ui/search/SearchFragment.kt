@@ -68,7 +68,7 @@ class SearchFragment : BaseFragment() {
 
     private fun onSearch(kw: String) {
         viewModel.search(kw)
-        binding.searchBar.text = kw
+        binding.searchBar.textView.text = kw
         binding.searchView.hide()
     }
 }
