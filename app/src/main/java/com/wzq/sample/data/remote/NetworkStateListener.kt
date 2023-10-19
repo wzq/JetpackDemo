@@ -18,6 +18,8 @@
 // * Created by wzq on 2019-07-24
 // *
 // */
+//
+//@Deprecated("use [NetworkWatcher]")
 //class NetworkStateListener : LiveData<Boolean>() {
 //
 //    private val context = App.context

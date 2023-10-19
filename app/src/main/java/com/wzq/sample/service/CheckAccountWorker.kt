@@ -21,6 +21,7 @@ class CheckAccountWorker(context: Context, workerParams: WorkerParameters) : Cor
             Prefs.set("work", "do work == ${Date()}")
             PrefsSafety.write("work", "do work == ${Date()}")
             println("${Thread.currentThread().name} do work ${flag++}")
+            println("last link ip = ${PrefsSafety.read("ip", "none")}")
             Result.success()
         } catch (e: Exception) {
             e.printStackTrace()

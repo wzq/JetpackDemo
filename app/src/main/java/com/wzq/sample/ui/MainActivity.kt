@@ -6,6 +6,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.wzq.sample.R
+import com.wzq.sample.data.remote.NetworkWatcher
 import com.wzq.sample.util.EventBus
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
@@ -14,10 +15,22 @@ import timber.log.Timber
 
 class MainActivity : BaseActivity() {
 
+    private val networkWatcher = NetworkWatcher()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindNavHost()
         mainMessageCollector()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        networkWatcher.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        networkWatcher.stop()
     }
 
     private fun mainMessageCollector() {
