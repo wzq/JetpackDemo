@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.wzq.sample.databinding.FragmentSearchBinding
 import com.wzq.sample.ui.BaseFragment
+import com.wzq.sample.ui.BasePage
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -17,14 +18,14 @@ import kotlinx.coroutines.flow.onEach
  * create by wzq on 2022/10/9
  *
  */
-class SearchFragment : BaseFragment() {
+class SearchFragment : BasePage() {
     private lateinit var binding: FragmentSearchBinding
 
 //    private val args by navArgs<SearchFragmentArgs>()
 
     private val viewModel: SearchViewModel by viewModels()
 
-    override fun initView(
+    override fun onCreatedPage(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
