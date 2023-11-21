@@ -34,7 +34,7 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     //开启k2编译器，这是实验性的
@@ -55,6 +55,9 @@ ksp {
 }
 
 dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
+    implementation project(path: ':mylibrary')
+
     //kotlin
     implementation libs.kotlinx.coroutines.android
     //kotlin coroutines test

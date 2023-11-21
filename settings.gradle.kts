@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "JetpackDemo"
 include("app")
+include(":mylibrary")
