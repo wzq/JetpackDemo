@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.androidApp)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -63,6 +64,13 @@ dependencies {
     implementation(libs.material3)
 
     implementation(libs.androidx.navigation.compose)
+
+    val ktor_version = "2.3.6"
+    implementation("io.ktor:ktor-client-core:$ktor_version")
+    implementation("io.ktor:ktor-client-okhttp:$ktor_version")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

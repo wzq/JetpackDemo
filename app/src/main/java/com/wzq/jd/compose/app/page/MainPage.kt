@@ -3,6 +3,7 @@
 package com.wzq.jd.compose.app.page
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
@@ -42,7 +43,12 @@ fun MainPage(navController: NavHostController) {
             MainBottomBar(pagerState)
         }
     ) { paddingValues ->
-        HorizontalPager(state = pagerState, modifier = Modifier.padding(paddingValues)) {
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier
+                .padding(paddingValues)
+                .background(color = MaterialTheme.colorScheme.background)
+        ) {
             when (it) {
                 0 -> HomePage()
                 else -> {
