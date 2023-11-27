@@ -9,7 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.wzq.jd.compose.app.WebActivity
 import com.wzq.jd.compose.app.data.ArticleItem
 
 /**
@@ -19,8 +21,11 @@ import com.wzq.jd.compose.app.data.ArticleItem
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArticleItemPage(itemData: ArticleItem) {
+    val context = LocalContext.current
     Card(
-        onClick = { /*TODO*/ }, modifier = Modifier
+        onClick = {
+            WebActivity.open(context, itemData.link)
+        }, modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
     ) {
