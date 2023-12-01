@@ -13,8 +13,16 @@ data class NetResult<T>(
     val errorCode: Int,
     val errorMsg: String
 )
+
 @Serializable
 data class NetResultList<T>(
+    val data: ResultList<T>,
+    val errorCode: Int,
+    val errorMsg: String
+)
+
+@Serializable
+data class ResultList<T>(
     val curPage: Int,
     @SerialName("datas")
     val listData: List<T>,
@@ -24,3 +32,4 @@ data class NetResultList<T>(
     val size: Int,
     val total: Int
 )
+

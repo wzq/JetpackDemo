@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
-
 package com.wzq.jd.compose.app.page
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -32,33 +30,36 @@ import kotlinx.coroutines.launch
  * create by wzq on 2023/11/24
  *
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainPage(navController: NavHostController) {
     val pagerState = rememberPagerState { 3 }
-    Scaffold(
-        topBar = {
-            MainTopBar(navController)
-        },
-        bottomBar = {
-            MainBottomBar(pagerState)
-        }
-    ) { paddingValues ->
+    Scaffold(topBar = {
+        MainTopBar(navController)
+    }, bottomBar = {
+        MainBottomBar(pagerState)
+    }) { paddingValues ->
         HorizontalPager(
             state = pagerState,
             modifier = Modifier
                 .padding(paddingValues)
-                .background(color = MaterialTheme.colorScheme.background)
-        ) {
-            when (it) {
+                .background(color = MaterialTheme.colorScheme.background),
+            beyondBoundsPageCount = 3
+        ) { page ->
+            println(page)
+            when (page) {
                 0 -> HomePage()
+                1 -> ProjectPage()
+                2 -> CategoriesPage()
                 else -> {
-                    Text(text = "page at : $it")
+                    throw Exception("Shouldn't Happen!")
                 }
             }
         }
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MainBottomBar(pagerState: PagerState) {
     val coroutineScope = rememberCoroutineScope()
@@ -88,6 +89,7 @@ fun MainBottomBar(pagerState: PagerState) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainTopBar(navController: NavHostController) {
     CenterAlignedTopAppBar(
