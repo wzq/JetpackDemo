@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.page
+package com.wzq.jd.compose.app.page.main
 
 import androidx.compose.runtime.Composable
 

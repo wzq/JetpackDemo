@@ -1,10 +1,9 @@
-package com.wzq.jd.compose.app.page
+package com.wzq.jd.compose.app.page.main
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -23,6 +22,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.launch
 
@@ -32,12 +32,18 @@ import kotlinx.coroutines.launch
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MainPage(navController: NavHostController) {
+fun MainPage(navController: NavHostController, viewModel: MainViewModel = viewModel()) {
+    val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState { 3 }
+
     Scaffold(topBar = {
         MainTopBar(navController)
     }, bottomBar = {
-        MainBottomBar(pagerState)
+        MainBottomBar { index ->
+            scope.launch {
+                pagerState.scrollToPage(index)
+            }
+        }
     }) { paddingValues ->
         HorizontalPager(
             state = pagerState,
@@ -46,10 +52,9 @@ fun MainPage(navController: NavHostController) {
                 .background(color = MaterialTheme.colorScheme.background),
             beyondBoundsPageCount = 3
         ) { page ->
-            println(page)
             when (page) {
-                0 -> HomePage()
-                1 -> ProjectPage()
+                0 -> HomePage(navController, viewModel.homeList)
+                1 -> ProjectPage(navController, viewModel.projectList)
                 2 -> CategoriesPage()
                 else -> {
                     throw Exception("Shouldn't Happen!")
@@ -59,32 +64,17 @@ fun MainPage(navController: NavHostController) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MainBottomBar(pagerState: PagerState) {
-    val coroutineScope = rememberCoroutineScope()
-
+fun MainBottomBar(onItemClick: (Int) -> Unit) {
     BottomAppBar(containerColor = MaterialTheme.colorScheme.secondaryContainer) {
-        IconButton(modifier = Modifier.weight(1f), onClick = {
-            coroutineScope.launch {
-                pagerState.scrollToPage(0)
+        arrayOf(
+            Icons.Default.Home,
+            Icons.Default.ShoppingCart,
+            Icons.Default.AccountCircle
+        ).forEachIndexed { index, icon ->
+            IconButton(modifier = Modifier.weight(1f), onClick = { onItemClick(index) }) {
+                Icon(icon, null)
             }
-        }) {
-            Icon(Icons.Default.Home, null)
-        }
-        IconButton(modifier = Modifier.weight(1f), onClick = {
-            coroutineScope.launch {
-                pagerState.scrollToPage(1)
-            }
-        }) {
-            Icon(Icons.Default.ShoppingCart, null)
-        }
-        IconButton(modifier = Modifier.weight(1f), onClick = {
-            coroutineScope.launch {
-                pagerState.scrollToPage(2)
-            }
-        }) {
-            Icon(Icons.Default.AccountCircle, null)
         }
     }
 }

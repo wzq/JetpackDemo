@@ -4,6 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -13,7 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.wzq.jd.compose.app.page.MainPage
+import androidx.navigation.navArgument
+import com.wzq.jd.compose.app.page.WebPage
+import com.wzq.jd.compose.app.page.main.MainPage
 import com.wzq.jd.compose.app.page.search.SearchPage
 import com.wzq.jd.compose.app.ui.theme.JetpackDemoTheme
 
@@ -25,10 +31,9 @@ class MainActivity : ComponentActivity() {
             JetpackDemoTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Greeting("JetpackDemo")
                 }
             }
         }
@@ -36,11 +41,25 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(name: String) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "main", route = name) {
+    NavHost(
+        navController = navController,
+        startDestination = "main",
+        route = name,
+        enterTransition = {
+            slideInHorizontally { it }
+        },
+        exitTransition = { fadeOut() },
+        popEnterTransition = { fadeIn() },
+        popExitTransition = { slideOutHorizontally { it } }) {
         composable("main") { MainPage(navController) }
-        composable("search") { SearchPage(navController = navController)}
+        composable("search") { SearchPage(navController = navController) }
+        composable(
+            "web?url={url}", arguments = listOf(navArgument("url") { defaultValue = "" })
+        ) {
+            WebPage(navController, it.arguments?.getString("url"))
+        }
     }
 }
 

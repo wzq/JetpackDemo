@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.page
+package com.wzq.jd.compose.app.page.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,44 +15,30 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.wzq.jd.compose.app.WebActivity
 import com.wzq.jd.compose.app.data.ArticleItem
-import com.wzq.jd.compose.app.data.RemoteDataRepo
+import io.ktor.http.encodeURLPath
 
 /**
  * create by wzq on 2023/12/1
  *
  */
 @Composable
-fun ProjectPage() {
-    val data = remember {
-        mutableStateListOf<ArticleItem>()
-    }
-    LaunchedEffect(key1 = true, block = {
-        RemoteDataRepo.getProjectList().onSuccess {
-            data.addAll(it.data.listData)
-        }
-    })
-
-    val context = LocalContext.current
+fun ProjectPage(navController: NavController, projectList: List<ArticleItem>) {
     LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2),
         contentPadding = PaddingValues(8.dp),
         verticalItemSpacing = 8.dp,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         content = {
-            items(data) {
+            items(projectList) {
                 ProjectItem(item = it) {
-                    WebActivity.open(context, it.link)
+                    navController.navigate("web?url=${it.link.encodeURLPath()}")
                 }
             }
         })
@@ -80,6 +66,7 @@ fun ProjectItem(item: ArticleItem, onItemClick: () -> Unit) {
                     text = item.title,
                     maxLines = 2,
                     style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.onTertiary,
                     modifier = Modifier.padding(8.dp)
                 )
             }
