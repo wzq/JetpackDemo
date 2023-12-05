@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.data
+package com.wzq.jd.compose.app.data.model
 
 import kotlinx.serialization.Serializable
 

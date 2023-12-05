@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.wzq.jd.compose.app.data.ArticleItem
+import com.wzq.jd.compose.app.data.model.ArticleItem
 
 /**
  * create by wzq on 2023/11/27

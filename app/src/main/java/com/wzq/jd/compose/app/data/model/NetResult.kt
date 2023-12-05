@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.data
+package com.wzq.jd.compose.app.data.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -15,14 +15,7 @@ data class NetResult<T>(
 )
 
 @Serializable
-data class NetResultList<T>(
-    val data: ResultList<T>,
-    val errorCode: Int,
-    val errorMsg: String
-)
-
-@Serializable
-data class ResultList<T>(
+data class PagingResult<T>(
     val curPage: Int,
     @SerialName("datas")
     val listData: List<T>,

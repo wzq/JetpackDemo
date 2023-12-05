@@ -3,15 +3,15 @@ package com.wzq.jd.compose.app.page.main
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wzq.jd.compose.app.data.ArticleItem
-import com.wzq.jd.compose.app.data.RemoteDataRepo
+import com.wzq.jd.compose.app.data.model.ArticleItem
+import com.wzq.jd.compose.app.data.NetworkUtil
 import kotlinx.coroutines.launch
 
 /**
  * create by wzq on 2023/12/4
  *
  */
-class MainViewModel: ViewModel() {
+class MainViewModel : ViewModel() {
 
     val homeList = mutableStateListOf<ArticleItem>()
     val projectList = mutableStateListOf<ArticleItem>()
@@ -24,16 +24,16 @@ class MainViewModel: ViewModel() {
 
     private fun getHomeArticleList() {
         viewModelScope.launch {
-            RemoteDataRepo.getHomeArticleList().onSuccess {
+            NetworkUtil.remoteRepo.getHomeArticleList().onSuccess {
                 homeList.clear()
                 homeList.addAll(it.data.listData)
             }
         }
     }
 
-    private fun getProjectList(){
+    private fun getProjectList() {
         viewModelScope.launch {
-            RemoteDataRepo.getProjectList().onSuccess {
+            NetworkUtil.remoteRepo.getProjectList().onSuccess {
                 projectList.clear()
                 projectList.addAll(it.data.listData)
             }

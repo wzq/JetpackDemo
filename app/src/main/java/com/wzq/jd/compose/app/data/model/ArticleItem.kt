@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.data
+package com.wzq.jd.compose.app.data.model
 
 import kotlinx.serialization.Serializable
 
@@ -29,7 +29,7 @@ data class ArticleItem(
     val publishTime: Long,
     val realSuperChapterId: Int,
     val selfVisible: Int,
-    val shareDate: Long,
+    val shareDate: Long?,
     val shareUser: String,
     val superChapterId: Int,
     val superChapterName: String,

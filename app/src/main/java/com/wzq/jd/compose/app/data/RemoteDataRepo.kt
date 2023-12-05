@@ -1,34 +1,46 @@
 package com.wzq.jd.compose.app.data
 
+import com.wzq.jd.compose.app.data.model.ArticleItem
+import com.wzq.jd.compose.app.data.model.KnowledgeCategories
+import com.wzq.jd.compose.app.data.model.NetResult
+import com.wzq.jd.compose.app.data.model.PagingResult
+import com.wzq.jd.compose.app.data.model.SearchHotWords
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
+import io.ktor.http.parametersOf
 
 /**
  * create by wzq on 2023/12/1
  *
  */
-object RemoteDataRepo {
-
-    private const val BASE_URL = "https://www.wanandroid.com/"
-    private const val HOME_ARTICLE_LIST = "${BASE_URL}article/list/0/json"
-    private const val KNOWLEDGE_CATEGORIES = "${BASE_URL}tree/json"
-    private const val PROJECT_LIST = "${BASE_URL}article/listproject/0/json"
-
-    private val httpClient get() = NetworkUtil.client
+class RemoteDataRepo(private val httpClient: HttpClient, private val baseUrl: String) {
 
     private val defaultErrorHandler = fun(exception: Throwable) {
         exception.printStackTrace()
     }
 
-    suspend fun getHomeArticleList() = httpClient.runCatching {
-        get(HOME_ARTICLE_LIST).body<NetResultList<ArticleItem>>()
+    suspend fun getHomeArticleList(pageNum: Int = 0) = httpClient.runCatching {
+        get("${baseUrl}article/list/${pageNum}/json").body<NetResult<PagingResult<ArticleItem>>>()
     }.onFailure(defaultErrorHandler)
 
-    suspend fun getProjectList() = httpClient.runCatching {
-        get(PROJECT_LIST).body<NetResultList<ArticleItem>>()
+    suspend fun getProjectList(pageNum: Int = 0) = httpClient.runCatching {
+        get("${baseUrl}article/listproject/$pageNum/json").body<NetResult<PagingResult<ArticleItem>>>()
     }.onFailure(defaultErrorHandler)
 
     suspend fun getKnowledgeCategories() = runCatching {
-        httpClient.get(KNOWLEDGE_CATEGORIES).body<NetResultList<KnowledgeCategories>>()
+        httpClient.get("${baseUrl}tree/json")
+            .body<NetResult<List<KnowledgeCategories>>>()
+    }.onFailure(defaultErrorHandler)
+
+    suspend fun getHotWords() = runCatching {
+        httpClient.get("${baseUrl}hotkey/json").body<NetResult<List<SearchHotWords>>>()
+    }
+
+    suspend fun getSearchResult(keywords: String) = runCatching {
+        httpClient.submitForm(url = "${baseUrl}article/query/0/json", parametersOf("k", keywords))
+            .body<NetResult<PagingResult<ArticleItem>>>()
+
     }.onFailure(defaultErrorHandler)
 }

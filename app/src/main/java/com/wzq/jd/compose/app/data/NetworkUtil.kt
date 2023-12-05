@@ -12,8 +12,9 @@ import okhttp3.logging.HttpLoggingInterceptor
  *
  */
 object NetworkUtil {
+    private const val BASE_URL = "https://www.wanandroid.com/"
 
-    val client by lazy {
+    private val client by lazy {
         HttpClient(OkHttp) {
             engine {
                 config {
@@ -34,4 +35,7 @@ object NetworkUtil {
             }
         }
     }
+
+    val remoteRepo by lazy { RemoteDataRepo(client, BASE_URL) }
+
 }

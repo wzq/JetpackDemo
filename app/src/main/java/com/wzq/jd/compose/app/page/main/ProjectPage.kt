@@ -22,7 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.wzq.jd.compose.app.data.ArticleItem
+import com.wzq.jd.compose.app.data.model.ArticleItem
 import io.ktor.http.encodeURLPath
 
 /**
