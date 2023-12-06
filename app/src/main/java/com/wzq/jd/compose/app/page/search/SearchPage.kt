@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedFilterChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -21,10 +22,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.SearchHotWords
+import com.wzq.jd.compose.app.page.PageState
 import com.wzq.jd.compose.app.page.main.ArticleItemPage
 
 /**
@@ -51,22 +55,39 @@ fun SearchPage(
             }
         },
     ) { pv ->
-        Box(modifier = Modifier.padding(pv)) {
-            if (viewModel.result.isEmpty() || viewModel.keywords.value.isEmpty()) {
-                DefaultPage(hotWords = viewModel.hotWords) {
-                    viewModel.searchResult(it)
-                }
-            } else {
-                LazyColumn(content = {
-                    items(viewModel.result, key = { it.id }) {
-                        ArticleItemPage(itemData = it) {}
+        Box(
+            modifier = Modifier
+                .padding(pv)
+                .fillMaxSize()
+        ) {
+            when (val state = viewModel.pageState.value) {
+                PageState.None -> {
+                    DefaultPage(hotWords = viewModel.hotWords) {
+                        viewModel.searchResult(it)
                     }
-                })
+                }
+
+                PageState.Loading -> {
+                    CircularProgressIndicator(Modifier.align(Alignment.Center))
+                }
+
+                is PageState.Success -> {
+                    val list: List<ArticleItem> = state.get() ?: emptyList()
+                    LazyColumn(content = {
+                        items(list, key = { it.id }) {
+                            ArticleItemPage(itemData = it) {}
+                        }
+                    })
+                }
+
+                else -> {}
             }
 
         }
+
     }
 }
+
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable

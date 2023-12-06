@@ -8,7 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.wzq.jd.compose.app.data.NetworkUtil
 import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.SearchHotWords
+import com.wzq.jd.compose.app.page.PageState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * create by wzq on 2023/12/5
@@ -20,7 +25,8 @@ class SearchViewModel : ViewModel() {
     val keywords: State<String> = _keywords
 
     val hotWords = mutableStateListOf<SearchHotWords>()
-    val result = mutableStateListOf<ArticleItem>()
+
+    val pageState = mutableStateOf<PageState>(PageState.None)
 
     init {
         getHotWords()
@@ -38,17 +44,25 @@ class SearchViewModel : ViewModel() {
     fun setKeyWords(key: String) {
         _keywords.value = key
         if (key.isEmpty()) {
-            result.clear()
+            pageState.value = PageState.None
         }
     }
 
     fun searchResult(key: String) {
         setKeyWords(key)
+        if (key.isEmpty()) {
+            return
+        }
+        pageState.value = PageState.Loading
         viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                delay(1000) // TODO:
+            }
             NetworkUtil.remoteRepo.getSearchResult(key)
                 .onSuccess {
-                    result.clear()
-                    result.addAll(it.data.listData)
+                    pageState.value = PageState.Success(it.data.listData)
+                }.onFailure {
+                    pageState.value = PageState.Failure(it)
                 }
         }
     }
