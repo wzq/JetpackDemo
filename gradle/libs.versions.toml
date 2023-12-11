@@ -1,8 +1,8 @@
 [versions]
 #@plugin
-agp = "8.1.4"
+agp = "8.2.0"
 kotlin = "1.9.20"
-ksp = "1.9.0-1.0.13"
+ksp = "1.9.10-1.0.13"
 
 core-ktx = "1.12.0"
 appcompat = "1.6.1"
@@ -39,6 +39,8 @@ ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
+bom-runtime = { group = "androidx.compose.runtime", name = "runtime" }
+bom-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor-client-core" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor-client-core" }

@@ -1,7 +1,7 @@
 package com.wzq.jd.compose.app.data
 
 import com.wzq.jd.compose.app.data.model.ArticleItem
-import com.wzq.jd.compose.app.data.model.KnowledgeCategories
+import com.wzq.jd.compose.app.data.model.Categories
 import com.wzq.jd.compose.app.data.model.NetResult
 import com.wzq.jd.compose.app.data.model.PagingResult
 import com.wzq.jd.compose.app.data.model.SearchHotWords
@@ -38,7 +38,7 @@ class RemoteDataRepo(private val httpClient: HttpClient, private val baseUrl: St
 
     suspend fun getKnowledgeCategories() = runCatching {
         httpClient.get("${baseUrl}tree/json")
-            .body<NetResult<List<KnowledgeCategories>>>()
+            .body<NetResult<List<Categories>>>()
     }.onFailure(defaultErrorHandler)
 
 

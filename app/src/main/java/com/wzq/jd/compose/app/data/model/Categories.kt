@@ -1,12 +1,15 @@
 package com.wzq.jd.compose.app.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
+@Parcelize
 @Serializable
-data class KnowledgeCategories(
+data class Categories(
     val articleList: List<ArticleItem>,
     val author: String,
-    val children: List<KnowledgeCategories>,
+    val children: List<Categories>,
     val courseId: Int,
     val cover: String,
     val desc: String,
@@ -19,4 +22,4 @@ data class KnowledgeCategories(
     val type: Int,
     val userControlSetTop: Boolean,
     val visible: Int
-)
+) : Parcelable

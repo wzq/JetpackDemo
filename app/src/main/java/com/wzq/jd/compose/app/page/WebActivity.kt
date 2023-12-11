@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app
+package com.wzq.jd.compose.app.page
 
 import android.content.Context
 import android.content.Intent

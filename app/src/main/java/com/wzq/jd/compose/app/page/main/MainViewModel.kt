@@ -3,9 +3,9 @@ package com.wzq.jd.compose.app.page.main
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.NetworkUtil
-import com.wzq.jd.compose.app.data.model.KnowledgeCategories
+import com.wzq.jd.compose.app.data.model.ArticleItem
+import com.wzq.jd.compose.app.data.model.Categories
 import kotlinx.coroutines.launch
 
 /**
@@ -16,18 +16,17 @@ class MainViewModel : ViewModel() {
 
     val homeList = mutableStateListOf<ArticleItem>()
     val projectList = mutableStateListOf<ArticleItem>()
-    val categories = mutableStateListOf<KnowledgeCategories>()
+    val categories = mutableStateListOf<Categories>()
 
     init {
-        println("MainViewModel create")
-        getHomeArticleList()
+        getArticleList()
         getProjectList()
         getCategories()
     }
 
-    private fun getHomeArticleList() {
+    private fun getArticleList(pageNum: Int = 0, cid: String? = null) {
         viewModelScope.launch {
-            NetworkUtil.remoteRepo.getArticleList().onSuccess {
+            NetworkUtil.remoteRepo.getArticleList(pageNum, cid).onSuccess {
                 homeList.clear()
                 homeList.addAll(it.data.listData)
             }
@@ -43,7 +42,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    private fun getCategories(){
+    private fun getCategories() {
         viewModelScope.launch {
             NetworkUtil.remoteRepo.getKnowledgeCategories().onSuccess {
                 categories.clear()
@@ -51,4 +50,5 @@ class MainViewModel : ViewModel() {
             }
         }
     }
+
 }

@@ -21,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.wzq.jd.compose.app.WebActivity" />
+        <activity android:name="com.wzq.jd.compose.app.page.WebActivity" />
     </application>
 
 </manifest>

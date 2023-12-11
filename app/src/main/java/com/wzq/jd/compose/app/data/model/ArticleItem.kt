@@ -1,7 +1,10 @@
 package com.wzq.jd.compose.app.data.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
+@Parcelize
 @Serializable
 data class ArticleItem(
     val adminAdd: Boolean,
@@ -39,4 +42,4 @@ data class ArticleItem(
     val userId: Int,
     val visible: Int,
     val zan: Int
-)
+) : Parcelable

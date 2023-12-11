@@ -17,7 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
+import com.wzq.jd.compose.app.data.model.Categories
+import com.wzq.jd.compose.app.page.PageRouter
 import com.wzq.jd.compose.app.page.WebPage
 import com.wzq.jd.compose.app.page.main.CategoriesDetailPage
 import com.wzq.jd.compose.app.page.main.MainPage
@@ -44,8 +45,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String) {
     val navController = rememberNavController()
-    NavHost(
-        navController = navController,
+    NavHost(navController = navController,
         startDestination = "main",
         route = name,
         enterTransition = {
@@ -54,17 +54,14 @@ fun Greeting(name: String) {
         exitTransition = { fadeOut() },
         popEnterTransition = { fadeIn() },
         popExitTransition = { slideOutHorizontally { it } }) {
-        composable("main") { MainPage(navController) }
-        composable("search") { SearchPage(navController = navController) }
-        composable(
-            "web?url={url}", arguments = listOf(navArgument("url") { defaultValue = "" })
-        ) {
+        composable(PageRouter.Main.name) { MainPage(navController) }
+        composable(PageRouter.Search.name) { SearchPage(navController = navController) }
+        composable(PageRouter.Web.name, PageRouter.Web.args) {
             WebPage(navController, it.arguments?.getString("url"))
         }
-        composable("categories") {
+        composable(PageRouter.Categories.name) {
             CategoriesDetailPage(
-                navController = navController,
-                categories = navController.previousBackStackEntry?.savedStateHandle?.get("categories")
+                navController = navController
             )
         }
     }

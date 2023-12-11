@@ -1,8 +1,11 @@
+import org.jetbrains.kotlin.utils.addToStdlib.butIf
+
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     alias(libs.plugins.androidApp)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -62,6 +65,8 @@ dependencies {
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
+    implementation(libs.bom.foundation)
+    implementation(libs.bom.runtime)
 
     implementation(libs.androidx.navigation.compose)
 
