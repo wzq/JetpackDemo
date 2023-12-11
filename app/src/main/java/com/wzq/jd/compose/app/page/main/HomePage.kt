@@ -11,9 +11,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.wzq.jd.compose.app.data.model.ArticleItem
+import com.wzq.jd.compose.app.ui.widget.HtmlText
 
 /**
  * create by wzq on 2023/11/27
@@ -41,10 +43,18 @@ fun ArticleItemPage(itemData: ArticleItem, onItemClick: (ArticleItem) -> Unit) {
             .padding(8.dp)
             .fillMaxWidth()
     ) {
-        Text(
-            text = itemData.title,
-            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp),
-            style = MaterialTheme.typography.titleMedium
+//        Text(
+//            text = itemData.title,
+//            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp),
+//            style = MaterialTheme.typography.titleMedium
+//        )
+        HtmlText(
+            modifier = Modifier.padding(
+                start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp
+            ),
+            color = MaterialTheme.colorScheme.onSurface.toArgb(),
+            size = 16f,
+            text = itemData.title
         )
         Row(modifier = Modifier.padding(top = 8.dp, start = 16.dp, end = 16.dp, bottom = 16.dp)) {
             Text(

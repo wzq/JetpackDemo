@@ -9,6 +9,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
+import io.ktor.client.request.parameter
 import io.ktor.http.parametersOf
 
 /**
@@ -21,8 +22,14 @@ class RemoteDataRepo(private val httpClient: HttpClient, private val baseUrl: St
         exception.printStackTrace()
     }
 
-    suspend fun getHomeArticleList(pageNum: Int = 0) = httpClient.runCatching {
-        get("${baseUrl}article/list/${pageNum}/json").body<NetResult<PagingResult<ArticleItem>>>()
+    suspend fun getArticleList(pageNum: Int = 0, cid: String? = null) = httpClient.runCatching {
+        get("${baseUrl}article/list/${pageNum}/json"){
+            url {
+                if (!cid.isNullOrEmpty()) {
+                    parameter("cid", cid)
+                }
+            }
+        }.body<NetResult<PagingResult<ArticleItem>>>()
     }.onFailure(defaultErrorHandler)
 
     suspend fun getProjectList(pageNum: Int = 0) = httpClient.runCatching {
@@ -33,6 +40,7 @@ class RemoteDataRepo(private val httpClient: HttpClient, private val baseUrl: St
         httpClient.get("${baseUrl}tree/json")
             .body<NetResult<List<KnowledgeCategories>>>()
     }.onFailure(defaultErrorHandler)
+
 
     suspend fun getHotWords() = runCatching {
         httpClient.get("${baseUrl}hotkey/json").body<NetResult<List<SearchHotWords>>>()

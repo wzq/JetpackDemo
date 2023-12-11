@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.wzq.jd.compose.app.page.WebPage
+import com.wzq.jd.compose.app.page.main.CategoriesDetailPage
 import com.wzq.jd.compose.app.page.main.MainPage
 import com.wzq.jd.compose.app.page.search.SearchPage
 import com.wzq.jd.compose.app.ui.theme.JetpackDemoTheme
@@ -59,6 +60,12 @@ fun Greeting(name: String) {
             "web?url={url}", arguments = listOf(navArgument("url") { defaultValue = "" })
         ) {
             WebPage(navController, it.arguments?.getString("url"))
+        }
+        composable("categories") {
+            CategoriesDetailPage(
+                navController = navController,
+                categories = navController.previousBackStackEntry?.savedStateHandle?.get("categories")
+            )
         }
     }
 }

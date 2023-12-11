@@ -1,8 +1,11 @@
 package com.wzq.jd.compose.app
 
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -62,5 +65,14 @@ class ExampleUnitTest {
         }
 
         Unit
+    }
+
+    @Test
+    fun testAsync() = runBlocking {
+        println(1)
+        withContext(Dispatchers.IO) {
+            delay(5000)
+        }
+        println(3)
     }
 }

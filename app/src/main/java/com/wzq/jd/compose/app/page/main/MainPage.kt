@@ -55,7 +55,7 @@ fun MainPage(navController: NavHostController, viewModel: MainViewModel = viewMo
             when (page) {
                 0 -> HomePage(navController, viewModel.homeList)
                 1 -> ProjectPage(navController, viewModel.projectList)
-                2 -> CategoriesPage()
+                2 -> CategoriesPage(navController, viewModel.categories)
                 else -> {
                     throw Exception("Shouldn't Happen!")
                 }
