@@ -33,16 +33,14 @@ fun HomeCategoryPage(
     }
     LazyColumn(content = {
         items(categories, key = { it.id }) {
-            CategoryItem(it) { position ->
-                onItemClick(it, position)
-            }
+            CategoryItem(it, onItemClick)
         }
     })
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun CategoryItem(category: Categories, onItemClick: (Int) -> Unit) {
+fun CategoryItem(category: Categories, onItemClick: (Categories, Int) -> Unit) {
     Column {
         Box(
             modifier = Modifier
@@ -65,7 +63,9 @@ fun CategoryItem(category: Categories, onItemClick: (Int) -> Unit) {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             category.children.forEachIndexed { index, item ->
-                AssistChip(onClick = { onItemClick(index) }, label = { Text(text = item.name) })
+                AssistChip(
+                    onClick = { onItemClick(category, index) },
+                    label = { Text(text = item.name) })
             }
         }
     }

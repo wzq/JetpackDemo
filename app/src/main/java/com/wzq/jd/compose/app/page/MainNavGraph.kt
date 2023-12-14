@@ -54,6 +54,7 @@ private fun NavGraphBuilder.searchPage(navActions: NavActions) =
 
 private fun NavGraphBuilder.categoryPage(navActions: NavActions) =
     composable(ScreenPath.Category.route, ScreenPath.Category.namedNavArguments) { backStackEntry ->
-        val categories: Categories? = backStackEntry.arguments?.getParcelable("data")
-        CategoryScreen(navActions = navActions, categories)
+//        val categories: Categories? = backStackEntry.arguments?.getParcelable("data")
+//        val position = backStackEntry.arguments?.getInt("position", 0)
+        CategoryScreen(navActions = navActions, viewModel())
     }

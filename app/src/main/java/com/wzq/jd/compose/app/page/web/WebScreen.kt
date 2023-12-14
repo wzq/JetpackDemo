@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.wzq.jd.compose.app.page.CommonActions
+import com.wzq.jd.compose.app.page.ErrorScreen
 
 /**
  * create by wzq on 2023/12/4
@@ -85,7 +86,7 @@ private fun CustomWebView(
     isRefreshing: MutableState<Boolean>
 ) {
     if (url.isNullOrEmpty()) {
-        // TODO: empty view
+        ErrorScreen()
         return
     }
     AndroidView(modifier = Modifier

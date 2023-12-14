@@ -24,9 +24,9 @@ class HomeViewModel : ViewModel() {
         getCategories()
     }
 
-    private fun getArticleList(pageNum: Int = 0, cid: String? = null) {
+    private fun getArticleList(pageNum: Int = 0) {
         viewModelScope.launch {
-            NetworkUtil.remoteRepo.getArticleList(pageNum, cid).onSuccess {
+            NetworkUtil.remoteRepo.getArticleList(pageNum).onSuccess {
                 homeList.clear()
                 homeList.addAll(it.data.listData)
             }

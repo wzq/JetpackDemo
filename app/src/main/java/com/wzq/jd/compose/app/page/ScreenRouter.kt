@@ -18,7 +18,7 @@ sealed class ScreenPath(
     data object Home : ScreenPath("home")
 
     data object Web : ScreenPath("web?url={url}") {
-        fun getPath(url: String?) = "web?url=${url}"
+        fun createPath(url: String?) = "web?url=${url}"
     }
 
     data object Search : ScreenPath("search")
@@ -33,7 +33,7 @@ sealed class ScreenPath(
             ),
         ) {
 
-        fun getPath(position: Int) = "category?position=${position}"
+        fun createPath(position: Int) = "category?position=${position}"
     }
 }
 
@@ -43,7 +43,7 @@ interface CommonActions {
 
 class NavActions(private val navController: NavController) : CommonActions {
     fun toWebScreen(url: String?) {
-        navController.navigate(ScreenPath.Web.getPath(url))
+        navController.navigate(ScreenPath.Web.createPath(url))
     }
 
     fun toSearch() {
@@ -51,7 +51,7 @@ class NavActions(private val navController: NavController) : CommonActions {
     }
 
     fun toCategory(position: Int = 0, categories: Categories) {
-        val path = ScreenPath.Category.getPath(position)
+        val path = ScreenPath.Category.createPath(position)
         navController.graph.findNode(path)?.id?.also { id ->
             navController.navigate(
                 id,
