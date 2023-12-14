@@ -11,5 +11,6 @@ sealed class PageState {
         @Suppress("UNCHECKED_CAST")
         fun <T> get() = data as? T
     }
+
     class Failure(val exception: Throwable? = null, val tag: Any? = null) : PageState()
 }

@@ -23,7 +23,7 @@ class RemoteDataRepo(private val httpClient: HttpClient, private val baseUrl: St
     }
 
     suspend fun getArticleList(pageNum: Int = 0, cid: String? = null) = httpClient.runCatching {
-        get("${baseUrl}article/list/${pageNum}/json"){
+        get("${baseUrl}article/list/${pageNum}/json") {
             url {
                 if (!cid.isNullOrEmpty()) {
                     parameter("cid", cid)

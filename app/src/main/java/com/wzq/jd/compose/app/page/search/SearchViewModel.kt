@@ -6,11 +6,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wzq.jd.compose.app.data.NetworkUtil
-import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.SearchHotWords
 import com.wzq.jd.compose.app.page.PageState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
