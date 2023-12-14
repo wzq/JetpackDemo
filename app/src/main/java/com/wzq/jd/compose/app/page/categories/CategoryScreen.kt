@@ -24,11 +24,14 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.wzq.jd.compose.app.page.ErrorScreen
 import com.wzq.jd.compose.app.page.NavActions
@@ -57,6 +60,12 @@ fun CategoryScreen(
     }
     val scope = rememberCoroutineScope()
 
+    LaunchedEffect(key1 = pagerState, block = {
+        snapshotFlow { pagerState.currentPage }.collect {
+            viewModel.getItemList(pagerState.currentPage, 3)
+        }
+    })
+    ;
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,13 +82,13 @@ fun CategoryScreen(
             },
             colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
         )
-        ScrollableTabRow(selectedTabIndex = currentSelectedIndex.value,
+        ScrollableTabRow(
+            selectedTabIndex = currentSelectedIndex.value,
             edgePadding = 0.dp,
-            divider = {}) {
+        ) {
             dataList.forEachIndexed { index, knowledgeCategories ->
                 Tab(selected = currentSelectedIndex.value == index, onClick = {
                     scope.launch {
-                        viewModel.getItemList(index)
                         pagerState.scrollToPage(index)
                     }
                 }) {
@@ -88,7 +97,7 @@ fun CategoryScreen(
             }
 
         }
-        Divider(thickness = 8.dp)
+        Divider(thickness = 8.dp, color = Color.Transparent)
         HorizontalPager(
             state = pagerState, beyondBoundsPageCount = 3
         ) { page ->

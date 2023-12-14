@@ -1,7 +1,10 @@
 package com.wzq.jd.compose.app.page.home
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
@@ -17,18 +20,20 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import com.wzq.jd.compose.app.page.NavActions
+import kotlinx.coroutines.launch
 
 /**
  * create by wzq on 2023/11/24
  *
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
-    val pagerState = remember { mutableIntStateOf(0) }
+    val pagerState = rememberPagerState(0) { 3 }
+    val localScope = rememberCoroutineScope()
 
     Scaffold(topBar = {
         HomeTopBar {
@@ -36,24 +41,34 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
         }
     }, bottomBar = {
         HomeBottomBar { index ->
-            pagerState.intValue = index
-        }
-    }) { paddingValues ->
-        Box(modifier = Modifier.padding(paddingValues)) {
-            when (pagerState.intValue) {
-                0 -> HomeIndexPage(viewModel.homeList) {
-                    navActions.toWebScreen(it)
-                }
-
-                1 -> HomeProjectPage(projectList = viewModel.projectList) {
-                    navActions.toWebScreen(it)
-                }
-
-                2 -> HomeCategoryPage(categories = viewModel.categories) { item, childIndex ->
-                    navActions.toCategory(childIndex, item)
-                }
+            localScope.launch {
+                pagerState.scrollToPage(index)
             }
         }
+    }) { paddingValues ->
+        HorizontalPager(
+            state = pagerState, modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize(),
+            beyondBoundsPageCount = pagerState.pageCount
+        ) { currentPagerNum ->
+            when (currentPagerNum) {
+                0 -> HomeIndexPage(
+                    articleList = viewModel.homeList,
+                    onItemClick = { navActions.toWebScreen(it) })
+
+                1 -> HomeProjectPage(
+                    projectList = viewModel.projectList,
+                    navigateToWeb = { navActions.toWebScreen(it) })
+
+                2 -> HomeCategoryPage(
+                    categories = viewModel.categories,
+                    onItemClick = { categories, i -> navActions.toCategory(i, categories) })
+
+                else -> throw Exception("todo")
+            }
+        }
+
     }
 }
 

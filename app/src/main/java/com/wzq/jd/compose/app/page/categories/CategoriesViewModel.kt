@@ -19,11 +19,7 @@ class CategoriesViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
     val pagerData = mutableStateMapOf<Int, List<ArticleItem>>()
 
-    init {
-        getItemList(initPosition)
-    }
-
-    fun getItemList(index: Int) {
+    fun getItemList(index: Int, batch: Int = 0) {
         viewModelScope.launch {
             if (pagerData.containsKey(index)) {
                 return@launch
