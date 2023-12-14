@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.page.main
+package com.wzq.jd.compose.app.page.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,29 +17,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.core.os.bundleOf
-import androidx.navigation.NavHostController
+import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.Categories
-import com.wzq.jd.compose.app.page.PageRouter
-import com.wzq.jd.compose.app.page.pageNavigate
 
 /**
  * create by wzq on 2023/12/1
  *
  */
 @Composable
-fun CategoriesPage(
-    navController: NavHostController,
-    categories: List<Categories>
+fun HomeCategoryPage(
+    categories: List<Categories>,
+    onItemClick: (Categories, Int) -> Unit
 ) {
     if (categories.isEmpty()) {
-        // TODO: not data
         return
     }
     LazyColumn(content = {
         items(categories, key = { it.id }) {
             CategoryItem(it) { position ->
-                navController.pageNavigate(PageRouter.Categories.name, "data" to it)
+                onItemClick(it, position)
             }
         }
     })

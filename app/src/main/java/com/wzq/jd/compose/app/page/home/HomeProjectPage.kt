@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.page.main
+package com.wzq.jd.compose.app.page.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,9 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.NavDirections
-import androidx.navigation.navDeepLink
 import coil.compose.AsyncImage
 import com.wzq.jd.compose.app.data.model.ArticleItem
 import io.ktor.http.encodeURLPath
@@ -32,20 +29,17 @@ import io.ktor.http.encodeURLPath
  *
  */
 @Composable
-fun ProjectPage(navController: NavController, projectList: List<ArticleItem>) {
+fun HomeProjectPage(projectList: List<ArticleItem>, navigateToWeb: (String) -> Unit) {
     LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2),
         contentPadding = PaddingValues(8.dp),
         verticalItemSpacing = 8.dp,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         content = {
             items(projectList) {
-                ProjectItem(item = it) {
-                    navController.navigate("web?url=${it.link.encodeURLPath()}")
-                }
+                ProjectItem(item = it) { navigateToWeb(it.link.encodeURLPath()) }
             }
         })
 
-    navController.navigate("", )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

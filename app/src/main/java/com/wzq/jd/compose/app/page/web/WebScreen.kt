@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.page
+package com.wzq.jd.compose.app.page.web
 
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
@@ -27,7 +27,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.navigation.NavHostController
+import com.wzq.jd.compose.app.page.CommonActions
 
 /**
  * create by wzq on 2023/12/4
@@ -35,7 +35,7 @@ import androidx.navigation.NavHostController
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WebPage(navController: NavHostController, url: String?) {
+fun WebScreen(navActions: CommonActions, url: String?) {
     val webTitle = remember { mutableStateOf(url ?: "") }
     val isRefreshing = remember { mutableStateOf(false) }
     val isProgressing = remember { mutableStateOf(true) }
@@ -47,7 +47,7 @@ fun WebPage(navController: NavHostController, url: String?) {
             },
             navigationIcon = {
                 IconButton(onClick = {
-                    navController.navigateUp()
+                    navActions.goBack()
                 }) {
                     Icon(Icons.Default.ArrowBack, null)
 

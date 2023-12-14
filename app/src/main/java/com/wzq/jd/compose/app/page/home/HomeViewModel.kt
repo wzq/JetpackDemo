@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.page.main
+package com.wzq.jd.compose.app.page.home
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
  * create by wzq on 2023/12/4
  *
  */
-class MainViewModel : ViewModel() {
+class HomeViewModel : ViewModel() {
 
     val homeList = mutableStateListOf<ArticleItem>()
     val projectList = mutableStateListOf<ArticleItem>()

@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.page.main
+package com.wzq.jd.compose.app.page.categories
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -17,13 +17,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.wzq.jd.compose.app.data.model.Categories
+import com.wzq.jd.compose.app.page.NavActions
 import kotlinx.coroutines.launch
 
 /**
@@ -32,11 +35,12 @@ import kotlinx.coroutines.launch
  */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun CategoriesDetailPage(
-    navController: NavController,
-    viewModel: CategoriesDetailViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
+fun CategoryScreen(
+    navActions: NavActions,
+    categories: Categories?,
+    viewModel: CategoriesViewModel = viewModel()
 ) {
-    val dataList = viewModel.categories?.children
+    val dataList = categories?.children
     if (dataList.isNullOrEmpty()) {
         return
     }
@@ -54,15 +58,15 @@ fun CategoriesDetailPage(
     ) {
         CenterAlignedTopAppBar(
             title = {
-                Text(text = viewModel.categories.name, maxLines = 1)
+                Text(text = categories.name, maxLines = 1)
             },
             navigationIcon = {
-                IconButton(onClick = {
-                    navController.navigateUp()
-                }) {
+                IconButton(onClick = { navActions.goBack() }) {
                     Icon(Icons.Default.ArrowBack, null)
                 }
-            })
+            },
+            colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+        )
         ScrollableTabRow(
             selectedTabIndex = currentSelectedIndex.value,
             edgePadding = 0.dp,
@@ -82,9 +86,6 @@ fun CategoriesDetailPage(
             state = pagerState,
             beyondBoundsPageCount = 3
         ) { page ->
-//            LazyColumn(content = {
-//            })
-            
             Text(text = "item - >$page")
         }
 

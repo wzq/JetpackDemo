@@ -25,19 +25,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.SearchHotWords
+import com.wzq.jd.compose.app.page.CommonActions
 import com.wzq.jd.compose.app.page.PageState
-import com.wzq.jd.compose.app.page.main.ArticleItemPage
+import com.wzq.jd.compose.app.page.home.ArticleItemPage
 
 /**
  * create by wzq on 2023/11/24
  *
  */
 @Composable
-fun SearchPage(
-    navController: NavController,
+fun SearchScreen(
+    navActions: CommonActions,
     viewModel: SearchViewModel = androidx.lifecycle.viewmodel.compose.viewModel()
 ) {
     Scaffold(
@@ -50,7 +50,7 @@ fun SearchPage(
                     )
             ) {
                 SearchPageBar(viewModel) {
-                    navController.navigateUp()
+                    navActions.goBack()
                 }
             }
         },

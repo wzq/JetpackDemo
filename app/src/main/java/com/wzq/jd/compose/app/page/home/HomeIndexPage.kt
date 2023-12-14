@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.page.main
+package com.wzq.jd.compose.app.page.home
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,19 +13,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.ui.widget.HtmlText
+import io.ktor.http.encodeURLPath
 
 /**
  * create by wzq on 2023/11/27
  *
  */
 @Composable
-fun HomePage(navController: NavHostController, articleList: List<ArticleItem>) {
-    val onItemClick = { item: ArticleItem ->
-        navController.navigate("web?url=${item.link}")
-    }
+fun HomeIndexPage(articleList: List<ArticleItem>, onItemClick: (String) -> Unit) {
     LazyColumn(content = {
         items(articleList) {
             ArticleItemPage(itemData = it, onItemClick)
@@ -35,19 +32,14 @@ fun HomePage(navController: NavHostController, articleList: List<ArticleItem>) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ArticleItemPage(itemData: ArticleItem, onItemClick: (ArticleItem) -> Unit) {
+fun ArticleItemPage(itemData: ArticleItem, onItemClick: (String) -> Unit) {
     Card(
         onClick = {
-            onItemClick(itemData)
+            onItemClick(itemData.link.encodeURLPath())
         }, modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
     ) {
-//        Text(
-//            text = itemData.title,
-//            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp),
-//            style = MaterialTheme.typography.titleMedium
-//        )
         HtmlText(
             modifier = Modifier.padding(
                 start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp
