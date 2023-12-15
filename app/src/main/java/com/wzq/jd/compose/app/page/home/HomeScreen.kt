@@ -10,12 +10,13 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -40,9 +41,9 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
             navActions.toSearch()
         }
     }, bottomBar = {
-        HomeBottomBar { index ->
+        HomeBottomBar(pagerState.currentPage) {
             localScope.launch {
-                pagerState.scrollToPage(index)
+                pagerState.scrollToPage(it)
             }
         }
     }) { paddingValues ->
@@ -50,7 +51,8 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
             state = pagerState, modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize(),
-            beyondBoundsPageCount = pagerState.pageCount
+            beyondBoundsPageCount = pagerState.pageCount,
+            userScrollEnabled = false
         ) { currentPagerNum ->
             when (currentPagerNum) {
                 0 -> HomeIndexPage(
@@ -73,14 +75,18 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
 }
 
 @Composable
-fun HomeBottomBar(onItemClick: (Int) -> Unit) {
-    BottomAppBar(containerColor = MaterialTheme.colorScheme.secondaryContainer) {
+fun HomeBottomBar(selectedIndex: Int, onItemClick: (Int) -> Unit) {
+    NavigationBar {
         arrayOf(
             Icons.Default.Home, Icons.Default.ShoppingCart, Icons.Default.AccountCircle
         ).forEachIndexed { index, icon ->
-            IconButton(modifier = Modifier.weight(1f), onClick = { onItemClick(index) }) {
-                Icon(icon, null)
-            }
+            NavigationBarItem(
+                selected = selectedIndex == index,
+                onClick = { onItemClick(index) },
+                icon = { Icon(imageVector = icon, contentDescription = null) },
+                label = { Text(text = "label") },
+                alwaysShowLabel = true
+            )
         }
     }
 }
