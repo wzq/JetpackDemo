@@ -33,6 +33,11 @@ object NetworkUtil {
                     ignoreUnknownKeys = true
                 })
             }
+
+//            install(Logging) {
+//                logger = Logger.ANDROID
+//                level = LogLevel.ALL
+//            }
         }
     }
 

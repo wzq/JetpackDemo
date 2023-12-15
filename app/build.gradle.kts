@@ -74,7 +74,13 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
 
+    //logger by ktor
+//    implementation("io.ktor:ktor-client-logging:${libs.versions.ktor}")
+//    implementation("org.slf4j:slf4j-simple:2.0.9")
+    //or logger by okhttp
     implementation(libs.logging.interceptor)
+
+    //image loader
     implementation(libs.coil)
 
     testImplementation(libs.junit)
