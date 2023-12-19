@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wzq.jd.compose.app.data.NetworkUtil
+import com.wzq.jd.compose.app.data.DataRepos
 import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.Categories
 import kotlinx.coroutines.launch
@@ -25,7 +25,7 @@ class CategoriesViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
                 return@launch
             }
             val cid = categories?.children?.get(index)?.id
-            NetworkUtil.remoteRepo.getArticleList(cid = cid).onSuccess { result ->
+            DataRepos.remoteRepo.getArticleList(cid = cid).onSuccess { result ->
                 pagerData[index] = result.data.listData
             }
         }

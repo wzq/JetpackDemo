@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  *
  */
 @Serializable
-data class SearchHotWords(
+data class HotWords(
     val id: Int,
     val link: String,
     val name: String,

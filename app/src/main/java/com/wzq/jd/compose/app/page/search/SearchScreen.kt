@@ -26,7 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.wzq.jd.compose.app.data.model.ArticleItem
-import com.wzq.jd.compose.app.data.model.SearchHotWords
+import com.wzq.jd.compose.app.data.model.HotWords
 import com.wzq.jd.compose.app.page.CommonActions
 import com.wzq.jd.compose.app.page.PageState
 import com.wzq.jd.compose.app.page.home.ArticleItemPage
@@ -91,7 +91,7 @@ fun SearchScreen(
 
 @OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3Api::class)
 @Composable
-private fun DefaultPage(hotWords: List<SearchHotWords>, onItemClick: (String) -> Unit) {
+private fun DefaultPage(hotWords: List<HotWords>, onItemClick: (String) -> Unit) {
     val selectRecord = remember {
         mutableStateMapOf<Int, Boolean>()
     }
