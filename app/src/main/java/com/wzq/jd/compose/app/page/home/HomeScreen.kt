@@ -60,7 +60,7 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
                     onItemClick = { navActions.toWebScreen(it) })
 
                 1 -> HomeProjectPage(
-                    projectList = viewModel.projectList,
+                    state = viewModel.projectState.value,
                     navigateToWeb = { navActions.toWebScreen(it) })
 
                 2 -> HomeCategoryPage(

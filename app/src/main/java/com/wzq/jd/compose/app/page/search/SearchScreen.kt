@@ -72,7 +72,7 @@ fun SearchScreen(
                 }
 
                 is PageState.Success -> {
-                    val list: List<ArticleItem> = state.get() ?: emptyList()
+                    val list: List<ArticleItem> = state.data
                     LazyColumn(content = {
                         items(list, key = { it.id }) {
                             ArticleItemPage(itemData = it) {}

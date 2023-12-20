@@ -5,25 +5,25 @@ kotlin = "1.9.20"
 ksp = "1.9.10-1.0.13"
 
 core-ktx = "1.12.0"
-appcompat = "1.6.1"
 lifecycle-runtime-ktx = "2.6.2"
 
-activity-compose = "1.8.1"
+activity-compose = "1.8.2"
 compose-bom = "2023.10.01"
+navigation-compose = "2.7.6"
 
 ktor = "2.3.6"
-
 coil = "2.5.0"
+room = "2.6.1"
+logging-interceptor = "4.12.0"
 
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
-logging-interceptor = "4.12.0"
-navigation-compose = "2.7.5"
 
 [libraries]
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }

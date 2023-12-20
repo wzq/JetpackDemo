@@ -22,6 +22,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.wzq.jd.compose.app.data.model.ArticleItem
+import com.wzq.jd.compose.app.page.LoadScreen
+import com.wzq.jd.compose.app.page.PageState
 import io.ktor.http.encodeURLPath
 
 /**
@@ -29,17 +31,20 @@ import io.ktor.http.encodeURLPath
  *
  */
 @Composable
-fun HomeProjectPage(projectList: List<ArticleItem>, navigateToWeb: (String) -> Unit) {
-    LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2),
-        contentPadding = PaddingValues(8.dp),
-        verticalItemSpacing = 8.dp,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        content = {
-            items(projectList) {
-                ProjectItem(item = it) { navigateToWeb(it.link.encodeURLPath()) }
-            }
-        })
-
+fun HomeProjectPage(state: PageState<List<ArticleItem>>, navigateToWeb: (String) -> Unit) {
+    if (state is PageState.Success) {
+        LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2),
+            contentPadding = PaddingValues(8.dp),
+            verticalItemSpacing = 8.dp,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            content = {
+                items(state.data) {
+                    ProjectItem(item = it) { navigateToWeb(it.link.encodeURLPath()) }
+                }
+            })
+    } else {
+        LoadScreen()
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

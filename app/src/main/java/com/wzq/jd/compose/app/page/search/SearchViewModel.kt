@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wzq.jd.compose.app.data.DataRepos
+import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.HotWords
 import com.wzq.jd.compose.app.page.PageState
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +25,7 @@ class SearchViewModel : ViewModel() {
 
     val hotWords = mutableStateListOf<HotWords>()
 
-    val pageState = mutableStateOf<PageState>(PageState.None)
+    val pageState = mutableStateOf<PageState<List<ArticleItem>>>(PageState.None)
 
     init {
         getHotWords()

@@ -17,6 +17,8 @@ import kotlinx.coroutines.launch
 class HomeViewModel : ViewModel() {
 
     val indexState = mutableStateOf<PageState<List<ArticleItem>>>(PageState.Loading)
+
+    val projectState = mutableStateOf<PageState<List<ArticleItem>>>(PageState.Loading)
     val projectList = mutableStateListOf<ArticleItem>()
     val categories = mutableStateListOf<Categories>()
 
@@ -37,9 +39,8 @@ class HomeViewModel : ViewModel() {
     private fun getProjectList() {
         viewModelScope.launch {
             DataRepos.remoteRepo.getProjectList().onSuccess {
-                projectList.clear()
-                projectList.addAll(it.data.listData)
-            }
+                projectState.value = PageState.Success(it.data.listData)
+            }.onFailure { PageState.Failure(it) }
         }
     }
 
