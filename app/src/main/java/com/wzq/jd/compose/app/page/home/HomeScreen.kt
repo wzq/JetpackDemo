@@ -56,7 +56,7 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
         ) { currentPagerNum ->
             when (currentPagerNum) {
                 0 -> HomeIndexPage(
-                    articleList = viewModel.homeList,
+                    state = viewModel.indexState.value,
                     onItemClick = { navActions.toWebScreen(it) })
 
                 1 -> HomeProjectPage(
@@ -70,7 +70,6 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
                 else -> throw Exception("todo")
             }
         }
-
     }
 }
 

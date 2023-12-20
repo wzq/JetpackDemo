@@ -28,9 +28,6 @@ class SearchViewModel : ViewModel() {
 
     init {
         getHotWords()
-        viewModelScope.launch {
-//            NetworkUtil.remoteRepo.test()
-        }
     }
 
     private fun getHotWords() {

@@ -1,11 +1,13 @@
 package com.wzq.jd.compose.app.page.home
 
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wzq.jd.compose.app.data.DataRepos
 import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.Categories
+import com.wzq.jd.compose.app.page.PageState
 import kotlinx.coroutines.launch
 
 /**
@@ -14,7 +16,7 @@ import kotlinx.coroutines.launch
  */
 class HomeViewModel : ViewModel() {
 
-    val homeList = mutableStateListOf<ArticleItem>()
+    val indexState = mutableStateOf<PageState<List<ArticleItem>>>(PageState.Loading)
     val projectList = mutableStateListOf<ArticleItem>()
     val categories = mutableStateListOf<Categories>()
 
@@ -26,10 +28,9 @@ class HomeViewModel : ViewModel() {
 
     private fun getArticleList(pageNum: Int = 0) {
         viewModelScope.launch {
-            DataRepos.remoteRepo.getArticleList(pageNum).onSuccess {
-                homeList.clear()
-                homeList.addAll(it.data.listData)
-            }
+            DataRepos.remoteRepo.getArticleList(pageNum)
+                .onSuccess { indexState.value = PageState.Success(it.data.listData) }
+                .onFailure { indexState.value = PageState.Failure(it) }
         }
     }
 
