@@ -8,7 +8,6 @@ import com.wzq.jd.compose.app.App
 import com.wzq.jd.compose.app.data.DataRepos
 import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.Categories
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -26,21 +25,19 @@ class CategoriesViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
             if (pagerData.containsKey(index)) {
                 return@launch
             }
-            val cid = categories?.children?.get(index)?.id ?: 0
-            println(cid)
-            pagerData[index] = App.db.articleDao().getArticlesByCid(cid).also {
-                println(it)
-            }
-//            val all = (App.db.articleDao().getArticlesAll())
-//            println(all.size)
-            launch {
-                delay(5000)
+            val cid = categories?.children?.get(index)?.id ?: return@launch
+
+            val dao = App.db.articleDao()
+            val data = dao.getArticlesByCid(cid)
+            if (data.isNotEmpty()) {
+                pagerData[index] = data
+            } else {
                 DataRepos.remoteRepo.getArticleList(cid = cid).onSuccess { result ->
-                    println(result.data.listData)
-                    pagerData[index] = result.data.listData
+                    pagerData[index] = result.data.listData.also {
+                        dao.insert(it)
+                    }
                 }
             }
-            println(11111)
         }
     }
 
