@@ -23,7 +23,7 @@ espresso-core = "3.5.1"
 [libraries]
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation-compose" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-room-runtime = { module = "androidx.room:room-ktx", version.ref = "room" }
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
 
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }

@@ -1,13 +1,15 @@
 package com.wzq.jd.compose.app.data.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
+@Entity (tableName = "articles")
 @Parcelize
 @Serializable
 data class ArticleItem(
-    val adminAdd: Boolean,
     val apkLink: String,
     val audit: Int,
     val author: String,
@@ -21,7 +23,7 @@ data class ArticleItem(
     val envelopePic: String,
     val fresh: Boolean,
     val host: String,
-    val id: Int,
+    @PrimaryKey val id: Int,
     val isAdminAdd: Boolean,
     val link: String,
     val niceDate: String,
