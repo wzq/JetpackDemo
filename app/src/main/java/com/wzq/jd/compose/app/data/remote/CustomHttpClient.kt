@@ -27,7 +27,7 @@ class CustomHttpClient {
                 followRedirects(true)
             }
             addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.HEADERS
+                level = HttpLoggingInterceptor.Level.BODY
             })
 
         }

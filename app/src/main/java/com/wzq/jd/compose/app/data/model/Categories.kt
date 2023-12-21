@@ -1,19 +1,21 @@
 package com.wzq.jd.compose.app.data.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
+@Entity(tableName = "categories")
 @Parcelize
 @Serializable
 data class Categories(
-    val articleList: List<ArticleItem>,
     val author: String,
-    val children: List<Categories>,
     val courseId: Int,
     val cover: String,
     val desc: String,
-    val id: Int,
+    @PrimaryKey val id: Int,
     val lisense: String,
     val lisenseLink: String,
     val name: String,
@@ -22,4 +24,8 @@ data class Categories(
     val type: Int,
     val userControlSetTop: Boolean,
     val visible: Int
-) : Parcelable
+) : Parcelable {
+
+    @Ignore
+    var children: List<Categories> = emptyList()
+}

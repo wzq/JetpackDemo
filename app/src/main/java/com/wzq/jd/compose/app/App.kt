@@ -19,6 +19,7 @@ class App: Application() {
         val context: Context get() = _context!!
         val db by lazy {
             Room.databaseBuilder(context, AppDatabase::class.java, "database-j")
+                .fallbackToDestructiveMigration()
                 .build()
         }
     }
