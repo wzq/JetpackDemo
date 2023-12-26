@@ -57,6 +57,7 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
             when (currentPagerNum) {
                 0 -> HomeIndexPage(
                     state = viewModel.indexState.value,
+                    pageData = viewModel.pager,
                     onItemClick = { navActions.toWebScreen(it) })
 
                 1 -> HomeProjectPage(

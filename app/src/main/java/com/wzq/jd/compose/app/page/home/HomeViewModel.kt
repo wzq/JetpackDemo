@@ -4,6 +4,10 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import com.wzq.jd.compose.app.data.ArticlePageSource
 import com.wzq.jd.compose.app.data.DataRepos
 import com.wzq.jd.compose.app.data.local.AppDatabase
 import com.wzq.jd.compose.app.data.model.ArticleItem
@@ -31,12 +35,16 @@ class HomeViewModel : ViewModel() {
         getCategories()
     }
 
+    val pager = Pager(PagingConfig(20), 0) {
+        ArticlePageSource()
+    }.flow.cachedIn(viewModelScope)
+
     private fun getArticleList(pageNum: Int = 0) {
-        viewModelScope.launch {
-            DataRepos.remoteRepo.getArticleList(pageNum)
-                .onSuccess { indexState.value = PageState.Success(it.data.listData) }
-                .onFailure { indexState.value = PageState.Failure(it) }
-        }
+//        viewModelScope.launch {
+//            DataRepos.remoteRepo.getArticleList(pageNum)
+//                .onSuccess { indexState.value = PageState.Success(it.data.listData) }
+//                .onFailure { indexState.value = PageState.Failure(it) }
+//        }
     }
 
     private fun getProjectList() {

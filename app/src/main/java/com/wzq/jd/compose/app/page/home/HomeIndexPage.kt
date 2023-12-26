@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -13,30 +12,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
+import androidx.paging.PagingData
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import com.wzq.jd.compose.app.data.model.ArticleItem
-import com.wzq.jd.compose.app.page.LoadScreen
 import com.wzq.jd.compose.app.page.PageState
 import com.wzq.jd.compose.app.ui.widget.HtmlText
 import io.ktor.http.encodeURLPath
+import kotlinx.coroutines.flow.Flow
 
 /**
  * create by wzq on 2023/11/27
  *
  */
 @Composable
-fun HomeIndexPage(state: PageState<List<ArticleItem>>, onItemClick: (String) -> Unit) {
-    when(state) {
-        PageState.Loading -> {
-            LoadScreen()
+fun HomeIndexPage(
+    state: PageState<List<ArticleItem>>,
+    onItemClick: (String) -> Unit,
+    pageData: Flow<PagingData<ArticleItem>>
+) {
+    val lazyPagingItems = pageData.collectAsLazyPagingItems()
+    LazyColumn {
+        items(lazyPagingItems.itemCount, lazyPagingItems.itemKey()) {
+            ArticleItemPage(itemData = lazyPagingItems[it]!!, onItemClick)
         }
-        is PageState.Success -> {
-            LazyColumn(content = {
-                items(state.data) {
-                    ArticleItemPage(itemData = it, onItemClick)
-                }
-            })
-        }
-        else -> {}
     }
 
 }
