@@ -62,7 +62,7 @@ fun CategoryScreen(
 
     LaunchedEffect(key1 = pagerState, block = {
         snapshotFlow { pagerState.currentPage }.collect {
-            viewModel.getItemList(pagerState.currentPage, 3)
+            viewModel.getItemList(pagerState.currentPage)
         }
     })
     ;

@@ -4,8 +4,8 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wzq.jd.compose.app.App
 import com.wzq.jd.compose.app.data.DataRepos
+import com.wzq.jd.compose.app.data.local.AppDatabase
 import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.Categories
 import com.wzq.jd.compose.app.page.PageState
@@ -23,7 +23,7 @@ class HomeViewModel : ViewModel() {
 
     val categories = mutableStateListOf<Categories>()
 
-    private val categoriesDao = App.db.categoriesDao()
+    private val categoriesDao = AppDatabase.instance.categoriesDao()
 
     init {
         getArticleList()

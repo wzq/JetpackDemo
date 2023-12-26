@@ -4,8 +4,8 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.wzq.jd.compose.app.App
 import com.wzq.jd.compose.app.data.DataRepos
+import com.wzq.jd.compose.app.data.local.AppDatabase
 import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.Categories
 import kotlinx.coroutines.launch
@@ -20,21 +20,22 @@ class CategoriesViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
     val pagerData = mutableStateMapOf<Int, List<ArticleItem>>()
 
-    fun getItemList(index: Int, batch: Int = 0) {
+    private val articleDao = AppDatabase.instance.articleDao()
+
+    fun getItemList(index: Int) {
         viewModelScope.launch {
             if (pagerData.containsKey(index)) {
                 return@launch
             }
             val cid = categories?.children?.get(index)?.id ?: return@launch
 
-            val dao = App.db.articleDao()
-            val data = dao.getArticlesByCid(cid)
+            val data = articleDao.getArticlesByCid(cid)
             if (data.isNotEmpty()) {
                 pagerData[index] = data
             } else {
                 DataRepos.remoteRepo.getArticleList(cid = cid).onSuccess { result ->
                     pagerData[index] = result.data.listData.also {
-                        dao.insert(it)
+                        articleDao.insert(it)
                     }
                 }
             }
