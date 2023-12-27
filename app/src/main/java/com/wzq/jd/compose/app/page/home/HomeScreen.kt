@@ -18,9 +18,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import com.wzq.jd.compose.app.page.NavActions
@@ -36,6 +39,10 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
     val pagerState = rememberPagerState(0) { 3 }
     val localScope = rememberCoroutineScope()
 
+    val snackbarHostState = remember {
+        SnackbarHostState()
+    }
+
     Scaffold(topBar = {
         HomeTopBar {
             navActions.toSearch()
@@ -46,6 +53,8 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
                 pagerState.scrollToPage(it)
             }
         }
+    }, snackbarHost = {
+        SnackbarHost(hostState = snackbarHostState)
     }) { paddingValues ->
         HorizontalPager(
             state = pagerState, modifier = Modifier
