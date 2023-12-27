@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -20,31 +19,36 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.paging.PagingData
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import coil.compose.AsyncImage
 import com.wzq.jd.compose.app.data.model.ArticleItem
-import com.wzq.jd.compose.app.page.LoadScreen
-import com.wzq.jd.compose.app.page.PageState
 import io.ktor.http.encodeURLPath
+import kotlinx.coroutines.flow.Flow
 
 /**
  * create by wzq on 2023/12/1
  *
  */
 @Composable
-fun HomeProjectPage(state: PageState<List<ArticleItem>>, navigateToWeb: (String) -> Unit) {
-    if (state is PageState.Success) {
-        LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2),
-            contentPadding = PaddingValues(8.dp),
-            verticalItemSpacing = 8.dp,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            content = {
-                items(state.data) {
-                    ProjectItem(item = it) { navigateToWeb(it.link.encodeURLPath()) }
+fun HomeProjectPage(
+    pageData: Flow<PagingData<ArticleItem>>,
+    navigateToWeb: (String) -> Unit,
+) {
+    val data = pageData.collectAsLazyPagingItems()
+    LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2),
+        contentPadding = PaddingValues(8.dp),
+        verticalItemSpacing = 8.dp,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        content = {
+            items(data.itemCount, data.itemKey()) { position ->
+                val item = data[position]
+                if (item != null) {
+                    ProjectItem(item = item) { navigateToWeb(item.link.encodeURLPath()) }
                 }
-            })
-    } else {
-        LoadScreen()
-    }
+            }
+        })
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,7 +60,9 @@ fun ProjectItem(item: ArticleItem, onItemClick: () -> Unit) {
                 model = item.envelopePic,
                 contentDescription = null,
                 modifier = Modifier.fillMaxWidth(),
-                contentScale = ContentScale.FillWidth
+                contentScale = ContentScale.FillWidth,
+                onLoading = {
+                }
             )
             Box(
                 modifier = Modifier

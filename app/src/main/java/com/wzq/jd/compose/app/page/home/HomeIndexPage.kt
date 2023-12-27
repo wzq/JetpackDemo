@@ -16,7 +16,6 @@ import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.itemKey
 import com.wzq.jd.compose.app.data.model.ArticleItem
-import com.wzq.jd.compose.app.page.PageState
 import com.wzq.jd.compose.app.ui.widget.HtmlText
 import io.ktor.http.encodeURLPath
 import kotlinx.coroutines.flow.Flow
@@ -27,14 +26,16 @@ import kotlinx.coroutines.flow.Flow
  */
 @Composable
 fun HomeIndexPage(
-    state: PageState<List<ArticleItem>>,
     onItemClick: (String) -> Unit,
     pageData: Flow<PagingData<ArticleItem>>
 ) {
     val lazyPagingItems = pageData.collectAsLazyPagingItems()
     LazyColumn {
         items(lazyPagingItems.itemCount, lazyPagingItems.itemKey()) {
-            ArticleItemPage(itemData = lazyPagingItems[it]!!, onItemClick)
+            val item = lazyPagingItems[it]
+            if (item != null) {
+                ArticleItemPage(itemData = item, onItemClick)
+            }
         }
     }
 
