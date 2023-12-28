@@ -8,7 +8,9 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,7 +38,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
-    val pagerState = rememberPagerState(0) { 3 }
+    val pagerState = rememberPagerState(0) { 4 }
     val localScope = rememberCoroutineScope()
 
     val snackbarHostState = remember {
@@ -44,8 +46,10 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
     }
 
     Scaffold(topBar = {
-        HomeTopBar {
+        HomeTopBar(pagerState.currentPage, {
             navActions.toSearch()
+        }) {
+            navActions.toSetting()
         }
     }, bottomBar = {
         HomeBottomBar(pagerState.currentPage) {
@@ -77,7 +81,9 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
                     categories = viewModel.categories,
                     onItemClick = { categories, i -> navActions.toCategory(i, categories) })
 
-                else -> throw Exception("todo")
+                3 -> Text(text = "TODO Profile")
+
+                else -> throw Exception()
             }
         }
     }
@@ -87,7 +93,10 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
 fun HomeBottomBar(selectedIndex: Int, onItemClick: (Int) -> Unit) {
     NavigationBar {
         arrayOf(
-            Icons.Default.Home, Icons.Default.ShoppingCart, Icons.Default.AccountCircle
+            Icons.Default.Home,
+            Icons.Default.ShoppingCart,
+            Icons.Default.List,
+            Icons.Default.AccountCircle
         ).forEachIndexed { index, icon ->
             NavigationBarItem(
                 selected = selectedIndex == index,
@@ -102,14 +111,24 @@ fun HomeBottomBar(selectedIndex: Int, onItemClick: (Int) -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeTopBar(navigationToSearch: () -> Unit) {
+fun HomeTopBar(
+    currentPager: Int,
+    navigationToSearch: () -> Unit,
+    navigationToSetting: () -> Unit
+) {
     CenterAlignedTopAppBar(
         title = {
             Text(text = "App")
         },
         actions = {
-            IconButton(onClick = navigationToSearch) {
-                Icon(Icons.Default.Search, null)
+            if (currentPager == 3) {
+                IconButton(onClick = navigationToSetting) {
+                    Icon(imageVector = Icons.Default.Settings, contentDescription = null)
+                }
+            } else {
+                IconButton(onClick = navigationToSearch) {
+                    Icon(Icons.Default.Search, null)
+                }
             }
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)

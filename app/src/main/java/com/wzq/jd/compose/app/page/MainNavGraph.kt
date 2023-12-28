@@ -14,6 +14,7 @@ import com.wzq.jd.compose.app.data.model.Categories
 import com.wzq.jd.compose.app.page.categories.CategoryScreen
 import com.wzq.jd.compose.app.page.home.HomeScreen
 import com.wzq.jd.compose.app.page.search.SearchScreen
+import com.wzq.jd.compose.app.page.setting.SettingScreen
 import com.wzq.jd.compose.app.page.web.WebScreen
 
 /**
@@ -36,6 +37,7 @@ fun MainNavGraph(hostName: String = "main", navController: NavHostController) {
         webPage(navActions)
         searchPage(navActions)
         categoryPage(navActions)
+        settingPage(navActions)
     }
 }
 
@@ -58,3 +60,7 @@ private fun NavGraphBuilder.categoryPage(navActions: NavActions) =
 //        val position = backStackEntry.arguments?.getInt("position", 0)
         CategoryScreen(navActions = navActions, viewModel())
     }
+
+private fun NavGraphBuilder.settingPage(navActions: NavActions) = composable(ScreenPath.Setting.route) {
+    SettingScreen(navActions)
+}

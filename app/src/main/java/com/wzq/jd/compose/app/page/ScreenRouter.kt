@@ -35,6 +35,8 @@ sealed class ScreenPath(
 
         fun createPath(position: Int) = "category?position=${position}"
     }
+
+    data object Setting: ScreenPath("setting")
 }
 
 interface CommonActions {
@@ -59,6 +61,10 @@ class NavActions(private val navController: NavController) : CommonActions {
             )
         }
 
+    }
+
+    fun toSetting() {
+        navController.navigate(ScreenPath.Setting.route)
     }
 
     override fun goBack() = navController.navigateUp()

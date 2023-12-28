@@ -18,4 +18,7 @@ interface CategoriesDao {
 
     @Query("Select * from categories")
     suspend fun getCategoriesAll(): List<Categories>
+
+    @Query("select count(id) from categories")
+    suspend fun getCategoriesSize(): Int
 }

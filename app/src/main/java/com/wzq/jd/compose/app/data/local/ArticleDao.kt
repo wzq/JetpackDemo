@@ -21,4 +21,7 @@ interface ArticleDao {
 
     @Query("select * from articles")
     suspend fun getArticlesAll(): List<ArticleItem>
+
+    @Query("select count(id) from articles")
+    suspend fun getArticlesSize(): Int
 }
