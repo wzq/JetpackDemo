@@ -6,10 +6,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import com.wzq.jd.compose.app.AppContainer
 import com.wzq.jd.compose.app.data.ArticlePageSource
 import com.wzq.jd.compose.app.data.DataRepos
 import com.wzq.jd.compose.app.data.ProjectPageSource
-import com.wzq.jd.compose.app.data.local.AppDatabase
 import com.wzq.jd.compose.app.data.model.Categories
 import kotlinx.coroutines.launch
 
@@ -21,7 +21,7 @@ class HomeViewModel : ViewModel() {
 
     val categories = mutableStateListOf<Categories>()
 
-    private val categoriesDao = AppDatabase.instance.categoriesDao()
+    private val categoriesDao = AppContainer.database.categoriesDao()
 
     val articleList = Pager(PagingConfig(20), 0) {
         ArticlePageSource()
