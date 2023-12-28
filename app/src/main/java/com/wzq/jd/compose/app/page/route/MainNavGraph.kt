@@ -1,4 +1,4 @@
-package com.wzq.jd.compose.app.page
+package com.wzq.jd.compose.app.page.route
 
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -10,7 +10,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.wzq.jd.compose.app.data.model.Categories
 import com.wzq.jd.compose.app.page.categories.CategoryScreen
 import com.wzq.jd.compose.app.page.home.HomeScreen
 import com.wzq.jd.compose.app.page.search.SearchScreen

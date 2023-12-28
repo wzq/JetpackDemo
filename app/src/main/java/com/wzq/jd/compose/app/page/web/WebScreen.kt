@@ -27,7 +27,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import com.wzq.jd.compose.app.page.CommonActions
+import com.wzq.jd.compose.app.page.route.CommonActions
 import com.wzq.jd.compose.app.page.ErrorScreen
 
 /**

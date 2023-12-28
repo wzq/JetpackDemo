@@ -34,7 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.wzq.jd.compose.app.page.ErrorScreen
-import com.wzq.jd.compose.app.page.NavActions
+import com.wzq.jd.compose.app.page.route.NavActions
 import com.wzq.jd.compose.app.page.home.ArticleItemPage
 import kotlinx.coroutines.launch
 

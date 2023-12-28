@@ -27,7 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.wzq.jd.compose.app.data.model.ArticleItem
 import com.wzq.jd.compose.app.data.model.HotWords
-import com.wzq.jd.compose.app.page.CommonActions
+import com.wzq.jd.compose.app.page.route.CommonActions
 import com.wzq.jd.compose.app.page.PageState
 import com.wzq.jd.compose.app.page.home.ArticleItemPage
 

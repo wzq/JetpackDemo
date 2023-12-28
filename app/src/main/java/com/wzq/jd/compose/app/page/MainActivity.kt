@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.wzq.jd.compose.app.page.route.MainNavGraph
 import com.wzq.jd.compose.app.ui.theme.JetpackDemoTheme
 
 class MainActivity : ComponentActivity() {

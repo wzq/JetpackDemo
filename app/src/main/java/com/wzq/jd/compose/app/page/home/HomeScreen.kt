@@ -28,7 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import com.wzq.jd.compose.app.page.NavActions
+import com.wzq.jd.compose.app.page.route.NavActions
 import kotlinx.coroutines.launch
 
 /**

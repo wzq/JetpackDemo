@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import coil.Coil
 import coil.annotation.ExperimentalCoilApi
 import com.wzq.jd.compose.app.AppContainer
-import com.wzq.jd.compose.app.page.NavActions
+import com.wzq.jd.compose.app.page.route.NavActions
 import kotlinx.coroutines.launch
 
 /**
