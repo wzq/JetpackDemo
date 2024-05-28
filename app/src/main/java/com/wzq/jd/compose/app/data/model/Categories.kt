@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
@@ -27,5 +28,6 @@ data class Categories(
 ) : Parcelable {
 
     @Ignore
+    @IgnoredOnParcel
     var children: List<Categories> = emptyList()
 }
