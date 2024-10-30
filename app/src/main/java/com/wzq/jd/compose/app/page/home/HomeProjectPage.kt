@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,7 +54,6 @@ fun HomeProjectPage(
         })
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProjectItem(item: ArticleItem, onItemClick: () -> Unit) {
     Card(modifier = Modifier.fillMaxWidth(), onClick = onItemClick) {

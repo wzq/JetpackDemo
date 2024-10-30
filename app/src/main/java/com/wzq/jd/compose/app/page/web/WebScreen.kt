@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -27,8 +27,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
-import com.wzq.jd.compose.app.page.route.CommonActions
 import com.wzq.jd.compose.app.page.ErrorScreen
+import com.wzq.jd.compose.app.page.route.CommonActions
 
 /**
  * create by wzq on 2023/12/4
@@ -50,7 +50,7 @@ fun WebScreen(navActions: CommonActions, url: String?) {
                 IconButton(onClick = {
                     navActions.goBack()
                 }) {
-                    Icon(Icons.Default.ArrowBack, null)
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, null)
 
                 }
             },

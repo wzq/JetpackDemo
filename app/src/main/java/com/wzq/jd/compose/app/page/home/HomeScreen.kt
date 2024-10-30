@@ -1,14 +1,13 @@
 package com.wzq.jd.compose.app.page.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -35,7 +34,6 @@ import kotlinx.coroutines.launch
  * create by wzq on 2023/11/24
  *
  */
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
     val pagerState = rememberPagerState(0) { 4 }
@@ -64,7 +62,7 @@ fun HomeScreen(viewModel: HomeViewModel, navActions: NavActions) {
             state = pagerState, modifier = Modifier
                 .padding(paddingValues)
                 .fillMaxSize(),
-            beyondBoundsPageCount = pagerState.pageCount,
+            beyondViewportPageCount = pagerState.pageCount,
             userScrollEnabled = false
         ) { currentPagerNum ->
             when (currentPagerNum) {
@@ -95,7 +93,7 @@ fun HomeBottomBar(selectedIndex: Int, onItemClick: (Int) -> Unit) {
         arrayOf(
             Icons.Default.Home,
             Icons.Default.ShoppingCart,
-            Icons.Default.List,
+            Icons.AutoMirrored.Filled.List,
             Icons.Default.AccountCircle
         ).forEachIndexed { index, icon ->
             NavigationBarItem(

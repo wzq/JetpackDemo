@@ -4,10 +4,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -75,7 +77,7 @@ fun SettingScreen(navActions: NavActions) {
                 },
                 navigationIcon = {
                     IconButton(onClick = { navActions.goBack() }) {
-                        Icon(Icons.Default.ArrowBack, null)
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, null)
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
@@ -98,10 +100,10 @@ fun SettingScreen(navActions: NavActions) {
                 }) {
                     Text(text = "内存缓存: ${memoryCacheSize.floatValue} M")
                 }
-                Divider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp))
+                HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp))
                 Text(text = "磁盘缓存: $diskCacheSize M")
 
-                Divider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp))
+                HorizontalDivider(modifier = Modifier.padding(top = 16.dp, bottom = 16.dp))
 
                 Text(text = "数据库条目数量: \narticle=${articleSize.intValue} | category=${categoriesSize.intValue}")
             }
