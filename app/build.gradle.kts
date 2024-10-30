@@ -62,7 +62,7 @@ android {
 }
 
 composeCompiler {
-    enableStrongSkippingMode = true
+//    enableStrongSkippingMode = true
 
     reportsDestination = layout.buildDirectory.dir("compose_compiler")
     stabilityConfigurationFile = rootProject.layout.projectDirectory.file("stability_config.conf")
@@ -86,7 +86,7 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
 
-    implementation("androidx.paging:paging-compose:3.3.0-alpha02")
+    implementation("androidx.paging:paging-compose:3.3.2")
 
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
